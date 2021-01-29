@@ -10,7 +10,7 @@ $ python manage.py sqlmigrate parking 0001
 $ python manage.py migrate
 
 After running these:
-$ run python manage.py makemigration --empty parking --name populate
+$ run python manage.py makemigrations --empty parking --name populate
 
 This will make a file called 0002_populate.py in src/RubberDuckyParking/parking/migrations
 
@@ -28,7 +28,8 @@ Now to create a superuser to access /admin
 $ python manage.py createsuperuser
 
 If the following error occurs, run:
-"Superuser creation skipped due to not running in a TTY. You can run `manage.py createsuperuser` in your project to create one manually.
+"Superuser creation skipped due to not running in a TTY. 
+You can run `manage.py createsuperuser` in your project to create one manually.
 "
 
 $ winpty python manage.py createsuperuser
