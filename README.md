@@ -1,8 +1,10 @@
 # Parking App
 
 ## Project setup
+
+- See src/requirements.txt for dependancies
+- from "software_development_project_3450/src/RubberDuckyParking"
 ```
-# See src/requirements.txt for dependancies
 python manage.py makemigrations parking
 python manage.py sqlmigrate parking 0001
 python manage.py migrate
