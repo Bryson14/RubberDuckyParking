@@ -2,7 +2,7 @@
 
 ## Project setup
 ```
-See src/requirements.txt for dependancies
+# See src/requirements.txt for dependancies
 python manage.py makemigrations parking
 python manage.py sqlmigrate parking 0001
 python manage.py migrate
