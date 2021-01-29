@@ -34,7 +34,7 @@ class User(models.Model):
     def __str__(self):
         return f"USER: {self.first_name} {self.last_name}"
 
-
+# TODO might merge user and host tables to minimize complexity
 class Host(models.Model):
     """
     The seller agent of this system. They provide parking spots and manage them.
@@ -61,6 +61,8 @@ class Location(models.Model):
     zip_code = models.CharField(max_length=10, default="20500")          # i.e. 84093-3541
     state = models.CharField(max_length=3)
     parking_size = models.ForeignKey(ParkingTable, on_delete=models.CASCADE, default=1,  verbose_name="Parking Size")     # TODO maybe change the on delete behavior
+    actual_width = models.FloatField(default=9.0)
+    actual_length = models.FloatField(default=18.0)
     qty = models.IntegerField(default=1)         # i.e. this location has 3 standard sized parking spots available.
     host_id = models.ForeignKey(Host, default=1, on_delete=models.CASCADE)     # Host can have many parking locations
 
