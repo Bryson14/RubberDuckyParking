@@ -23,9 +23,11 @@ Now to create a superuser to access /admin
 
 $ python manage.py createsuperuser
 
-If the following error occurs, run:
-"Superuser creation skipped due to not running in a TTY. You can run `manage.py createsuperuser` in your project to create one manually.
+If the following error occurs:
 "
+Superuser creation skipped due to not running in a TTY. You can run `manage.py createsuperuser` in your project to create one manually.
+"
+This is a windows specific problem, so run:
 
 $ winpty python manage.py createsuperuser
 
@@ -82,7 +84,6 @@ def populate_db(apps, schema_editor):
         email="tstark@avengers.com"
     )
     user1.save()
-
     user2 = user_table(
         first_name="Thor",
         last_name="Odinson",
@@ -101,7 +102,6 @@ def populate_db(apps, schema_editor):
         email="youdonttrackme@ItrackYou.com"
     )
     host1.save()
-
     host2 = host_table(
         first_name="Agent",
         last_name="Coulsen",
