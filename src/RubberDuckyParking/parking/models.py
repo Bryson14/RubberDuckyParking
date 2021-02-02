@@ -12,7 +12,7 @@ class ParkingTable(models.Model):
     min_length = models.FloatField()                  # stored in ft, i.e. "18" means eighteen feet long
 
     class Meta:
-        verbose_name = "Parking Size"
+        verbose_name = "Parking Space Size"
         verbose_name_plural = "Parking Space Sizes"
 
     def __str__(self):
