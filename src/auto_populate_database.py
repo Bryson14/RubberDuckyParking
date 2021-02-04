@@ -56,6 +56,12 @@ def populate_db(apps, schema_editor):
         min_width=9.0,
         min_length=18.0)
     standard_spot.save()
+    motorcycle_spot = parking_table(
+        name="Motorcycle Spot",
+        description="A small parking spot perfect for motorcycles and mopeds.",
+        min_width=4.0,
+        min_length=9.0)
+    motorcycle_spot.save()
     compact_spot = parking_table(
         name="Compact Spot",
         description="A compact parking spot for smaller sized cars",
@@ -74,7 +80,6 @@ def populate_db(apps, schema_editor):
         min_width=15.0,
         min_length=36.0)
     tailgate_spot.save()
-
     user1 = user_table(
         first_name="Tony",
         last_name="Startk",

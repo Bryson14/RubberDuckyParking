@@ -50,6 +50,17 @@ class Host(models.Model):
         return f"HOST: {self.first_name} {self.last_name}"
 
 
+class Attendant(models.Model):
+    ...
+
+
+class Vehicle(models.Model):
+    """
+    For keeping track of owners car, confirming the transaction, and verifying that a parked car should/shouldn't be there
+    """
+    ...
+
+
 class Location(models.Model):
     """
     A Host can host (have) multiple locations
