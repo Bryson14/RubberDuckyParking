@@ -112,6 +112,8 @@ class ParkingSpot(models.Model):
                                      verbose_name="Parking Size")  # TODO maybe change the on delete behavior
     actual_width = models.FloatField(default=9.0)
     actual_length = models.FloatField(default=18.0)
+    price = models.FloatField(default=5.0)      # cost per hour
+    #  TODO could make it possible to have a price for a whole day, a range of time, or per hour
     location_id = models.ForeignKey(Location, on_delete=models.CASCADE, default=1)
     notes = models.CharField(max_length=100)
 
@@ -157,4 +159,4 @@ class LocationImage(models.Model):
         verbose_name_plural = "Images"
 
     def __str__(self):
-        return f"Image of {self.location}"
+        return f"Image of {self.location.name}"
