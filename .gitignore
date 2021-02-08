@@ -1,6 +1,7 @@
 # for now, migrations ebcuase I'll delete the database a few times
 migrations/
 pictures/
+images/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
