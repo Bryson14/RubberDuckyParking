@@ -1,4 +1,4 @@
-<mxfile host="65bd71144e" modified="2021-01-28T18:36:11.723Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.52.1 Chrome/83.0.4103.122 Electron/9.3.5 Safari/537.36" etag="6e14CVTVCkrY8itMEx-v" version="13.10.0" type="embed">
+<mxfile host="65bd71144e" modified="2021-01-28T18:38:41.268Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.52.1 Chrome/83.0.4103.122 Electron/9.3.5 Safari/537.36" etag="8ugV7qKrb3igtLfeeNIx" version="13.10.0" type="embed">
     <diagram name="Page-1" id="9f46799a-70d6-7492-0946-bef42562c5a5">
         <mxGraphModel dx="664" dy="562" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="#ffffff" math="0" shadow="0">
             <root>
@@ -213,8 +213,11 @@
                 <mxCell id="3" value="Personal Renters" style="ellipse;shape=doubleEllipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#a20025;strokeColor=#6F0000;fontColor=#ffffff;" vertex="1" parent="1">
                     <mxGeometry x="40" y="40" width="120" height="120" as="geometry"/>
                 </mxCell>
-                <mxCell id="4" value="Company Renter" style="ellipse;shape=doubleEllipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#0050ef;strokeColor=#001DBC;fontColor=#ffffff;" vertex="1" parent="1">
+                <mxCell id="4" value="Parking Lot Owner" style="ellipse;shape=doubleEllipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#0050ef;strokeColor=#001DBC;fontColor=#ffffff;" vertex="1" parent="1">
                     <mxGeometry x="360" y="40" width="120" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="App Regulator" style="ellipse;shape=doubleEllipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#e3c800;strokeColor=#B09500;fontColor=#ffffff;" vertex="1" parent="1">
+                    <mxGeometry x="520" y="40" width="120" height="120" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
