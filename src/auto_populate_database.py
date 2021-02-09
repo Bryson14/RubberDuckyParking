@@ -48,7 +48,7 @@ def populate_db(apps, schema_editor):
     host_table = apps.get_model('parking', 'Host')
     location_table = apps.get_model('parking', 'Location')
     transaction_table = apps.get_model('parking', 'Transactions')
-    image_table = apps.get_model('parking', 'Image')
+    image_table = apps.get_model('parking', 'LocationImage')
 
     standard_spot = parking_table(
         name="Standard Spot",
