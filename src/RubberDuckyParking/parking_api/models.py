@@ -19,6 +19,11 @@ class ParkingSizesTable(models.Model):
         return f"{self.name}: {round(self.min_length, 1)}ft x {round(self.min_width, 1)}ft"
 
 
+
+class Profile(models.Model):
+    ...
+
+
 class User(models.Model):
     """
     The buyer agent of this system. They rent parking spots and receive confirmation

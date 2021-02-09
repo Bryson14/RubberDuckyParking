@@ -13,12 +13,12 @@ def host_index(request):
     return render(request, 'parking/host_index.html', context)
 
 
-def host_detail(request, host_id="empty"):
+def host_detail(request, host_id="empty"):      # TODO must be authenticated or it will redirect to login
     context = {"host_id": host_id}
     return render(request, 'parking/host_details.html', context)
 
 
-def user_detail(requst, user_id="Empty"):
+def user_detail(requst, user_id="Empty"):          # TODO must be authenticated or it will redirect to login
     context = {"user_id": user_id}
     return render(requst, 'parking/user_details.html', context)
 
@@ -28,7 +28,7 @@ def lot_tools(request):
     return render(request, 'parking/parking_lot_tools.html', context)
 
 
-def attendant_detail(request, attendant_id="Empty"):
+def attendant_detail(request, attendant_id="Empty"):    # TODO must be authenticated or it will redirect to login
     context = {"attendant_id": attendant_id}
     return render(request, 'parking/attendant_details.html', context)
 
@@ -46,7 +46,7 @@ def reservation(request, res_id="None"):
 def get_image(filename, folder):
     p = f'..{pathsep}{folder}{pathsep}{filename}'
     print(p)
-    return(open(p))
+    return open(p)
 
 
 def get_image_host(request):
