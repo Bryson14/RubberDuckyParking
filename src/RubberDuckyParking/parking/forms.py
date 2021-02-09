@@ -1,5 +1,5 @@
 from django import forms
-from .models import User
+from src.RubberDuckyParking.parking_api.models import User
 
 
 class UserForm(forms.ModelForm):

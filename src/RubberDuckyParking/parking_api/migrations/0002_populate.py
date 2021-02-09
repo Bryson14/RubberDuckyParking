@@ -2,11 +2,11 @@
 
 """
 After running:
-$ python manage.py makemigrations parking
-$ python manage.py sqlmigrate parking 0001
+$ python manage.py makemigrations parking_api
+$ python manage.py sqlmigrate parking_api 0001
 $ python manage.py migrate
 
-$ run python manage.py makemigration --empty parking --name populate
+$ run python manage.py makemigrations --empty parking_api --name populate
 
 This will make a file called 0002_populate.py in src/RubberDuckyParking/parking/migrations
 
@@ -37,18 +37,19 @@ After, to start the server, run:
 
 $ python manage.py runserver
 """
-from django.db import migrations
+from django.db import migrations, transaction
 from django.utils import timezone
 
 
 def populate_db(apps, schema_editor):
     # getting links to the tables
-    parking_table = apps.get_model('parking', 'ParkingTable')
-    user_table = apps.get_model('parking', 'User')
-    host_table = apps.get_model('parking', 'Host')
-    location_table = apps.get_model('parking', 'Location')
-    transaction_table = apps.get_model('parking', 'Transactions')
-    image_table = apps.get_model('parking', 'LocationImage')
+    parking_table = apps.get_model('parking_api', 'ParkingSizesTable')
+    user_table = apps.get_model('parking_api', 'User')
+    host_table = apps.get_model('parking_api', 'Host')
+    attendant_table = apps.get_model('parking_api', "Attendant")
+    vehicle_table = apps.get_model('parking_api', "Vehicle")
+    location_table = apps.get_model('parking_api', 'Location')
+    parking_spot_table = apps.get_model("parking_api", "ParkingSpot")
 
     standard_spot = parking_table(
         name="Standard Spot",
@@ -84,6 +85,7 @@ def populate_db(apps, schema_editor):
         first_name="Tony",
         last_name="Startk",
         username="TheRealIronMan",
+        password="hasAHeart1",
         date_joined=timezone.now(),
         phone_number="+1(801) 123-4567",
         email="tstark@avengers.com"
@@ -93,6 +95,7 @@ def populate_db(apps, schema_editor):
         first_name="Thor",
         last_name="Odinson",
         username="GodofThunder",
+        password='secretThunder',
         date_joined=timezone.now(),
         phone_number="+1(801) 789-7894",
         email="lightning@avengers.com"
@@ -116,11 +119,90 @@ def populate_db(apps, schema_editor):
     )
     host2.save()
 
+    attendant1 = attendant_table(
+        first_name="Hawk",
+        last_name="Eye",
+        date_joined=timezone.now(),
+        phone_number="+1(801) 666-1212",
+        host_id=host1
+    )
+    attendant1.save()
+    attendant2 = attendant_table(
+        first_name="Black",
+        last_name="Window",
+        date_joined=timezone.now(),
+        phone_number="+1(801) 777-1212",
+        host_id=host1
+    )
+    attendant2.save()
+
+    vehicle1 = vehicle_table(
+        year=2021,
+        make="Ford",
+        model="Bronco Wildtrack",
+        color="Blue",
+        license="6mc e78",
+        description="Thor's Car",
+        user_id=user2
+    )
+    vehicle1.save()
+    vehicle2 = vehicle_table(
+        year=2011,
+        make="Audi",
+        model="R8",
+        color="Silver",
+        license="ImFeMan",
+        description="Stark's",
+        user_id=user1
+    )
+    vehicle2.save()
+
+    location1 = location_table(
+        name="my Front yard",
+        description="just park right on my front yard, i don't care.",
+        address="1454 Malibu Way",
+        city="Malibu",
+        zip_code="90210",
+        state="CA",
+        host_id=host2,
+    )
+    location1.save()
+    location2 = location_table(
+        name="A spot in a parking lot",
+        description="This is the best parking lot in town",
+        address="12345 Aggie Blvd",
+        city="Logan",
+        zip_code="84321",
+        state="UT",
+        host_id=host1,
+    )
+    location2.save()
+
+    parking_spot_1 = parking_spot_table(
+        uid=1,
+        parking_size=compact_spot,
+        actual_width=8.5,
+        actual_length=15.3,
+        price=12.0,
+        location_id=location1,
+        notes="One of two spots"
+    )
+    parking_spot_1.save()
+    parking_spot_2 = parking_spot_table(
+        uid=69,
+        parking_size=standard_spot,
+        actual_width=9.0,
+        actual_length=19.0,
+        price=10.0,
+        location_id=location2,
+    )
+    parking_spot_2.save()
+
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('parking', '0001_initial'),
+        ('parking_api', '0001_initial'),
     ]
 
     operations = [
