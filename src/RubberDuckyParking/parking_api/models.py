@@ -1,5 +1,6 @@
 from django.db import models
 from django import forms
+from django.contrib.auth.models import User
 
 
 class ParkingSizesTable(models.Model):
@@ -19,54 +20,24 @@ class ParkingSizesTable(models.Model):
         return f"{self.name}: {round(self.min_length, 1)}ft x {round(self.min_width, 1)}ft"
 
 
-class User(models.Model):
-    """
-    The buyer agent of this system. They rent parking spots and receive confirmation
-    """
-    first_name = models.CharField(max_length=20)
-    last_name = models.CharField(max_length=30)
-    username = models.CharField(max_length=40)
-    password = models.CharField(max_length=100)  # TODO password encryption not working with forms.py
-    date_joined = models.DateField('Date Joined')
-    phone_number = models.CharField(max_length=20)  # example "+1 (801) 123-4567"
-    email = models.EmailField(max_length=254)
-    profile_picture = models.ImageField(upload_to="images/users/", blank=True)
-    # TODO get randomly generated profile pictures like github from https://jdenticon.com/
-
-    def __str__(self):
-        return f"USER: {self.first_name} {self.last_name}"
+class BaseUser(User):
+    '''
+        This is the user that all other user models will inherit
+        It is based off of django's default user model
+    '''
+    avatar = models.ImageField(blank=True)
 
 
-# TODO add password to host, attendant, and user?
-class Host(models.Model):
-    """
-    The seller agent of this system. They provide parking spots and manage them.
-    """
-    first_name = models.CharField(max_length=20)
-    last_name = models.CharField(max_length=30)
-    date_joined = models.DateField('Date Joined')
-    phone_number = models.CharField(max_length=20)  # example "+1 (801) 123-4567"
-    email = models.EmailField(max_length=254)
-    profile_picture = models.ImageField(upload_to="images/host/", blank=True)
-
-    def __str__(self):
-        return f"HOST: {self.first_name} {self.last_name}"
+class Host(BaseUser):
+    pass
 
 
-class Attendant(models.Model):
+class Attendant(BaseUser):
     """
     The person that scans in Users as they arrive. Attendant and Host might be the same person, however for larger lots
     the host could have one or many attendants that are the 'gatekeepers' for the lot.
     """
-    first_name = models.CharField(max_length=20)
-    last_name = models.CharField(max_length=30)
-    date_joined = models.DateField('Date Joined')
-    phone_number = models.CharField(max_length=20)  # example "+1 (801) 123-4567" For phone confirmation
-    host_id = models.ForeignKey(Host, on_delete=models.CASCADE, default=1, verbose_name="Host's ID")
-    profile_picture = models.ImageField(upload_to="images/attendant/", blank=True)
-
-    def __str__(self):
-        return f"ATTENDANT: {self.first_name}"
+    pass
 
 
 class Vehicle(models.Model):
