@@ -110,10 +110,10 @@ PASSWORD_HASHERS = [
 ]
 
 
-AUTHENTICATION_BACKENDS = (
-    'myproject.auth_backends.CustomUserModelBackend',
-)
-CUSTOM_USER_MODEL = 'parking_api.BaseUser'
+# AUTHENTICATION_BACKENDS = (
+#     'auth_backends.CustomUserModelBackend',
+# )
+# CUSTOM_USER_MODEL = 'parking_api.BaseUser'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/

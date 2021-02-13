@@ -26,10 +26,14 @@ class BaseUser(User):
         It is based off of django's default user model
     '''
     avatar = models.ImageField(blank=True)
+    phone_number = models.CharField(max_length=17)
+    class Meta:
+        verbose_name_plural = "Base User"
 
 
 class Host(BaseUser):
-    pass
+    class Meta:
+        verbose_name_plural = "Host"
 
 
 class Attendant(BaseUser):
@@ -37,7 +41,8 @@ class Attendant(BaseUser):
     The person that scans in Users as they arrive. Attendant and Host might be the same person, however for larger lots
     the host could have one or many attendants that are the 'gatekeepers' for the lot.
     """
-    pass
+    class Meta:
+        verbose_name_plural = "Attendant"
 
 
 class Vehicle(models.Model):
