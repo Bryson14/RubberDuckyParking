@@ -1,0 +1,13 @@
+/* insert the site's main styles here */
+
+.header {
+    display: flex;
+    border-bottom: 2px solid black;
+    width: 100%;
+}
+.header .header-buttons {
+    padding: 3px;
+}
+.header .header-text {
+    padding: 3px;
+}

@@ -15,6 +15,7 @@ from .models import(
 admin.site.register(ParkingSize)
 admin.site.register(Location)
 admin.site.register(Host)
+admin.site.register(BaseUser)
 admin.site.register(Attendant)
 admin.site.register(Transactions)
 admin.site.register(LocationImage)
