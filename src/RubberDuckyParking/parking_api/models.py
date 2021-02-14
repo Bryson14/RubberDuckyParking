@@ -1,8 +1,9 @@
 from django.db import models
 from django import forms
+from django.contrib.auth.models import User
 
 
-class ParkingSizesTable(models.Model):
+class ParkingSize(models.Model):
     """
     Helps characterize the different sizes of parking spots. One to One relationship with Location.
     """
@@ -19,54 +20,29 @@ class ParkingSizesTable(models.Model):
         return f"{self.name}: {round(self.min_length, 1)}ft x {round(self.min_width, 1)}ft"
 
 
-class User(models.Model):
-    """
-    The buyer agent of this system. They rent parking spots and receive confirmation
-    """
-    first_name = models.CharField(max_length=20)
-    last_name = models.CharField(max_length=30)
-    username = models.CharField(max_length=40)
-    password = models.CharField(max_length=100)  # TODO password encryption not working with forms.py
-    date_joined = models.DateField('Date Joined')
-    phone_number = models.CharField(max_length=20)  # example "+1 (801) 123-4567"
-    email = models.EmailField(max_length=254)
-    profile_picture = models.ImageField(upload_to="images/users/", blank=True)
-    # TODO get randomly generated profile pictures like github from https://jdenticon.com/
-
-    def __str__(self):
-        return f"USER: {self.first_name} {self.last_name}"
+class BaseUser(User):
+    '''
+        This is the user that all other user models will inherit
+        It is based off of django's default user model
+    '''
+    avatar = models.ImageField(blank=True)
+    phone_number = models.CharField(max_length=17)
+    class Meta:
+        verbose_name_plural = "Base User"
 
 
-# TODO add password to host, attendant, and user?
-class Host(models.Model):
-    """
-    The seller agent of this system. They provide parking spots and manage them.
-    """
-    first_name = models.CharField(max_length=20)
-    last_name = models.CharField(max_length=30)
-    date_joined = models.DateField('Date Joined')
-    phone_number = models.CharField(max_length=20)  # example "+1 (801) 123-4567"
-    email = models.EmailField(max_length=254)
-    profile_picture = models.ImageField(upload_to="images/host/", blank=True)
-
-    def __str__(self):
-        return f"HOST: {self.first_name} {self.last_name}"
+class Host(BaseUser):
+    class Meta:
+        verbose_name_plural = "Host"
 
 
-class Attendant(models.Model):
+class Attendant(BaseUser):
     """
     The person that scans in Users as they arrive. Attendant and Host might be the same person, however for larger lots
     the host could have one or many attendants that are the 'gatekeepers' for the lot.
     """
-    first_name = models.CharField(max_length=20)
-    last_name = models.CharField(max_length=30)
-    date_joined = models.DateField('Date Joined')
-    phone_number = models.CharField(max_length=20)  # example "+1 (801) 123-4567" For phone confirmation
-    host_id = models.ForeignKey(Host, on_delete=models.CASCADE, default=1, verbose_name="Host's ID")
-    profile_picture = models.ImageField(upload_to="images/attendant/", blank=True)
-
-    def __str__(self):
-        return f"ATTENDANT: {self.first_name}"
+    class Meta:
+        verbose_name_plural = "Attendant"
 
 
 class Vehicle(models.Model):
@@ -79,7 +55,7 @@ class Vehicle(models.Model):
     color = models.CharField(max_length=10)  # TODO make a text choice field?
     license = models.CharField(max_length=8)  # most states dont allow over 8 characters.
     description = models.CharField(max_length=100, default="")  # allows the user to give nicknames to their car
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    user = models.ForeignKey(BaseUser, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.year} {self.color} {self.make}: {self.license}"
@@ -96,7 +72,7 @@ class Location(models.Model):
     city = models.CharField(max_length=50)
     zip_code = models.CharField(max_length=10, default="20500")          # i.e. 84093-3541
     state = models.CharField(max_length=3)
-    host_id = models.ForeignKey(Host, default=1, on_delete=models.CASCADE)     # Host can have many parking locations
+    host = models.ForeignKey(Host, on_delete=models.CASCADE)     # Host can have many parking locations
 
     def __str__(self):
         return f"{self.name} at {self.address}"
@@ -108,13 +84,12 @@ class ParkingSpot(models.Model):
     A location can have many types of parking spots.
     """
     uid = models.IntegerField(default=1)
-    parking_size = models.ForeignKey(ParkingSizesTable, on_delete=models.CASCADE, default=1,
-                                     verbose_name="Parking Size")  # TODO maybe change the on delete behavior
+    parking_size = models.ForeignKey(ParkingSize, on_delete=models.CASCADE, verbose_name="Parking Size")  # TODO maybe change the on delete behavior
     actual_width = models.FloatField(default=9.0)
     actual_length = models.FloatField(default=18.0)
     price = models.FloatField(default=5.0)      # cost per hour
     #  TODO could make it possible to have a price for a whole day, a range of time, or per hour
-    location_id = models.ForeignKey(Location, on_delete=models.CASCADE, default=1)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE)
     notes = models.CharField(max_length=100, default="")
 
     def __str__(self):
@@ -132,19 +107,19 @@ class Transactions(models.Model):
     user_charge = models.DecimalField(max_digits=8, decimal_places=2)
     fee_amount = models.DecimalField(max_digits=8, decimal_places=2)
     host_income = models.DecimalField(max_digits=8, decimal_places=2)
-    host_id = models.ForeignKey(Host, default=1, on_delete=models.CASCADE)
-    user_id = models.ForeignKey(User, default=1, on_delete=models.CASCADE)
-    location_id = models.ForeignKey(Location, default=1, on_delete=models.CASCADE)
-    spot_id = models.ForeignKey(ParkingSpot, default=1, on_delete=models.CASCADE)
-    vehicle = models.ForeignKey(Vehicle, default=1, on_delete=models.CASCADE)
+    user = models.ForeignKey(BaseUser, on_delete=models.CASCADE)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    spot = models.ForeignKey(ParkingSpot, on_delete=models.CASCADE)
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
     hash_str = models.CharField(max_length=100)  # used to make the QR Code
     # TOOD dont use the vehicle in the hash str so it can change
 
     class Meta:
         verbose_name_plural = "Transactions"
 
-    def __str__(self):
-        return f"{self.date.strftime('%c')} --USER: {self.user_id} --HOST: {self.host_id} --CHARGE: {self.user_charge}$"
+    def transaction_message(self):
+        return "Implement"
+        # return f"{self.date.strftime('%c')} --USER: {} --HOST: {self.host_id} --CHARGE: {self.user_charge}$"
 
 
 class LocationImage(models.Model):
@@ -153,7 +128,7 @@ class LocationImage(models.Model):
     https://stackoverflow.com/questions/40218080/how-to-add-multiple-images-to-the-django
     """
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to="images/location/", blank=True)
+    image = models.ImageField(blank=True)
 
     class Meta:
         verbose_name_plural = "Images"
