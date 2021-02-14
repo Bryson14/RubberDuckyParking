@@ -9,30 +9,23 @@ Required software is under `src/requirements.txt`. It is recommended to run thie
 ## Project setup
 
 
-### Creating a prepopulated database and admin for superuser access
+### Django db setup
 ```
-$ python manage.py migrate
-
-You now have prepopulated data for the app.
-
-Now to create a superuser to access /admin
-
-$ python manage.py createsuperuser
-
-If the following error occurs:
-"Superuser creation skipped due to not running in a TTY. 
-You can run `manage.py createsuperuser` in your project to create one manually.
-"
-Run:
-$ winpty python manage.py createsuperuser
-
-Enter a username, email, and password. (They don't have to be real at this point)
-
-After, to start the server, run:
-
-$ python manage.py runserver
+python manage.py migrate
 ```
-*NOTE* If you change `models.py`, you must then recompile the instructions for `migrations/0001_initial.py`.
+- this will create the schema for the models
+```
+python manage.py db_seed
+```
+- this is the custom management command that will add some basic models for you
+```
+python manage.py createsuperuser
+```
+- this will create your user that has admin access
+```
+localhost:8000/admin
+```
+- go check out the newly created models
 
 Tool Stack:
 Linux, DJango Webserver, SQLite, Vue
@@ -50,3 +43,12 @@ For best testing results, running the server on many different computers and acc
 
 ### For documentation
 See documentation/
+
+### starting your db over
+```
+python manage.py flush
+```
+- this will remove all your db's data, but it will not change the schema
+- If you want to completely start over, delete your db.sqlite3 file and all the migration files except for the `__init__.py` files
+    - once this is done, follow the db setup mentioned at the top of this readme
+    
