@@ -3,31 +3,51 @@
 <html lang="en">
 
 <head>
-  <title>Rubber Ducky</title>
-  <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css"/> 
+  <title>Rubber Ducky Parking</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css"/>
+  <link rel="shortcut icon" type="image/ico" href="{% static 'favicon.ico' %}"/>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   {% block head %}
   {% endblock %}
 </head>
 
-<body>
-    <div class='main-container'>
-        <div class='header d-flex justify-content-between'>
-            <div class='header-text'>
-                <h1>Rubber Ducky Parking</h1>
-            </div>
-            <div class='header-buttons d-flex'>
+<body></body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-brand" href="/">Rubber Ducky Parking</a>
+            </li>
+        </ul>
+    </div>
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/about/">Learn More</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/host/">List your Parking Spot</a>
+            </li>
+            <li class="nav-item">
                 {% if user.is_authenticated %}
-                    <h2>{{user.username}}</h2>
-                    <a class='btn' href="{% url 'logout' %}"> Log out </a>
+                <a class="nav-link" href="/user/123/">{{user.username}}</a>
+                    <a class="nav-link"  href="{% url 'logout' %}"> Log out </a>
                 {% else %}
-                    <a class='btn' href="{% url 'login' %}"> Log in</a>
+                    <a class="nav-link"  href="{% url 'login' %}"> Log in</a>
                 {% endif %}
-            </div>
-        </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+    </div>
         {% block content %}
         {% endblock %}
     </div>
+
+
+
 </body>
 
 </html>
