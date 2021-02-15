@@ -28,6 +28,16 @@ def lot_tools(request):
     return render(request, 'parking/parking_lot_tools.html', context)
 
 
+def search(request):
+    context = {}
+    return render(request, 'parking/search_reservation.html', context)
+
+
+def about(request):
+    context = {}
+    return render(request, 'parking/about.html', context)
+
+
 def attendant_detail(request, attendant_id="Empty"):
     context = {"attendant_id": attendant_id}
     return render(request, 'parking/attendant_details.html', context)

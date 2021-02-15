@@ -1,8 +1,48 @@
 {% extends 'base.html' %}
 
+{% block head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" type="text/css"/>
+{% endblock %}
+
 
 {% block content %}
+<div class="text-center jumbotron">
 
-<p><a href="host/">Click here to go to the host front page</a></p>
-<p><a href="user/">Click here to see USER details</a></p>
+<h1>Way better than a Parking Spot</h1>
+    <p>Book a reliable parking spot and forget the hassel!</p>
+</div>
+
+<div class="text-center">
+
+    <form>
+<fieldset>
+<legend><h2>Search Parking</h2></legend>
+    <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Where are you parking?" aria-label="Username">
+  <input type="date" class="form-control datepicker" placeholder="Select Date"/>
+    <select class="custom-select" id="s-type" name="s-type">
+        <option value="" disabled selected>Parking Spot Size</option>
+        <option>Standard</option>
+        <option>RV</option>
+        <option>Tailgater Paradise</option>
+        <option>Motorcycle</option>
+        <option>Compact</option>
+        <option>Special</option>
+    </select>
+            <div class="input-group-append"> <button class="btn btn-outline-warning btn-lg" type="button"><i class="fa fa-search"></i></button> </div>
+    </div>
+
+</fieldset>
+
+</form>
+</div>
+
 {% endblock %}
+
+<script>
+$(function(){
+   $('.datepicker').datepicker({
+      format: 'mm-dd-yyyy'
+    });
+});
+</script>

@@ -1,7 +1,15 @@
 /* insert the site's main styles here */
-/* Main Colors chosen from coolors.co https://coolors.co/ffb41f-ff9505-003153-004996-4180b4
-These colors are subject to change but are nice because they have some yellow, orange,
-and black to match the ducky theme */
+/* Main Colors chosen from coolors.co https://coolors.co/ffb41f-ff9505-003153-6E8898-9FB1BC-161a1d
+These colors are subject to change, but are nice because they have some yellow, orange,
+and black to match the ducky parking theme
+ffb41f : Honey Yellow
+ff9505 : Yellow Orange Color Wheel
+003153 : Prussian Blue
+6E8898 : Light Slate Gray
+9FB1BC : Cadet Gray  (lighter and less blue than 6e8898)
+161a1d : Eerie Black
+FFFFFF : White
+*/
 
 .header {
     display: flex;
@@ -13,4 +21,28 @@ and black to match the ducky theme */
 }
 .header .header-text {
     padding: 3px;
+}
+
+a {
+    color: #ff9505;
+}
+a:hover {
+    color: #ffb41f;
+}
+
+.navbar {
+    background-color: #FFFFFF;
+}
+
+form {
+background-color: #9FB1BC;
+border-radius: 50px;
+}
+
+.form-div {
+    display: table-cell;
+    vertical-align: middle;
+    height: 50px;
+    border: 1px solid red;
+
 }
