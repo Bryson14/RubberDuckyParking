@@ -1,4 +1,7 @@
 /* insert the site's main styles here */
+/* Main Colors chosen from coolors.co https://coolors.co/ffb41f-ff9505-003153-004996-4180b4
+These colors are subject to change but are nice because they have some yellow, orange,
+and black to match the ducky theme */
 
 .header {
     display: flex;

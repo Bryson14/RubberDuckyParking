@@ -1,2 +1,14 @@
-<h1>Welcome to Rubber Ducking Parking:  FOR HOSTS</h1>
-<p>Host your parking spot here and make money!</p>
+{% extends 'base.html' %}
+
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+    <p>You're logged in</p>
+    {% else %}
+    <p>You need to log in!</p>
+    {% endif %}
+{% endblock %}
+

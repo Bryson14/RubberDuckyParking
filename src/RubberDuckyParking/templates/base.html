@@ -3,14 +3,16 @@
 <html lang="en">
 
 <head>
-  <title>Rubber Ducky</title>
-  <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css"/> 
+  <title>Rubber Ducky Parking</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css"/>
+  <link rel="shortcut icon" type="image/ico" href="{% static 'favicon.ico' %}"/>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   {% block head %}
   {% endblock %}
 </head>
 
 <body>
+
     <div class='main-container'>
         <div class='header d-flex justify-content-between'>
             <div class='header-text'>
@@ -22,12 +24,25 @@
                     <a class='btn' href="{% url 'logout' %}"> Log out </a>
                 {% else %}
                     <a class='btn' href="{% url 'login' %}"> Log in</a>
+                    <a class='btn' href="{% url 'login' %}"> Log in</a>
                 {% endif %}
             </div>
         </div>
+
+        <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <ul class="nav navbar-nav">
+          <li><a href="/">Home</a></li>
+          <li><a href="/host/">Hosts</a></li>
+        </ul>
+      </div>
+    </nav>
         {% block content %}
         {% endblock %}
     </div>
+
+
+
 </body>
 
 </html>
