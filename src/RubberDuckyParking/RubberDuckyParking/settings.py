@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -110,10 +111,7 @@ PASSWORD_HASHERS = [
 ]
 
 
-# AUTHENTICATION_BACKENDS = (
-#     'auth_backends.CustomUserModelBackend',
-# )
-# CUSTOM_USER_MODEL = 'parking_api.BaseUser'
+AUTH_USER_MODEL = 'parking_api.BaseUser'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -137,3 +135,6 @@ LOGOUT_REDIRECT_URL = '/'
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (str(BASE_DIR.joinpath('static')),)
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static_cdn', 'media_root')
