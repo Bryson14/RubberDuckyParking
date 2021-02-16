@@ -520,3 +520,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+## for the files that get saved
+static_cdn
