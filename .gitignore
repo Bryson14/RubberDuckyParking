@@ -522,4 +522,4 @@ MigrationBackup/
 FodyWeavers.xsd
 
 ## for the files that get saved
-static_cdn
+static_cdn/
