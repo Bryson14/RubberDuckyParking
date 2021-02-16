@@ -9,6 +9,9 @@ ff9505 : Yellow Orange Color Wheel
 9FB1BC : Cadet Gray  (lighter and less blue than 6e8898)
 161a1d : Eerie Black
 FFFFFF : White
+
+Stackoverflow bootstrap spacing
+https://stackoverflow.com/questions/41574776/what-is-class-mb-0-in-bootstrap-4
 */
 
 .header {
@@ -31,12 +34,12 @@ a:hover {
 }
 
 .navbar {
-    background-color: #FFFFFF;
+    background-color: #ffffff;
 }
 
 form {
-background-color: #9FB1BC;
-border-radius: 50px;
+    background-color: #9fb1bc;
+    border-radius: 50px;
 }
 
 .form-div {
@@ -44,5 +47,15 @@ border-radius: 50px;
     vertical-align: middle;
     height: 50px;
     border: 1px solid red;
+}
 
+.accent-secondary {
+    color: #ff9505;
+}
+
+.accent-primary {
+    color: #ffb41f;
+}
+.accent-primary:hover {
+    color: #ff9505;
 }
