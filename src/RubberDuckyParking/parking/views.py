@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from os import pathsep
+from datetime import date as D
 
 
 def index(request):
@@ -18,9 +19,9 @@ def host_detail(request, host_id="empty"):
     return render(request, 'parking/host_details.html', context)
 
 
-def user_detail(requst, user_id="Empty"):
+def user_detail(request, user_id="Empty"):
     context = {"user_id": user_id}
-    return render(requst, 'parking/user_details.html', context)
+    return render(request, 'parking/user_details.html', context)
 
 
 def lot_tools(request):
@@ -29,7 +30,16 @@ def lot_tools(request):
 
 
 def search(request):
-    context = {}
+    location = "Logan, UT"
+    date = D.today().isoformat()
+    size = "Standard"
+    if 'location' in request.GET and request.GET["location"] != "":
+        location = request.GET['location']
+    if 'date' in request.GET and request.GET["date"] != "":
+        date = request.GET["date"]
+    if "size-type" in request.GET:
+        size = request.GET["size-type"]
+    context = {"location": location, "date": date, "size": size}
     return render(request, 'parking/search_reservation.html', context)
 
 
