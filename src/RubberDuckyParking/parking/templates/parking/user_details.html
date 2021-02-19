@@ -1,13 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>User Details</title>
-</head>
-<body>
-<h1>User Profile</h1>
-<h2>{{user_id}}</h2>
-<p>Here a normal user can manage their stored vehicles, see their past transaction, change their name and address and password
-.</p>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container jumbotron">
+    <h1>Welcome <i>{{username}}</i></h1>
+
+</div>
+
+<div class="container">
+    <h2>See your upcoming reservations details</h2>
+    <p>Lorem Ipsum</p>
+</div>
+
+<div class="container">
+    <h2>See your payment details and contact info</h2>
+    <p>Lorem Ipsum</p>
+</div>
+
+<div class="container">
+    <h2>See your saved vehicles</h2>
+    <p>Lorem Ipsum</p>
+</div>
+
+
+
+{% endblock %}
