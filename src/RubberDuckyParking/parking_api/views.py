@@ -21,6 +21,9 @@ def host(request):
     print("host")
     return invalid_parameters(request)
 
+def create_profile(request):
+    print(f"Creating profile with {request.GET}")
+
 
 # def login(request):
 #     """
