@@ -24,6 +24,12 @@ def host(request):
 def create_profile(request):
     print(f"Creating profile with {request.GET}")
 
+    return JsonResponse({"found": "doope"})
+
+
+def test(request):
+    print("here", request)
+    return JsonResponse({"dumb": "not working"})
 
 # def login(request):
 #     """
