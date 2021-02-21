@@ -1,13 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>User Details</title>
-</head>
-<body>
-<h1>User Profile</h1>
-<h2>{{user_id}}</h2>
-<p>Here a normal user can manage their stored vehicles, see their past transaction, change their name and address and password
-.</p>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>User Details</title>
+    </head>
+    <body style="background-color: #6471fd; font-family: Helvetica;">
+        <h1>User Profile</h1>
+        <div style="background-color: white; padding: 5px 20px 20px 20px; border-radius: 15px; float: left; display: inline; width:60%;">
+            <h2>Personal Information</h2>
+            <table style="border-spacing: 40px 20px;">
+                <tbody>
+                    <tr>
+                        <td><b>Name: </b></td>
+                        <td>{{customerName}}</td>
+                        <td><b><a href="javascript:void(0);">Edit</a></b></td>
+                    </tr>
+                    <tr>
+                        <td><b>Address: </b></td>
+                        <td>{{customerAddress}}</td>
+                        <td><b><a href="javascript:void(0);">Edit</a></b></td>
+                    </tr>
+                    <tr>
+                        <td><b>Phone Number: </b></td>
+                        <td>{{customerPhone}}</td>
+                        <td><b><a href="javascript:void(0);">Edit</a></b></td>
+                    </tr>
+                    <tr>
+                        <td><b>Email: </b></td>
+                        <td>{{customerEmail}}</td>
+                        <td><b><a href="javascript:void(0);">Edit</a></b></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Past Transactions</h2>
+            <p><i>There is no current transaction history</i></p>
+
+
+            <h2>Stored Vehicles</h2>
+            <p><i>There are no current cars stored</i></p>
+
+        </div>
+        <div style="background-color: white; padding: 5px 30px 30px 30px; border-radius: 15px; float: right; display: inline; width:32%; margin-bottom: 10px;">
+            <p><b>Which details can be edited?</b><br><br>
+                Details Rubber Ducky Parking uses to verify your identity can’t be changed. Contact info and some personal details can be edited, but we may ask you verify your identity the next time you book or create a listing.</p>
+        </div>
+        
+        <div style="background-color: white; padding: 5px 30px 30px 30px; border-radius: 15px; float: right; display: inline; width:32%;">
+            <p><b>What info is shared with others?</b><br><br>
+                Rubber Ducky Parking only releases contact information for hosts and guests after a reservation is confirmed.</p>
+        </div>
+    </body>
 </html>
