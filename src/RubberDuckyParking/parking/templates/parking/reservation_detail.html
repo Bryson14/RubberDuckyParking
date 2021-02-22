@@ -1,14 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Reservation Detail</title>
-</head>
-<body>
-<h1>Showing details for Reservation</h1>
-<h2>Reservation #{{reservation_id}}</h2>
-<h2>This is the page that will show after scanning a QR code</h2>
+{% extends 'base.html' %}
+{% block title %}Reservation Detail{% endblock title %}
+{% block head %} {% endblock %}
+
+{% block content%}
+
+{% if user.is_authenticated %} <p>and is a host</p>
+<div class="container">
+    <h1>Showing details for Reservation</h1>
+    <h2>Reservation #{{reservation_id}}</h2>
+    <h2>This is the page that will show after scanning a QR code</h2>
 <p>Here, it will show the price paid, the location, parking spot, time duration, user username, host username,
 date</p>
-</body>
-</html>
+</div>
+
+{% else %}
+
+<div class="container">
+    <p>Not logged in. Reroute to log in page</p>
+
+</div>
+
+{% endif %}
+
+{% endblock %}
