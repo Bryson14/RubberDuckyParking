@@ -2,11 +2,11 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Rubber Ducky Parking</title>
+        <title>{% block title%}Rubber Ducky Parking{% endblock title %}</title>
         <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css" />
         <link rel="shortcut icon" type="image/ico" href="{% static 'favicon.ico' %}" />
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
-        {% block head %} {% endblock %}
+        {% block head %} {% endblock head %}
     </head>
 
 
@@ -15,7 +15,7 @@
             <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-brand" href="/"><img src="/RubberDuckyParking/src/RubberDuckyParking/testLogo.png"></a>
+                        <a class="nav-brand" href="/"><img src="{% static 'testLogo.png' %}"></a>
                     </li>
                 </ul>
             </div>
@@ -40,9 +40,9 @@
         </nav>
 
         <div>
-            {% block content %} {% endblock %}
+            {% block content %} {% endblock content %}
         </div>
-
+        <br>
         <div>
             <!-- Footer -->
             <footer class="bg-light text-center text-lg-start">
