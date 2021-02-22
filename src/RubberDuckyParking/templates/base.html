@@ -29,7 +29,7 @@
                     </li>
                     <li class="nav-item">
                         {% if user.is_authenticated %}
-                        <a class="nav-link" href="/user/123/">{{user.username}}</a>
+                        <a class="nav-link" href="/user/">{{user.username}}</a>
                         <a class="nav-link" href="{% url 'logout' %}"> Log out </a>
                         {% else %}
                         <a class="nav-link" href="{% url 'login' %}"> Log in</a>
@@ -62,23 +62,23 @@
 
                         <!--Grid column-->
                         <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                            <h5 class="text-uppercase">Rubber Ducky</h5>
+                            <h5 class="text-uppercase">Development</h5>
 
                             <ul class="list-unstyled mb-0">
                                 <li>
-                                    <a href="https://github.com/Bryson14/RubberDuckyParking" class="text-dark">Source Code</a>
+                                    <a href="https://github.com/Bryson14/RubberDuckyParking" target="_blank" class="text-dark">Source Code</a>
                                 </li>
                                 <li>
-                                    <a href="https://github.com/Bryson14" class="text-dark">Bryson</a>
+                                    <a href="https://github.com/Bryson14" target="_blank" class="text-dark">Bryson</a>
                                 </li>
                                 <li>
-                                    <a href="https://github.com/drewrasm" class="text-dark">Andrew</a>
+                                    <a href="https://github.com/drewrasm" target="_blank" class="text-dark">Andrew</a>
                                 </li>
                                 <li>
-                                    <a href="https://github.com/Degin88" class="text-dark">Brandon </a>
+                                    <a href="https://github.com/Degin88" target="_blank" class="text-dark">Brandon </a>
                                 </li>
                                 <li>
-                                    <a href="https://github.com/duskkiel" class="text-dark">Peyton </a>
+                                    <a href="https://github.com/duskkiel" target="_blank" class="text-dark">Peyton </a>
                                 </li>
                             </ul>
                         </div>
@@ -93,7 +93,7 @@
                                     <a href="/host/" class="text-dark">Become a Host</a>
                                 </li>
                                 <li>
-                                    <a href="mail:support@rubberducky.com" class="text-dark">Contact</a>
+                                    <a href="mail:support@rubberducky.com" target="_blank" class="text-dark">Contact</a>
                                 </li>
                                 <li>
                                     <a href="/user/" class="text-dark">View Profile</a>

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container jumbotron">
+    <h1>Sign up for<i>Rubber Ducky Parking</i></h1>
+
+</div>
+
+<div class="container">
+    <p>You need to log in!</p>
+   <form action="/api/createProfile/" method="get">
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+       <div class="form-group">
+    <label for="exampleInputEmail1">Phone Number</label>
+    <input type="phone" class="form-control" id="inputPhone" aria-describedby="phoneHelp" placeholder="Enter email">
+  </div>
+        <div class="form-group">
+    <label for="exampleInputEmail1">Username</label>
+    <input type="text" class="form-control" id="inputUsername" aria-describedby="usernmaeHelp" placeholder="Enter email">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+  </div>
+       <div class="form-group">
+    <label for="exampleInputPassword1">Reenter Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">
+  </div>
+  <button type="submit" class="btn btn-primary">Sign Up</button>
+</form>
+    <ul>
+        <li>name</li>
+        <li>phone</li>
+        <li>email</li>
+        <li>username</li>
+        <li>password</li>
+        <li>profile picture</li>
+    </ul>
+
+    <p>in their profile, now that it is made, they will be able to:</p>
+
+    <ul>
+        <li>add a parking lot location</li>
+        <li>add specific parking spots to that lot</li>
+        <li>take pictures of the lot</li>
+        <li>add attendants</li>
+        <li>see income</li>
+    </ul>
+</div>
+
+
+
+{% endblock %}
