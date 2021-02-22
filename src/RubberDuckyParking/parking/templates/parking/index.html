@@ -1,9 +1,54 @@
 {% extends 'base.html' %}
+{% block head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" type="text/css" />
+{% endblock %}
 
 {% block content %}
-<h1>Welcome to Rubber Ducking Parking</h1>
-<p>Get the best parking spot in town!</p>
+<div class="text-center jumbotron">
+    <h1>Way better than a Parking Spot</h1>
+    <p class="accent-secondary">Book a reliable parking spot and forget the hassel!</p>
+</div>
 
-<p><a href="host/">Click here to go to the host front page</a></p>
-<p><a href="user/">Click here to see USER details</a></p>
+<div class="text-center container p-4">
+    <form  action="/search/" method="get">
+        <fieldset>
+            <div class="row">
+                <legend>
+                    <h2>Search Parking</h2>
+                </legend>
+                <div class="input-group mb-3">
+                    <div class="col-lg-4 col-md-12 mb-4 mb-md-2 mx-lg-1">
+                        <input type="text" class="form-control" placeholder="Where are you parking?" aria-label="Location" name="location" />
+                    </div>
+                    <div class="col-lg-3 col-md-12 mb-4 mb-md-2 mx-lg-1">
+                        <input type="date" class="form-control datepicker" placeholder="Select Date" name="date"/>
+                    </div>
+                    <div class="col-lg-4 col-md-12 mb-4 mb-md-2 mx-lg-1">
+                        <select class="custom-select" id="size-type" name="size-type">
+                            <option value="" disabled selected>Parking Spot Size</option>
+                            <option>Standard</option>
+                            <option>RV</option>
+                            <option>Tailgater Paradise</option>
+                            <option>Motorcycle</option>
+                            <option>Compact</option>
+                            <option>Special</option>
+                        </select>
+                    </div>
+                    <div class="input-group-append col-lg-1 col-md-12 mb-4 mb-md-0 mx-lg-1">
+                        <button class="btn btn-outline-warning btn-lg" type="submit"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
 {% endblock %}
+
+<script>
+    $(function () {
+        $(".datepicker").datepicker({
+            format: "mm-dd-yyyy",
+        });
+    });
+</script>

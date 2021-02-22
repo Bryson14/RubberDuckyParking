@@ -1,2 +1,37 @@
-<h1>Welcome to Rubber Ducking Parking:  FOR HOSTS</h1>
-<p>Host your parking spot here and make money!</p>
+{% extends 'base.html' %}
+{% block head %} {% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+
+<div class="container">
+    <h2>You're logged in</h2>
+    <p>If the user is already a host, reroute them to their host management page</p>
+</div>
+{% else %}
+
+<div class="container">
+    <p>You need to log in!</p>
+    <h2>Sign Up to host a parking spaces!</h2>
+    <p>Collect:</p>
+    <ul>
+        <li>name</li>
+        <li>phone</li>
+        <li>email</li>
+        <li>username</li>
+        <li>password</li>
+        <li>profile picture</li>
+    </ul>
+
+    <p>in their profile, now that it is made, they will be able to:</p>
+
+    <ul>
+        <li>add a parking lot location</li>
+        <li>add specific parking spots to that lot</li>
+        <li>take pictures of the lot</li>
+        <li>add attendants</li>
+        <li>see income</li>
+    </ul>
+</div>
+{% endif %}
+{% endblock %}

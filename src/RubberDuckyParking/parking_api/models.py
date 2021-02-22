@@ -1,6 +1,6 @@
 from django.db import models
 from django import forms
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 
 
 class ParkingSize(models.Model):
@@ -20,20 +20,20 @@ class ParkingSize(models.Model):
         return f"{self.name}: {round(self.min_length, 1)}ft x {round(self.min_width, 1)}ft"
 
 
-class BaseUser(User):
+class BaseUser(AbstractUser):
     '''
         This is the user that all other user models will inherit
         It is based off of django's default user model
     '''
     avatar = models.ImageField(blank=True)
-    phone_number = models.CharField(max_length=17)
+    phone_number = models.CharField(default='', max_length=17)
     class Meta:
-        verbose_name_plural = "Base User"
+        verbose_name_plural = "Base Users"
 
 
 class Host(BaseUser):
     class Meta:
-        verbose_name_plural = "Host"
+        verbose_name_plural = "Hosts"
 
 
 class Attendant(BaseUser):
@@ -42,7 +42,7 @@ class Attendant(BaseUser):
     the host could have one or many attendants that are the 'gatekeepers' for the lot.
     """
     class Meta:
-        verbose_name_plural = "Attendant"
+        verbose_name_plural = "Attendants"
 
 
 class Vehicle(models.Model):
