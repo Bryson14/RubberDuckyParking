@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from os import pathsep
 from datetime import date as D
@@ -56,7 +56,7 @@ def user(request):
     if request.user.is_authenticated:
         username = ""
         ''' 
-        # TODO return different page for host
+        TODO return different page for host
         if request.user.is_host():
             return host_detail(request)
         '''
