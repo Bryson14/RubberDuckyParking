@@ -1,7 +1,35 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
-# https://stoplight.io/blog/crud-api-design/  crud api recommendations
+from .models import BaseUser, Attendant, Host
+from .serializers import UserSerializer, AttendantSerializer, HostSerializer
+from rest_framework import viewsets
+from rest_framework import permissions
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    '''
+    api endpoint that allows users to be edited
+    '''
+    queryset = BaseUser.objects.all()
+    serializer_class = UserSerializer
+    psermissions_classes = [permissions.IsAuthenticated]
+
+
+class AttendantViewSet(viewsets.ModelViewSet):
+    '''
+    api endpoint for attendants
+    '''
+    queryset = Attendant.objects.all()
+    serializer_class = AttendantSerializer
+
+
+class HostViewSet(viewsets.ModelViewSet):
+    '''
+    api endpoint for attendants
+    '''
+    queryset = Host.objects.all()
+    serializer_class = HostSerializer
 
 @login_required
 def user(request, id=None):

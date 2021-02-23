@@ -4,7 +4,6 @@ from django.views.generic.base import TemplateView
 from os import pathsep
 from datetime import date as D
 
-
 class Index(TemplateView):
     template_name = 'parking/index.html'
 
@@ -28,13 +27,6 @@ def host_detail(request):
         return render(request, 'parking/host_details.html', context)
     else:
         return host_index(request)
-
-
-def user_detail(request, user_id="Empty"):
-    context = {"user_id": user_id}
-    return render(request, 'parking/user_details.html', context)
-
-
 
 def search(request):
     location = "Logan, UT"
