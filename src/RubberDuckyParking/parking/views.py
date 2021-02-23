@@ -1,13 +1,20 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.views.generic.base import TemplateView 
 from os import pathsep
 from datetime import date as D
 
 
-def index(request):
-    context = {}
-    return render(request, 'parking/index.html', context)
+class Index(TemplateView):
+    template_name = 'parking/index.html'
 
+
+class AboutUs(TemplateView):
+    template_name = 'parking/about.html'
+
+
+class LotTools(TemplateView):
+    template_name = 'parking/parking_lot_tools.html'
 
 def host_index(request):
     context = {}
@@ -27,10 +34,6 @@ def user_detail(request, user_id="Empty"):
     context = {"user_id": user_id}
     return render(request, 'parking/user_details.html', context)
 
-
-def lot_tools(request):
-    context = {}
-    return render(request, 'parking/parking_lot_tools.html', context)
 
 
 def search(request):
@@ -54,7 +57,6 @@ def sign_up(request):
 
 def user(request):
     if request.user.is_authenticated:
-        username = ""
         ''' 
         # TODO return different page for host
         if request.user.is_host():
@@ -69,12 +71,14 @@ def user(request):
         }
         return render(request, 'parking/user_details.html', context)
     else:
-        return sign_up(request)
+        return redirect('signup')
 
 
-def about(request):
-    context = {}
-    return render(request, 'parking/about.html', context)
+def my_profile(request):
+    if request.user.is_authenticated:
+        return redirect('signup')
+    else:
+        return redirect('signup')
 
 
 def attendant_detail(request, attendant_id="Empty"):

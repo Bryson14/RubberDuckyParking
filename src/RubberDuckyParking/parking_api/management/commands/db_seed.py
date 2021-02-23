@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 from django.utils import timezone
+from django.db import transaction
 from ...models import (
     BaseUser, 
     ParkingSize,
@@ -14,6 +15,7 @@ from ...models import (
 class Command(BaseCommand):
     help = 'Seeds the database with helpful starter data'
 
+    @transaction.atomic # this decorator means that if anything fails, it won't save any of your progress to the db, preventing bad data
     def handle(self, *args, **options):
         print('creating dummy models')
         
@@ -72,23 +74,33 @@ class Command(BaseCommand):
         )
         user2.save()
 
-        host = Host(
-            first_name="Default",
-            last_name="Host",
+        host_user = BaseUser(
+            first_name="Host",
+            last_name="User",
             username="hostuser",
-            password="hostSecret",
-            phone_number="1+(801) 123-4569",
-            email="hostuser@example.com"
+            password='secretHost',
+            phone_number="+1(801) 589-7894",
+            email="host@avengers.com"
+        )
+        host_user.save()
+
+        host = Host(
+            user=host_user
         )
         host.save()
 
-        attendant1 = Attendant(
-            first_name="Default",
-            last_name="Attendant",
+        attendant_user = BaseUser(
+            first_name="Attendant",
+            last_name="User",
             username="attendantuser",
-            password="attendantSecret",
-            phone_number="1+(801) 123-4569",
-            email="attendantuser@example.com"
+            password='secretAttendant',
+            phone_number="+1(801) 888-7894",
+            email="attendant@avengers.com"
+        )
+        attendant_user.save()
+
+        attendant1 = Attendant(
+            user = attendant_user
         )
         attendant1.save()
 
