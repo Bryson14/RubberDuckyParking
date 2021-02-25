@@ -6,6 +6,8 @@ The project is organized into two main part: `src` and `documentation`. Since th
 ### Version Control
 Required software is under `src/requirements.txt`. It is recommended to run thie project in a virtualenv so their is no issues between python and DJango versions.
 
+To protect our project we have decided to create individual branches while working on new features or making changes to previous features.  The author of the changes must then create a pull request which will be reviewed, tested and accepted by another member of the team before merged back into the main branch.  Utilizing pull requests will help us avoid merge conflicts as well as help keep a history of project changes.
+
 ## Project setup
 
 
