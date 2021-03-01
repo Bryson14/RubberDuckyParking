@@ -1,9 +1,11 @@
 # Parking App
 
 ### Development Notes
-- Follow `Project Setup` below for the high-fidelity prototype and HERE for the low-fidelity prototype
-- For activity, case, and class diagrams, updated project definition, look at `RubberDuckyParking/documentation/homework_milestones/milestone2/requirements_definition_group_6.pdf`
-- Look on `github.com/Bryson14/RubberDuckyParking/issues` for our GitHub backlog.
+- Follow `Project Setup` below for the high-fidelity prototype and HERE for the low-fidelity prototype.
+- We already did enough work on our low-fidelity prototype that it turned into the high-fidelity one. 
+- For activity, case, and class diagrams, updated project definition, and project plan, look at `RubberDuckyParking/documentation/homework_milestones/milestone2/requirements_definition_group_6.pdf`
+- Look on `github.com/Bryson14/RubberDuckyParking/issues` for our GitHub backlog and `RubberDuckeyParking/documentation/homework_milestones/milestone2/issues_screenshot.png` for a screenshot of all issues.
+
 
 
 ### Organization
@@ -40,20 +42,20 @@ $ git clone https://github.com/Bryson14/RubberDuckyParking.git
 Download the packages inside the virtualenv
 
 ```
-$ python -m pip install -r RubberDuckyParking/requirements.txt (With active virtualenv)
+$ (ducky_env) python -m pip install -r RubberDuckyParking/requirements.txt (With active virtualenv)
 ```
 
 ### Django db setup
 ```
-$ python manage.py migrate
+$ (ducky_env) python manage.py migrate
 ```
 - this will create the schema for the models
 ```
-$ python manage.py db_seed
+$ (ducky_env) python manage.py db_seed
 ```
 - this is the custom management command that will add some basic models for you
 ```
-$ python manage.py createsuperuser
+$ (ducky_env) python manage.py createsuperuser
 ```
 - this will create your user that has admin access
 ```
@@ -66,7 +68,7 @@ Linux, DJango Webserver, SQLite, Vue
 
 ### Compiles and hot-reloads for development
 ```
-$ python manage.py runserver
+$ (ducky_env) python manage.py runserver
 ```
 
 ### Unit Testing
