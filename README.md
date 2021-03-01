@@ -17,6 +17,8 @@ This project is controlled through pull requests. Every commit from every member
 least one member of the team review another pull request, before the author merges the pr. The main branch
 for every team member should be updated before working every day so avoid merge conflicts.
 
+- To protect our project we have decided to create individual branches while working on new features or making changes to previous features.  The author of the changes must then create a pull request which will be reviewed, tested and accepted by another member of the team before merged back into the main branch.  Utilizing pull requests will help us avoid merge conflicts as well as help keep a history of project changes.
+
 ## Project Setup
 
 Create a virtualenv 
@@ -30,6 +32,7 @@ $ cd ducky_env
 $ source Scrpits/activate (Windows)
 $ source bin/activate (Linux/ Mac)
 ```
+
 
 Clone the repo inside of the virualenv
 ```
