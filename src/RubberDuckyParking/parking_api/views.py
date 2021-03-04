@@ -1,83 +1,80 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from .models import BaseUser, Attendant, Host
-from .serializers import UserSerializer, AttendantSerializer, HostSerializer
-from rest_framework import viewsets
-from rest_framework import permissions
+from .serializers import BaseUserSerializer, AttendantSerializer, HostSerializer
+from rest_framework import generics
+from rest_framework.renderers import TemplateHTMLRenderer
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 
-class UserViewSet(viewsets.ModelViewSet):
-    '''
-    api endpoint that allows users to be edited
-    '''
+class BaseUserList(generics.ListCreateAPIView):
     queryset = BaseUser.objects.all()
-    serializer_class = UserSerializer
-    psermissions_classes = [permissions.IsAuthenticated]
+    serializer_class = BaseUserSerializer
 
 
-class AttendantViewSet(viewsets.ModelViewSet):
-    '''
-    api endpoint for attendants
-    '''
+class BaseUserDetail(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'base_user.html'
+
+    def get(self, request, pk):
+        base_user = get_object_or_404(BaseUser, pk=pk)
+        serializer = BaseUserSerializer(base_user)
+        return Response({'serializer': serializer, 'user': base_user})
+
+    def post(self, request, pk):
+        base_user = get_object_or_404(BaseUser, pk=pk)
+        serializer = BaseUserSerializer(base_user, data=request.data)
+        if not serializer.is_valid():
+            return Response({'serializer': serializer, 'user': base_user})
+        serializer.save()
+        return redirect('users-detail', pk=pk)
+
+
+class AttendantList(generics.ListCreateAPIView):
     queryset = Attendant.objects.all()
     serializer_class = AttendantSerializer
 
 
-class HostViewSet(viewsets.ModelViewSet):
-    '''
-    api endpoint for attendants
-    '''
+class AttendantDetail(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'attendant.html'
+
+    def get(self, request, pk):
+        attendant = get_object_or_404(BaseUser, pk=pk)
+        serializer = AttendantSerializer(attendant)
+        return Response({'serializer': serializer, 'attendant': attendant})
+
+    def post(self, request, pk):
+        attendant = get_object_or_404(Attendant, pk=pk)
+        serializer = AttendantSerializer(attendant, data=request.data)
+        if not serializer.is_valid():
+            return Response({'serializer': serializer, 'attendant': attendant})
+        serializer.save()
+        return redirect('attendants-detail', pk=pk)
+
+
+class HostDetail(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'host.html'
+
+    def get(self, request, pk):
+        host = get_object_or_404(Host, pk=pk)
+        serializer = HostSerializer(host)
+        return Response({'serializer': serializer, 'host': host})
+
+    def post(self, request, pk):
+        host = get_object_or_404(Host, pk=pk)
+        serializer = HostSerializer(Host, data=request.data)
+        if not serializer.is_valid():
+            return Response({'serializer': serializer, 'host': host})
+        serializer.save()
+        return redirect('hosts-detail', pk=pk)
+
+
+class HostList(generics.ListCreateAPIView):
     queryset = Host.objects.all()
     serializer_class = HostSerializer
-
-@login_required
-def user(request, id=None):
-    """
-    Retrieves User data (R), updates user data (U), or deletes a user (D)
-    """
-    context = {}
-    print("user")
-    return invalid_parameters(request)
-
-@login_required
-def host(request):
-    """
-    Creates a host (C), Retrieves host data (R), updates host data (U), or deletes a host (D)
-    """
-    context = {}
-    print("host")
-    return invalid_parameters(request)
-
-def create_profile(request):
-    print(f"Creating profile with {request.GET}")
-
-    return JsonResponse({"found": "doope"})
-
-
-def test(request):
-    print("here", request)
-    return JsonResponse({"dumb": "not working"})
-
-# def login(request):
-#     """
-#     Validates a host or user login. Is a 'might do' specification
-#     """
-#     context = {}
-#     print("login")
-#     return invalid_parameters(request)
-
-
-def invalid_parameters(request):
-    """
-    Tell the user about bad code
-    """
-    parameters = request.GET
-    print(parameters)
-    data = {
-        'status': "400",
-        'msg'   : "Invalid parameters"
-    }
-    return JsonResponse(data)
 
 

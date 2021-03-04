@@ -4,13 +4,13 @@ from django.conf.urls.static import static
 from rest_framework import routers
 from . import views
 
-router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'hosts', views.HostViewSet)
-router.register(r'attendants', views.AttendantViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
-    path('createProfile/', views.create_profile, name="create"),
+    path('users/<int:pk>/', views.BaseUserDetail.as_view(), name='users-detail'),
+    path('users/', views.BaseUserList.as_view(), name='users-list'),
+    path('attendants/<int:pk>/', views.AttendantDetail.as_view(), name='attendants-detail'),
+    path('attendants/', views.AttendantList.as_view(), name='attendants-list'),
+    path('hosts/<int:pk>/', views.HostDetail.as_view(), name='hosts-detail'),
+    path('hosts/', views.HostList.as_view(), name='hosts-list'),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
