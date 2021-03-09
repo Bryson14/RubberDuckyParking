@@ -15,9 +15,9 @@ class AboutUs(TemplateView):
 class LotTools(TemplateView):
     template_name = 'parking/parking_lot_tools.html'
 
-def host_index(request):
-    context = {}
-    return render(request, 'parking/host_index.html', context)
+
+class HostIndex(TemplateView):
+    template_name = 'parking/host_index.html'
 
 
 def host_detail(request):
