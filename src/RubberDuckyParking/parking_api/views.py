@@ -1,80 +1,64 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
-from .models import BaseUser, Attendant, Host
-from .serializers import BaseUserSerializer, AttendantSerializer, HostSerializer
-from rest_framework import generics
-from rest_framework.renderers import TemplateHTMLRenderer
+from .models import BaseUser, Attendant, Host, ParkingSpot, Location
+from .serializers import BaseUserSerializer, AttendantSerializer, HostSerializer, ParkingSizeSerializer, ParkingSpotSerializer
+from .permissions import AuthenticatedPermission, HostPermission
 from rest_framework.response import Response
-from rest_framework.views import APIView
+from rest_framework import viewsets
 
 
-class BaseUserList(generics.ListCreateAPIView):
-    queryset = BaseUser.objects.all()
-    serializer_class = BaseUserSerializer
+class BaseUserViewSet(viewsets.ViewSet):
+    
+    def list(self, request):
+        queryset = BaseUser.objects.all()
+        serializer = BaseUserSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, pk=None):
+        queryset = BaseUser.objects.all()
+        user = get_object_or_404(queryset, pk=pk)
+        serializer = BaseUserSerializer(user)
+        return Response(serializer.data)
 
 
-class BaseUserDetail(APIView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'base_user.html'
+class AttendantViewSet(viewsets.ViewSet):
 
-    def get(self, request, pk):
-        base_user = get_object_or_404(BaseUser, pk=pk)
-        serializer = BaseUserSerializer(base_user)
-        return Response({'serializer': serializer, 'user': base_user})
+    def list(self, request):
+        queryset = Attendant.objects.all()
+        serializer = AttendantSerializer(queryset, many=True)
+        return Response(serializer.data)
 
-    def post(self, request, pk):
-        base_user = get_object_or_404(BaseUser, pk=pk)
-        serializer = BaseUserSerializer(base_user, data=request.data)
-        if not serializer.is_valid():
-            return Response({'serializer': serializer, 'user': base_user})
-        serializer.save()
-        return redirect('users-detail', pk=pk)
+    def retrieve(self, request, pk=None):
+        queryset = Attendant.objects.all()
+        user = get_object_or_404(queryset, pk=pk)
+        serializer = AttendantSerializer(user)
+        return Response(serializer.data)
 
 
-class AttendantList(generics.ListCreateAPIView):
-    queryset = Attendant.objects.all()
-    serializer_class = AttendantSerializer
+class HostViewSet(viewsets.ViewSet):
+    
+    def list(self, request):
+        queryset = Host.objects.all()
+        serializer = HostSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, pk=None):
+        queryset = Host.objects.all()
+        user = get_object_or_404(queryset, pk=pk)
+        serializer = HostSerializer(user)
+        return Response(serializer.data)
 
 
-class AttendantDetail(APIView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'attendant.html'
+class ParkingSpotViewSet(viewsets.ViewSet):
 
-    def get(self, request, pk):
-        attendant = get_object_or_404(BaseUser, pk=pk)
-        serializer = AttendantSerializer(attendant)
-        return Response({'serializer': serializer, 'attendant': attendant})
+    def list(self, request):
+        queryset = ParkingSpot.objects.all()
+        serializer = ParkingSpotSerializer(queryset, many=True)
+        return Response(serializer.data)
 
-    def post(self, request, pk):
-        attendant = get_object_or_404(Attendant, pk=pk)
-        serializer = AttendantSerializer(attendant, data=request.data)
-        if not serializer.is_valid():
-            return Response({'serializer': serializer, 'attendant': attendant})
-        serializer.save()
-        return redirect('attendants-detail', pk=pk)
-
-
-class HostDetail(APIView):
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'host.html'
-
-    def get(self, request, pk):
-        host = get_object_or_404(Host, pk=pk)
-        serializer = HostSerializer(host)
-        return Response({'serializer': serializer, 'host': host})
-
-    def post(self, request, pk):
-        host = get_object_or_404(Host, pk=pk)
-        serializer = HostSerializer(Host, data=request.data)
-        if not serializer.is_valid():
-            return Response({'serializer': serializer, 'host': host})
-        serializer.save()
-        return redirect('hosts-detail', pk=pk)
-
-
-class HostList(generics.ListCreateAPIView):
-    queryset = Host.objects.all()
-    serializer_class = HostSerializer
-
-
+    def retrieve(self, request, pk=None):
+        queryset = ParkingSpot.objects.all()
+        user = get_object_or_404(queryset, pk=pk)
+        serializer = ParkingSpotSerializer(user)
+        return Response(serializer.data)
