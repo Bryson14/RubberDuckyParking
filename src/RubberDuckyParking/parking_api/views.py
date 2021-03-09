@@ -6,6 +6,7 @@ from .serializers import BaseUserSerializer, AttendantSerializer, HostSerializer
 from .permissions import AuthenticatedPermission, HostPermission
 from rest_framework.response import Response
 from rest_framework import viewsets
+from rest_framework.decorators import action
 
 
 class BaseUserViewSet(viewsets.ViewSet):
@@ -21,6 +22,22 @@ class BaseUserViewSet(viewsets.ViewSet):
         serializer = BaseUserSerializer(user)
         return Response(serializer.data)
 
+    def post(self, request, pk=None, *args, **kwargs):
+        instance = BaseUser.objects.get(pk=pk)
+        serializer = BaseUserSerializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
+    @action(detail=False, permission_classes=[])   
+    def me(self, request):
+        if request.user.is_authenticated:
+            serializer = BaseUserSerializer(request.user)
+
+            return Response(serializer.data)
+        else:
+            return Response({"error": "not found"}, status=404)
+
 
 class AttendantViewSet(viewsets.ViewSet):
 
@@ -34,7 +51,7 @@ class AttendantViewSet(viewsets.ViewSet):
         user = get_object_or_404(queryset, pk=pk)
         serializer = AttendantSerializer(user)
         return Response(serializer.data)
-
+    
 
 class HostViewSet(viewsets.ViewSet):
     
@@ -61,4 +78,11 @@ class ParkingSpotViewSet(viewsets.ViewSet):
         queryset = ParkingSpot.objects.all()
         user = get_object_or_404(queryset, pk=pk)
         serializer = ParkingSpotSerializer(user)
+        return Response(serializer.data)
+        
+    def post(self, request, pk=None, *args, **kwargs):
+        instance = ParkingSpot.objects.get(pk=pk)
+        serializer = ParkingSpotSerializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
         return Response(serializer.data)
