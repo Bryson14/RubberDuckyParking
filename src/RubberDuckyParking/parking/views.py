@@ -16,10 +16,6 @@ class LotTools(TemplateView):
     template_name = 'parking/parking_lot_tools.html'
 
 
-class UserDetail(TemplateView):
-    template_name = 'parking/user_detail.html'
-
-
 def search(request):
     location = "Logan, UT"
     date = D.today().isoformat()
