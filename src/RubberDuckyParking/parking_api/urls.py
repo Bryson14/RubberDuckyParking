@@ -3,6 +3,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework import routers
 from . import views
+from rest_framework.views import APIView
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
