@@ -38,16 +38,16 @@ function Footer() {
     
                     <ul className="list-unstyled">
                         <li>
-                            <a href="/host/" className="text-dark">Become a Host</a>
+                            {/* <a href="/host/" className="text-dark">Become a Host</a> */}
                         </li>
                         <li>
-                            <a href="mail:support@rubberducky.com" target="_blank" className="text-dark">Contact</a>
+                            {/* <a href="mail:support@rubberducky.com" target="_blank" className="text-dark">Contact</a> */}
                         </li>
                         <li>
-                            <a href="/user/" className="text-dark">View Profile</a>
+                            {/* <a href="/user/" className="text-dark">View Profile</a> */}
                         </li>
                         <li>
-                            <a href="/" className="text-dark">Cancellation Options</a>
+                            {/* <a href="/" className="text-dark">Cancellation Options</a> */}
                         </li>
                     </ul>
                 </div>
