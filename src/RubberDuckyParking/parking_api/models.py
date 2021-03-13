@@ -30,17 +30,33 @@ class BaseUser(AbstractUser):
     class Meta:
         verbose_name_plural = "Base Users"
 
+    def is_host(self):
+        return Host.objects.filter(pk=self.pk).exists()
 
-class Host(BaseUser):
+    def is_attendant(self):
+        return Attendant.objects.filter(pk=self.pk).exists()
+
+
+class BaseProfile(models.Model):
+    '''
+        these are fields we may want on both a host and an attendant
+    '''
+    user = models.OneToOneField(BaseUser, on_delete=models.CASCADE)
+    pass
+
+
+class Host(BaseProfile):
+
     class Meta:
         verbose_name_plural = "Hosts"
 
 
-class Attendant(BaseUser):
+class Attendant(BaseProfile):
     """
     The person that scans in Users as they arrive. Attendant and Host might be the same person, however for larger lots
     the host could have one or many attendants that are the 'gatekeepers' for the lot.
     """
+
     class Meta:
         verbose_name_plural = "Attendants"
 
