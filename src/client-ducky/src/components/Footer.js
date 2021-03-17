@@ -17,19 +17,19 @@ function Footer() {
     
                     <ul className="list-unstyled mb-0">
                         <li>
-                            <a href="https://github.com/Bryson14/RubberDuckyParking" target="_blank" className="text-dark">Source Code</a>
+                            <a href="https://github.com/Bryson14/RubberDuckyParking" target="_blank" rel="noreferrer" className="text-dark">Source Code</a>
                         </li>
                         <li>
-                            <a href="https://github.com/Bryson14" target="_blank" className="text-dark">Bryson</a>
+                            <a href="https://github.com/Bryson14" target="_blank" rel="noreferrer" className="text-dark">Bryson</a>
                         </li>
                         <li>
-                            <a href="https://github.com/drewrasm" target="_blank" className="text-dark">Andrew</a>
+                            <a href="https://github.com/drewrasm" target="_blank" rel="noreferrer" className="text-dark">Andrew</a>
                         </li>
                         <li>
-                            <a href="https://github.com/Degin88" target="_blank" className="text-dark">Brandon </a>
+                            <a href="https://github.com/Degin88" target="_blank" rel="noreferrer" className="text-dark">Brandon </a>
                         </li>
                         <li>
-                            <a href="https://github.com/duskkiel" target="_blank" className="text-dark">Peyton </a>
+                            <a href="https://github.com/duskkiel" target="_blank" rel="noreferrer" className="text-dark">Peyton </a>
                         </li>
                     </ul>
                 </div>
