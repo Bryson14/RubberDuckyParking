@@ -36,9 +36,12 @@ function App() {
           <Route path="/login">
             <Login/>
           </Route>
-          <Route path="/details">
+          <Route path="/spot-details">
             <Details/>
           </Route>
+          {/*<Route path="/transaction">*/}
+          {/*  <Transaction/>*/}
+          {/*</Route>*/}
         </Switch>
         <Footer/>
       </div>
