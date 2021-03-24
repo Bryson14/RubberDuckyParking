@@ -47,7 +47,7 @@ const Search = () => {
             <div>
                 <p>Some results here</p>
                 {sData.map((s) => (
-                    <ParkingCard title={s.title} information={s.desc}/>
+                    <ParkingCard key={s.id} title={s.title} information={s.desc}/>
                 ))}
 
             </div>
