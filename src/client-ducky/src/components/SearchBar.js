@@ -58,7 +58,8 @@ const SearchBar = ({url, method, fullscreen}) => {
                 <fieldset>
                     <div className="row">
                         <legend>
-                            <h2>Search Parking</h2>
+                            {fullscreen ? <h2>Search Parking</h2> : <p> </p>}
+
                         </legend>
                         <div className="input-group mb-3">
                             <div className="col-lg-4 col-md-12 mb-4 mb-md-2 mx-lg-1">
@@ -79,7 +80,8 @@ const SearchBar = ({url, method, fullscreen}) => {
                                     ))}
                                 </select>
                             </div>
-                            <div className="input-group-append col-lg-1 col-md-12 mb-4 mb-md-0 mx-lg-1">
+                            <div className="col-lg-1 col-md-12 mb-4 mb-md-2 mx-lg-1">
+
                                 <button className="btn btn-outline-warning btn-lg"><i className="fa fa-search">Search</i></button>
                             </div>
                         </div>
