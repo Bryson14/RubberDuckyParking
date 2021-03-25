@@ -74,7 +74,7 @@ const SearchBar = ({url, method, fullscreen}) => {
                                 <select className="custom-select" id="size-type" name="size-type">
                                     <option value="" disabled>Parking Spot Size</option>
                                     {parking_spots.map((s) => (
-                                        <option key={s.id} value={s.value} >
+                                        <option name="size-type" key={s.id} value={s.value} >
                                             {s.text + "  |  " + s.size}
                                         </option>
                                     ))}

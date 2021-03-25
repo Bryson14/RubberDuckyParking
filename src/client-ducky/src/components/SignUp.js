@@ -1,7 +1,7 @@
 const SignUp = () => {
 
     return (
-        <div>
+        <div className="container narrow justify-content-center">
             <div className="form-group">
                 <label>Name</label>
                 <input type="text" className="form-control" placeholder="Enter name" />

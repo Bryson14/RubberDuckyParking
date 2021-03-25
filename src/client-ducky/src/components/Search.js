@@ -33,23 +33,32 @@ const sData = [
     }
 ]
 
-const emptyData = []
-
 
 const Search = () => {
 
     // const auth = useAuth()
     // const api = auth.api
 
-    const [searchData, setSearchData] = useState({sData})
+    const [searchData, setSearchData] = useState({})
 
-    // function get_data() {
-    //     setSearchData(sData)
-    // }
+    function get_data() {
+        const params = new URLSearchParams(window.location.search);
+        console.log("params:", params);
+        let location = params.get('location');
+        let date = params.get('date');
+        let spotType = params.get('size-type');
+        console.log(
+            `loc: ${location === "" ? "Empty String" : location}, 
+            date: ${date === "" ? "Empty String" : date}, 
+            spot: ${spotType === "" ? "Empty String" : spotType}`);
+        // todo make this api call
+        // sData = api.get(`/s?location=${location}&date=${date}&spotType=${spotType}`);
+        setSearchData(sData)
+    }
 
-    // useEffect(() => {
-    //     get_data()
-    // });
+    useEffect(() => {
+        get_data();
+    });
 
     return (
         <div className="container text-center">
@@ -58,8 +67,8 @@ const Search = () => {
                 <SearchBar url="/s" method="GET" fullscreen={false}/>
             </div>
             <div className="container-fluid">
-                {sData.length > 0 ?
-                    sData.map((s) => (
+                {searchData.length > 0 ?
+                    searchData.map((s) => (
                         <ParkingCard key={s.id} id={s.id} title={s.title}
                                      spot_type={s.spot_type} price={s.price} information={s.desc}/>
                     )) :

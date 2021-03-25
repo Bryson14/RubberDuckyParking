@@ -8,7 +8,7 @@ import Profile from "./components/Profile"
 import Search from "./components/Search"
 import SignUp from "./components/SignUp";
 import Login from "./components/LogIn";
-import Details from "./components/Details";
+import Details from "./components/Detail";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./css/styles.css"
 
@@ -36,7 +36,7 @@ function App() {
           <Route path="/login">
             <Login/>
           </Route>
-          <Route path="/spot-details">
+          <Route path="/details">
             <Details/>
           </Route>
           {/*<Route path="/transaction">*/}
