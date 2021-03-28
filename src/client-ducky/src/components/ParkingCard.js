@@ -13,6 +13,14 @@ const ParkingCard = ({id ,title, spot_type, information, price, img_src}) => {
     function heartClicked() {
         setHeartFile(heartFile === blackHeart ? redHeart : blackHeart);
         setHeartText(heartText === notLiked? liked : notLiked);
+        // const fs = require("fs");
+        // fs.readFile(heartFile, (err, data) => {
+        //     if (err) {
+        //         console.log("Error reading");
+        //         throw err};
+        //
+        //     console.log(data.toString())
+        // })
         console.log(`The heart file is now ${heartFile}`);
     }
 
@@ -23,7 +31,7 @@ const ParkingCard = ({id ,title, spot_type, information, price, img_src}) => {
                     <p className=""><i>{spot_type}</i></p>
                 </div>
                 <div className="col-2" onClick={heartClicked}>
-                    <img src={heartFile} alt={heartText}/>
+                    {/*<object type="image/svg+xml" data={heartFile} >{heartText}</object>*/}
                 </div>
             </div>
             <div className="row">

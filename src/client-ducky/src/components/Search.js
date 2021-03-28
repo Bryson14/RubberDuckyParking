@@ -63,10 +63,10 @@ const Search = () => {
     return (
         <div className="container text-center">
             <h1>Search</h1>
-            <div className="container-fluid">
+            <div>
                 <SearchBar url="/s" method="GET" fullscreen={false}/>
             </div>
-            <div className="container-fluid">
+            <div className="container">
                 {searchData.length > 0 ?
                     searchData.map((s) => (
                         <ParkingCard key={s.id} id={s.id} title={s.title}

@@ -9,6 +9,7 @@ import Search from "./components/Search"
 import SignUp from "./components/SignUp";
 import Login from "./components/LogIn";
 import Details from "./components/Detail";
+import Reservation from "./components/Reservation";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./css/styles.css"
 
@@ -38,6 +39,9 @@ function App() {
           </Route>
           <Route path="/details">
             <Details/>
+          </Route>
+          <Route path="/reservation">
+            <Reservation/>
           </Route>
           {/*<Route path="/transaction">*/}
           {/*  <Transaction/>*/}

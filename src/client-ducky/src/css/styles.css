@@ -46,7 +46,6 @@ form {
     display: table-cell;
     vertical-align: middle;
     height: 50px;
-    border: 1px solid red;
 }
 
 .accent-secondary {
@@ -97,6 +96,7 @@ p {
 
 .narrow {
     max-width: 35rem;
+    min-width: 12rem;
     margin-top: 4rem;
 }
 

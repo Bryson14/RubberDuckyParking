@@ -1,7 +1,17 @@
 const DetailCard = ({id ,title, spot_type, actual_width, actual_height, information, price, img_src}) => {
 
     function rentClicked () {
+        let sent = false;
+        let resID = 123;
         console.log("the rent button is clicked");
+        console.log("Making is connfirmation in the database")
+        sent = true;
+        if (sent) {
+            window.location.href = `/reservation/${resID}`;
+        } else {
+            alert("Something went wrong making the reservation! Try Again.")
+        }
+
     }
 
     return (
