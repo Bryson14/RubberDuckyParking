@@ -1,6 +1,5 @@
 import api from './api'
-
-
+import { useHistory } from "react-router-dom"
 
 const signin = (username, password) => {
   return api.post('api-token-auth/', {
@@ -16,6 +15,11 @@ const signin = (username, password) => {
 
 };
 
+const signout = () => {
+  localStorage.setItem('isAuthenticated', false)
+  localStorage.setItem('token', '')
+};
+
 function getMe() {
     api.headers.common.token = localStorage.getItem('token')
     return api.get('users/me/').then(response => {
@@ -25,7 +29,7 @@ function getMe() {
     })
 }
 
-export {signin, getMe}
+export {signin, signout, getMe}
 
 
 //   const signup = (email, password) => {
@@ -46,19 +50,4 @@ export {signin, getMe}
 
 //   };
 
-//   const signout = () => {
-
-//     return firebase
-
-//       .auth()
-
-//       .signOut()
-
-//       .then(() => {
-
-//         setUser(false);
-
-//       });
-
-//   };
 

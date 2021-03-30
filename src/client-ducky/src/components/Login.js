@@ -3,8 +3,8 @@ import { useHistory } from "react-router-dom"
 import {signin} from '../auth/use-auth'
 
 function Login({setToken}) {
-    const [username, setUsername] = useState(null)
-    const [password, setPassword] = useState(null)
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
     const history = useHistory();
 
     let login = () => {
@@ -14,7 +14,7 @@ function Login({setToken}) {
                 history.push('/')
             })
         }
-    } 
+    }
 
     let handleInputChange = (e) => {
         let inputType = e.target.id

@@ -11,16 +11,20 @@ import "./css/styles.css"
 function App() {
 
   const [token, setToken] = useState(localStorage.getItem('token'));
+  const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('isAuthenticated'));
 
   useEffect(() => {
+    console.log('rerender')
     if(token == null && localStorage.getItem('token')) {
       setToken(token)
+      setIsAuthenticated(true)
     }
   }, [])
 
+
   return (
       <Router>
-        <Header/>
+        <Header isAuthenticated={isAuthenticated}/>
         {token ? (
         <div>
           <Switch>
@@ -28,7 +32,7 @@ function App() {
               <Home/>
             </Route>
             <Route exact path="/login">
-              <Login/>
+              <Login setToken={setToken}/>
             </Route>
             <Route path="/about-us">
               <AboutUs/>
