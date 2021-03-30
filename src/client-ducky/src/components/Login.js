@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { useHistory } from "react-router-dom"
 import {signin} from '../auth/use-auth'
 
-function Login({setToken}) {
+function Login({setToken, setIsAuthenticated}) {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const history = useHistory();
@@ -11,6 +11,7 @@ function Login({setToken}) {
         if(username && password) {
             signin(username,password).then((token) => {
                 setToken(token)
+                setIsAuthenticated(true)
                 history.push('/')
             })
         }

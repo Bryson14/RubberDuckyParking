@@ -4,12 +4,13 @@ import {signout} from '../auth/use-auth'
 import { useHistory } from "react-router-dom"
 
 
-function Header({isAuthenticated}) {
+function Header({isAuthenticated, setIsAuthenticated}) {
 
     const history = useHistory()
 
     let handleSignout = () => {
         signout()
+        setIsAuthenticated(false)
         history.push('/login')
     }
 

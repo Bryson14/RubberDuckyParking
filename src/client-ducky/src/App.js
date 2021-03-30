@@ -24,7 +24,7 @@ function App() {
 
   return (
       <Router>
-        <Header isAuthenticated={isAuthenticated}/>
+        <Header isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
         {token ? (
         <div>
           <Switch>
@@ -32,7 +32,7 @@ function App() {
               <Home/>
             </Route>
             <Route exact path="/login">
-              <Login setToken={setToken}/>
+              <Login setToken={setToken} setIsAuthenticated={setIsAuthenticated}/>
             </Route>
             <Route path="/about-us">
               <AboutUs/>
@@ -41,7 +41,7 @@ function App() {
           <Footer/>
         </div>
         ): 
-        <Login setToken={setToken}/>
+        <Login setToken={setToken} setIsAuthenticated={setIsAuthenticated}/>
         }
       </Router>
   );
