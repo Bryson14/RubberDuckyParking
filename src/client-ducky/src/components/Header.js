@@ -28,9 +28,12 @@ function Header({isAuthenticated, setIsAuthenticated}) {
                     <li className="nav-item">
                         <Link className='nav-link' to="/about-us">Learn More</Link>
                     </li>
-                    <li className="nav-item">
-                        <Link className='nav-link' to="/">List Your Spot</Link>
+                    {/* <li className="nav-item">
+                        <Link className='nav-link' to="/signup">List Your Spot</Link>
                     </li>
+                    <li className="nav-item">
+                        <Link className='nav-link' to="/login">Log In</Link>
+                    </li> */}
                     {
                         isAuthenticated ? (
                             <li className="nav-item">

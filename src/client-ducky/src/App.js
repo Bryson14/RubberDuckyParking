@@ -4,7 +4,11 @@ import Home from "./components/Home"
 import AboutUs from "./components/AboutUs"
 import Header from "./components/Header"
 import Footer from "./components/Footer"
-import Login from "./components/Login"
+import Login from "./components/LogIn"
+import Profile from "./components/Profile"
+import Search from "./components/Search"
+// import SignUp from "./components/SignUp";
+import Details from "./components/Details";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./css/styles.css"
 
@@ -14,7 +18,6 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('isAuthenticated'));
 
   useEffect(() => {
-    console.log('rerender')
     if(token == null && localStorage.getItem('token')) {
       setToken(token)
       setIsAuthenticated(true)
@@ -36,6 +39,19 @@ function App() {
             </Route>
             <Route path="/about-us">
               <AboutUs/>
+            </Route>
+            <Route path="/profile">
+              <Profile/>
+            </Route>
+            <Route path="/s">
+              <Search/>
+            </Route>
+            {/* <Route path="/signup">
+              <SignUp/>
+            </Route> */}
+            {/* TODO: include signup in the auth system */}
+            <Route path="/spot-details">
+            <Details/>
             </Route>
           </Switch>
           <Footer/>
