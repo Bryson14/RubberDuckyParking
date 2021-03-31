@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from "react-router-dom"
+import {signout} from '../auth/use-auth'
+import { useHistory } from "react-router-dom"
 
 
-function Header() {
+function Header({isAuthenticated, setIsAuthenticated}) {
+
+    const history = useHistory()
+
+    let handleSignout = () => {
+        signout()
+        setIsAuthenticated(false)
+        history.push('/login')
+    }
 
     return (
         <nav className="navbar navbar-expand-md navbar-dark bg-dark">
@@ -18,12 +28,24 @@ function Header() {
                     <li className="nav-item">
                         <Link className='nav-link' to="/about-us">Learn More</Link>
                     </li>
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                         <Link className='nav-link' to="/signup">List Your Spot</Link>
                     </li>
                     <li className="nav-item">
                         <Link className='nav-link' to="/login">Log In</Link>
-                    </li>
+                    </li> */}
+                    {
+                        isAuthenticated ? (
+                            <li className="nav-item">
+                                <Link className='nav-link' onClick={handleSignout}>Signout</Link>
+                            </li>
+
+                        ): (
+                            <li className="nav-item">
+                                <Link className='nav-link' to='/login'>Signin</Link>
+                            </li>
+                        )
+                    }
                 </ul>
             </div>
 
