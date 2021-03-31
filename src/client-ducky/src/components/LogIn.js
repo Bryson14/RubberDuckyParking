@@ -1,7 +1,7 @@
 const Login = () => {
 
     return (
-        <div>
+        <div className="container narrow justify-content-center">
             <div className="form-group">
                 <label>Email address</label>
                 <input type="email" className="form-control" placeholder="Enter email" />
