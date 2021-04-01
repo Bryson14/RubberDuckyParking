@@ -8,7 +8,6 @@ import Login from "./components/LogIn"
 import Profile from "./components/Profile"
 import Search from "./components/Search"
 import SignUp from "./components/SignUp";
-import Login from "./components/LogIn";
 import Details from "./components/Detail";
 import Reservation from "./components/Reservation";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
@@ -33,7 +32,7 @@ function App() {
         {token ? (
         <div>
           <Switch>
-            <Route exact path="/">
+            <Route exact path="/home">
               <Home/>
             </Route>
             <Route exact path="/login">

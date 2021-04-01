@@ -1,40 +1,40 @@
-import React, {useState} from 'react';
-import { useHistory } from "react-router-dom"
-import {signin} from '../auth/use-auth'
+import React from "react";
+import  { Redirect } from 'react-router-dom'
 
-function Login({setToken, setIsAuthenticated}) {
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-    const history = useHistory();
+const Login = ({setToken, setIsAuthenticated}) => {
 
-    let login = () => {
-        if(username && password) {
-            signin(username,password).then((token) => {
-                setToken(token)
-                setIsAuthenticated(true)
-                history.push('/')
-            })
-        }
-    }
-
-    let handleInputChange = (e) => {
-        let inputType = e.target.id
-        let val = e.target.value
-        if(inputType == 'username') {
-            setUsername(val)
-        }
-        if(inputType == 'password') {
-            setPassword(val)
-        }
+    const handleButton = () => {
+        console.log("The button is clicked");
+        setIsAuthenticated(true);
+        localStorage.setItem("isAuthenticated", true);
+        localStorage.setItem("token", "YouStuckAndrew");
+        setToken("What the Hell?");
+        return <Redirect to='/home' />
     }
 
     return (
-        <div>
-            <label htmlFor='username'>Username</label>
-            <input onChange={handleInputChange} id='username' type='text' value={username}></input>
-            <label htmlFor='password'>Password</label>
-            <input onChange={handleInputChange} id='password' type='text' value={password}></input>
-            <button onClick={login} type='submit'>Login</button>
+        <div className="container narrow justify-content-center">
+            <div className="form-group">
+                <label>Email address</label>
+                <input type="email" className="form-control" placeholder="Enter email" />
+            </div>
+
+            <div className="form-group">
+                <label>Password</label>
+                <input type="password" className="form-control" placeholder="Enter password" />
+            </div>
+
+            <div className="form-group">
+                <div className="custom-control custom-checkbox">
+                    <input type="checkbox" className="custom-control-input" id="customCheck1" />
+                    <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
+                </div>
+            </div>
+
+            <button onClick={handleButton} className="btn btn-primary btn-block">Submit</button>
+            <p>
+                <a href="/signup">Create an account.</a>
+            </p>
         </div>
     )
 }

@@ -1,4 +1,5 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
+import {Redirect, useHistory} from 'react-router-dom'
 
 const ParkingCard = ({id ,title, spot_type, information, price, img_src}) => {
 
@@ -9,6 +10,14 @@ const ParkingCard = ({id ,title, spot_type, information, price, img_src}) => {
     const blackHeart = "../public/black_heart.svg";
     const notLiked = "Not Liked";
     const liked = "Liked Spot!";
+
+    const history = useHistory()
+
+    const handleButton = () => {
+        console.log("button pushed: ParkingcArd");
+        let route = `/details/${id}`;
+        history.push(route);
+    }
 
     function heartClicked() {
         setHeartFile(heartFile === blackHeart ? redHeart : blackHeart);
@@ -43,7 +52,7 @@ const ParkingCard = ({id ,title, spot_type, information, price, img_src}) => {
                     <p><b>$ {price} / hr</b></p>
                 </div>
                 <div className="col-lg-2 col-sm-6 ">
-                    <a href={`/details/${id}`}><button>details</button></a>
+                    <button onClick={handleButton}>details</button>
                 </div>
             </div>
         </div>

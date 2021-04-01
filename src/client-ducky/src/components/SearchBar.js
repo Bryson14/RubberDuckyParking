@@ -45,8 +45,8 @@ const SearchBar = ({url, method, fullscreen}) => {
     ];
 
     const searchBarStyle = {
-        "maxWidth": "85%;",
-        "border-radius": "2rem;"
+        "maxWidth": "85%",
+        "borderRadius": "2rem"
     };
 
     if (!fullscreen) {
