@@ -19,7 +19,7 @@ function Header({isAuthenticated, setIsAuthenticated}) {
             <div className="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
                 <ul className="navbar-nav mr-auto">
                     <li className="nav-item">
-                        <Link className='nav-link' to="/">Home</Link>
+                        <Link className='nav-link' to="/home">Home</Link>
                     </li>
                 </ul>
             </div>
@@ -37,12 +37,12 @@ function Header({isAuthenticated, setIsAuthenticated}) {
                     {
                         isAuthenticated ? (
                             <li className="nav-item">
-                                <Link className='nav-link' onClick={handleSignout}>Signout</Link>
+                                <Link className='nav-link' onClick={handleSignout} to='/home'>Signout</Link>
                             </li>
 
                         ): (
                             <li className="nav-item">
-                                <Link className='nav-link' to='/login'>Signin</Link>
+                                <Link className='nav-link' to='/login'>Login</Link>
                             </li>
                         )
                     }

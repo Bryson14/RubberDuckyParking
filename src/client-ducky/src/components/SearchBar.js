@@ -45,7 +45,8 @@ const SearchBar = ({url, method, fullscreen}) => {
     ];
 
     const searchBarStyle = {
-        "maxWidth": "85%"
+        "maxWidth": "85%",
+        "borderRadius": "2rem"
     };
 
     if (!fullscreen) {
@@ -53,40 +54,64 @@ const SearchBar = ({url, method, fullscreen}) => {
     };
 
     return (
-        <div style={searchBarStyle} className="justify-content-center">
+        <div className="form-div justify-content-center" style={searchBarStyle}>
             <form  method={method} action={url}>
-                <fieldset>
-                    <div className="row">
-                        <legend>
-                            {fullscreen ? <h2>Search Parking</h2> : <p> </p>}
-
-                        </legend>
-                        <div className="input-group mb-3">
-                            <div className="col-lg-4 col-md-12 mb-4 mb-md-2 mx-lg-1">
-                                <input type="text" className="form-control"
-                                       placeholder={fullscreen ? "Where are you parking" : "Location"}
-                                       aria-label="Location" name="location" />
-                            </div>
-                            <div className="col-lg-3 col-md-12 mb-4 mb-md-2 mx-lg-1">
-                                <input type="date" className="form-control datepicker" placeholder="Select Date" name="date" />
-                            </div>
-                            <div className="col-lg-4 col-md-12 mb-4 mb-md-2 mx-lg-1">
-                                <select className="custom-select" id="size-type" name="size-type">
-                                    <option value="" disabled>Parking Spot Size</option>
-                                    {parking_spots.map((s) => (
-                                        <option key={s.id} value={s.value} >
-                                            {s.text + "  |  " + s.size}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-                            <div className="col-lg-1 col-md-12 mb-4 mb-md-2 mx-lg-1">
-
-                                <button className="btn btn-outline-warning btn-lg"><i className="fa fa-search">Search</i></button>
-                            </div>
-                        </div>
+                <div className="form-row p-4">
+                    <div className="form-group col-lg-4 col-sm-12">
+                        <input type="text"
+                               className="form-control"
+                               placeholder={fullscreen ? "Where are you parking" : "Location"}
+                               aria-label="Location"
+                               name="location" />
                     </div>
-                </fieldset>
+                    <div className="form-group col-lg-3 col-sm-12">
+                        <input type="date" className="form-control datepicker" placeholder="Select Date" name="date" />
+                    </div>
+                    <div className="form-group col-sm-12 col-lg-4">
+                        <select className="custom-select" id="size-type" name="size-type">
+                            <option value="" disabled>Parking Spot Size</option>
+                            {parking_spots.map((s) => (
+                                <option name="size-type" key={s.id} value={s.value} >
+                                    {s.text + "  |  " + s.size}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="form-group col-sm-12 col-lg-1">
+                        <button className="btn btn-outline-warning btn-lg"><i className="fa fa-search">Search</i></button>
+                    </div>
+
+                </div>
+                {/*<fieldset>*/}
+                {/*    <legend>*/}
+                {/*        {fullscreen ? <h2>Search Parking</h2> : <p> </p>}*/}
+                {/*    </legend>*/}
+                {/*    <div className="row">*/}
+                {/*        <div className="input-group mb-3 p-2">*/}
+                {/*            <div className="col-lg-4 col-md-12">*/}
+                {/*                <input type="text" className="form-control"*/}
+                {/*                       placeholder={fullscreen ? "Where are you parking" : "Location"}*/}
+                {/*                       aria-label="Location" name="location" />*/}
+                {/*            </div>*/}
+                {/*            <div className="col-lg-3 col-md-12">*/}
+                {/*                <input type="date" className="form-control datepicker" placeholder="Select Date" name="date" />*/}
+                {/*            </div>*/}
+                {/*            <div className="col-lg-4 col-md-12">*/}
+                {/*                <select className="custom-select" id="size-type" name="size-type">*/}
+                {/*                    <option value="" disabled>Parking Spot Size</option>*/}
+                {/*                    {parking_spots.map((s) => (*/}
+                {/*                        <option name="size-type" key={s.id} value={s.value} >*/}
+                {/*                            {s.text + "  |  " + s.size}*/}
+                {/*                        </option>*/}
+                {/*                    ))}*/}
+                {/*                </select>*/}
+                {/*            </div>*/}
+                {/*            <div className="col-lg-1 col-md-12">*/}
+                {/*                <button className="btn btn-outline-warning btn-lg"><i className="fa fa-search">Search</i></button>*/}
+                {/*            </div>*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*</fieldset>*/}
             </form>
         </div>
     )

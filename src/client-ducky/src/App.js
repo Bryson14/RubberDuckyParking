@@ -7,8 +7,9 @@ import Footer from "./components/Footer"
 import Login from "./components/Login"
 import Profile from "./components/Profile"
 import Search from "./components/Search"
-// import SignUp from "./components/SignUp";
-import Details from "./components/Details";
+import SignUp from "./components/SignUp";
+import Details from "./components/Detail";
+import Reservation from "./components/Reservation";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./css/styles.css"
 
@@ -31,28 +32,30 @@ function App() {
         {token ? (
         <div>
           <Switch>
-            <Route exact path="/">
+            <Route exact path="/home">
               <Home/>
             </Route>
             <Route exact path="/login">
               <Login setToken={setToken} setIsAuthenticated={setIsAuthenticated}/>
             </Route>
             <Route path="/about-us">
-              <AboutUs/>
-            </Route>
-            <Route path="/profile">
-              <Profile/>
-            </Route>
-            <Route path="/s">
-              <Search/>
-            </Route>
-            {/* <Route path="/signup">
-              <SignUp/>
-            </Route> */}
-            {/* TODO: include signup in the auth system */}
-            <Route path="/spot-details">
+            <AboutUs/>
+          </Route>
+          <Route path="/profile">
+            <Profile/>
+          </Route>
+          <Route path="/s">
+            <Search/>
+          </Route>
+           <Route path="/signup">
+            <SignUp/>
+          </Route>
+            <Route path="/details">
             <Details/>
-            </Route>
+          </Route>
+          <Route path="/reservation">
+            <Reservation/>
+          </Route>
           </Switch>
           <Footer/>
         </div>

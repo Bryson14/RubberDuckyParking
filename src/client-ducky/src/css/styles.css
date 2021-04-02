@@ -46,7 +46,6 @@ form {
     display: table-cell;
     vertical-align: middle;
     height: 50px;
-    border: 1px solid red;
 }
 
 .accent-secondary {
@@ -83,6 +82,8 @@ p {
 .parking-card {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
+    border-radius: 15px;
+    background-color: #F2F3F4;
 }
 
 .parking-card:hover {
@@ -91,6 +92,12 @@ p {
 
 .parking-card h2 {
 
+}
+
+.narrow {
+    max-width: 35rem;
+    min-width: 12rem;
+    margin-top: 4rem;
 }
 
 
