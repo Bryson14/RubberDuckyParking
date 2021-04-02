@@ -4,7 +4,7 @@ import Home from "./components/Home"
 import AboutUs from "./components/AboutUs"
 import Header from "./components/Header"
 import Footer from "./components/Footer"
-import Login from "./components/LogIn"
+import Login from "./components/Login"
 import Profile from "./components/Profile"
 import Search from "./components/Search"
 // import SignUp from "./components/SignUp";
