@@ -19,17 +19,33 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('isAuthenticated'));
 
   useEffect(() => {
-    if(token == null && localStorage.getItem('token')) {
-      setToken(token)
-      setIsAuthenticated(true)
-    }
+      let t = localStorage.getItem('token')
+      let auth = localStorage.getItem('isAuthenticated')
+      if (t != null && auth != null) {
+          setToken(t);
+          setIsAuthenticated(auth);
+      }
   }, [])
 
+  const protectedRoutes = () => {
+    return (
+        <>
+          <Route path="/profile">
+            <Profile/>
+          </Route>
+          <Route path="/details">
+            <Details/>
+          </Route>
+          <Route path="/reservation">
+            <Reservation/>
+          </Route>
+        </>
+    )
+  }
 
   return (
       <Router>
         <Header isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
-        {token ? (
         <div>
           <Switch>
             <Route exact path="/home">
@@ -41,27 +57,19 @@ function App() {
             <Route path="/about-us">
             <AboutUs/>
           </Route>
-          <Route path="/profile">
-            <Profile/>
-          </Route>
           <Route path="/s">
             <Search/>
           </Route>
            <Route path="/signup">
             <SignUp/>
           </Route>
-            <Route path="/details">
-            <Details/>
-          </Route>
-          <Route path="/reservation">
-            <Reservation/>
-          </Route>
+            {token ? (
+                protectedRoutes):
+                (<Redirect to="/login"/>)
+            }
           </Switch>
           <Footer/>
         </div>
-        ): 
-        <Login setToken={setToken} setIsAuthenticated={setIsAuthenticated}/>
-        }
       </Router>
   );
 }
