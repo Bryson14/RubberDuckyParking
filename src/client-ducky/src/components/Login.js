@@ -29,13 +29,26 @@ function Login({setToken, setIsAuthenticated}) {
     }
 
     return (
-        <div>
+    <div className="container narrow justify-content-center">
+        <div className="form-group">
             <label htmlFor='username'>Username</label>
-            <input onChange={handleInputChange} id='username' type='text' value={username}></input>
-            <label htmlFor='password'>Password</label>
-            <input onChange={handleInputChange} id='password' type='text' value={password}></input>
-            <button onClick={login} type='submit'>Login</button>
+            <input type="text" className="form-control" placeholder="Username" id="username"
+                   onChange={handleInputChange} value={username}/>
         </div>
+
+        <div className="form-group">
+            <label htmlFor='password'>Password</label>
+            <input type="password" className="form-control" placeholder="Enter password" id='password'
+                   onChange={handleInputChange} value={username}/>
+        </div>
+
+
+
+        <button type="submit" className="btn btn-primary btn-block">Submit</button>
+        <p>
+            <a href="/signup">Create an Account</a>
+        </p>
+    </div>
     )
 }
 
