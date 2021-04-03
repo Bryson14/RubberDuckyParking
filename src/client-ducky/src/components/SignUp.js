@@ -6,6 +6,8 @@ const SignUp = (setToken, setIsAuthenticated) => {
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
     const history = useHistory();
 
     let handleInputChange = (e) => {
@@ -17,20 +19,49 @@ const SignUp = (setToken, setIsAuthenticated) => {
         if(inputType == 'password') {
             setPassword(val)
         }
+        if(inputType == 'firstName') {
+            setFirstName(val)
+        }
+        if(inputType == 'lastName') {
+            setLastName(val)
+        }
         if(inputType == 'email') {
             setEmail(val)
         }
     }
 
     let handleSignUp = (e) => {
-        console.log('sign up')
+        console.log('yee')
+        // let valid = validate() 
+        if(username && password && email && firstName && lastName ) {
+            console.log('ye1e')
+            signup({
+                username: username,
+                password: password,
+                email: email,
+                first_name: firstName,
+                last_name: lastName
+            }).then(res => {
+                console.log(res)
+            })
+        }
     }
 
     return (
         <div className="container narrow justify-content-center">
             <div className="form-group">
+                <label>First Name</label>
+                <input id='firstName' onChange={handleInputChange} type="text" className="form-control" placeholder="Enter name" />
+            </div>
+
+            <div className="form-group">
+                <label>Last Name</label>
+                <input id='lastName' onChange={handleInputChange} type="text" className="form-control" placeholder="Enter last name" />
+            </div>
+
+            <div className="form-group">
                 <label>Username</label>
-                <input id='username' onChange={handleInputChange} type="text" className="form-control" placeholder="Enter name" />
+                <input id='username' onChange={handleInputChange} type="text" className="form-control" placeholder="Enter username" />
             </div>
 
             <div className="form-group">

@@ -15,6 +15,11 @@ class RegisterUser(CreateAPIView):
     serializer_class = BaseUserSerializer
     permission_classes=[AllowAny]
 
+    def perform_create(self, serializer):
+        instance = serializer.save()
+        instance.set_password(instance.password)
+        instance.save()
+
 
 class BaseUserViewSet(viewsets.ViewSet):
     

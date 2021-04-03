@@ -15,6 +15,10 @@ const signin = (username, password) => {
 
 };
 
+const signup = (data) => {
+  return api.post('users/signup/', data)
+}
+
 const signout = () => {
   localStorage.setItem('isAuthenticated', false)
   localStorage.setItem('token', '')
@@ -29,7 +33,7 @@ function getMe() {
     })
 }
 
-export {signin, signout, getMe}
+export {signin, signup, signout, getMe}
 
 
 //   const signup = (email, password) => {

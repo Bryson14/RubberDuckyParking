@@ -4,7 +4,7 @@ from .models import BaseUser, Host, Attendant, ParkingSpot, ParkingSize, Locatio
 class BaseUserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = BaseUser
-        fields = ['pk', 'username', 'email', 'first_name', 'last_name']
+        fields = ['pk', 'username', 'email', 'first_name', 'last_name', 'password']
 
 class HostSerializer(serializers.HyperlinkedModelSerializer):
     user = BaseUserSerializer()
