@@ -27,22 +27,6 @@ function App() {
       }
   }, [])
 
-  const protectedRoutes = () => {
-    return (
-        <>
-          <Route path="/profile">
-            <Profile/>
-          </Route>
-          <Route path="/details">
-            <Details/>
-          </Route>
-          <Route path="/reservation">
-            <Reservation/>
-          </Route>
-        </>
-    )
-  }
-
   return (
       <Router>
         <Header isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
@@ -63,10 +47,17 @@ function App() {
            <Route path="/signup">
             <SignUp/>
           </Route>
-            {token ? (
-                protectedRoutes):
-                (<Redirect to="/login"/>)
-            }
+          {/*Protected Paths*/}
+          <Route path="/profile">
+              <Profile isAuthenticated={isAuthenticated} token={token}/>
+          </Route>
+          <Route path="/details">
+              <Details isAuthenticated={isAuthenticated} token={token}/>
+          </Route>
+          <Route path="/reservation">
+              <Reservation isAuthenticated={isAuthenticated} token={token}/>
+          </Route>
+          {/*Protected Paths*/}
           </Switch>
           <Footer/>
         </div>

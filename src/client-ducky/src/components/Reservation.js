@@ -23,7 +23,7 @@ const ReservationData = {
     }
 }
 
-const Reservation = ({id}) => {
+const Reservation = ({id, isAuthenticated, token}) => {
 
     const [resData, setResData] = useState({});
     const [resID, setResID] = useState(id);
@@ -43,6 +43,10 @@ const Reservation = ({id}) => {
             }
         }
     })
+
+    function authenticate () {
+        return isAuthenticated;
+    }
 
     function showData() {
         return (
