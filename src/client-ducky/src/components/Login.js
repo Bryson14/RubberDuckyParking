@@ -9,11 +9,24 @@ function Login({setToken, setIsAuthenticated}) {
 
     let login = () => {
         if(username && password) {
-            signin(username,password).then((token) => {
-                setToken(token)
-                setIsAuthenticated(true)
-                history.push('/')
-            })
+            signin(username,password)
+                .then((token) => {
+                if(token){
+                    setToken(token);
+                    setIsAuthenticated(true);
+                    history.push('/home');
+                } else {
+                    alert("Incorrect username and/or password!")
+                    setUsername("");
+                    setPassword("");
+                }
+                })
+                .catch(error => {
+                    alert("Server cannot authenticate!")
+                    setUsername("");
+                    setPassword("");})
+        } else {
+            alert("Username or Password incomplete!");
         }
     }
 
@@ -29,14 +42,21 @@ function Login({setToken, setIsAuthenticated}) {
     }
 
     return (
-        <div>
+    <div className="container narrow justify-content-center">
+        <div className="form-group">
             <label htmlFor='username'>Username</label>
-            <input onChange={handleInputChange} id='username' type='text' value={username}></input>
-            <label htmlFor='password'>Password</label>
-            <input onChange={handleInputChange} id='password' type='text' value={password}></input>
-            <button onClick={login} type='submit'>Login</button>
-            <Link to='/signup'>Register</Link>
+            <input type="text" className="form-control" placeholder="Username" id="username"
+                   onChange={handleInputChange} value={username}/>
         </div>
+
+        <div className="form-group">
+            <label htmlFor='password'>Password</label>
+            <input onChange={handleInputChange} className='form-control' id='password' type='text' placeholder='password' value={password}></input>
+        </div>
+        <button type="submit" onClick={login} className="btn btn-primary btn-block">Submit</button>
+        <Link to='/signup'>Register</Link>
+
+    </div>
     )
 }
 

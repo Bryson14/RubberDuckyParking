@@ -19,17 +19,17 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('isAuthenticated'));
 
   useEffect(() => {
-    if(token == null && localStorage.getItem('token')) {
-      setToken(token)
-      setIsAuthenticated(true)
-    }
+      let t = localStorage.getItem('token')
+      let auth = localStorage.getItem('isAuthenticated')
+      if (t != null && auth != null) {
+          setToken(t);
+          setIsAuthenticated(auth);
+      }
   }, [])
-
 
   return (
       <Router>
         <Header isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
-        {token ? (
         <div>
           <Switch>
             <Route exact path="/home">
@@ -41,21 +41,23 @@ function App() {
             <Route path="/about-us">
             <AboutUs/>
           </Route>
-          <Route path="/profile">
-            <Profile/>
-          </Route>
           <Route path="/s">
             <Search/>
           </Route>
           <Route path="/signup">
             <SignUp setToken={setToken} setIsAuthenticated={setIsAuthenticated}/>
           </Route>
-            <Route path="/details">
-            <Details/>
+          {/*Protected Paths*/}
+          <Route path="/profile">
+              <Profile isAuthenticated={isAuthenticated} token={token}/>
+          </Route>
+          <Route path="/details">
+              <Details isAuthenticated={isAuthenticated} token={token}/>
           </Route>
           <Route path="/reservation">
-            <Reservation/>
+              <Reservation isAuthenticated={isAuthenticated} token={token}/>
           </Route>
+          {/*Protected Paths*/}
           </Switch>
           <Footer/>
         </div>
@@ -68,7 +70,6 @@ function App() {
             <SignUp setToken={setToken} setIsAuthenticated={setIsAuthenticated}/>
           </Route>
         </Switch>
-        }
       </Router>
   );
 }
