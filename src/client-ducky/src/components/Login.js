@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { useHistory } from "react-router-dom"
+import { useHistory, Link } from "react-router-dom"
 import {signin} from '../auth/use-auth'
 
 function Login({setToken, setIsAuthenticated}) {
@@ -35,6 +35,7 @@ function Login({setToken, setIsAuthenticated}) {
             <label htmlFor='password'>Password</label>
             <input onChange={handleInputChange} id='password' type='text' value={password}></input>
             <button onClick={login} type='submit'>Login</button>
+            <Link to='/signup'>Register</Link>
         </div>
     )
 }

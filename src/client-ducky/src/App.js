@@ -60,7 +60,10 @@ function App() {
           <Footer/>
         </div>
         ): 
-        <Login setToken={setToken} setIsAuthenticated={setIsAuthenticated}/>
+        <Switch>
+          <Login path='/login' setToken={setToken} setIsAuthenticated={setIsAuthenticated}/>
+          <SignUp path='/signup' setToken={setToken} setIsAuthenticated={setIsAuthenticated}/>
+        </Switch>
         }
       </Router>
   );
