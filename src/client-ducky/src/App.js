@@ -47,8 +47,8 @@ function App() {
           <Route path="/s">
             <Search/>
           </Route>
-           <Route path="/signup">
-            <SignUp/>
+          <Route path="/signup">
+            <SignUp setToken={setToken} setIsAuthenticated={setIsAuthenticated}/>
           </Route>
             <Route path="/details">
             <Details/>
@@ -61,8 +61,12 @@ function App() {
         </div>
         ): 
         <Switch>
-          <Login path='/login' setToken={setToken} setIsAuthenticated={setIsAuthenticated}/>
-          <SignUp path='/signup' setToken={setToken} setIsAuthenticated={setIsAuthenticated}/>
+          <Route path='/login'>
+            <Login setToken={setToken} setIsAuthenticated={setIsAuthenticated}/>
+          </Route>
+          <Route path='/signup' >
+            <SignUp setToken={setToken} setIsAuthenticated={setIsAuthenticated}/>
+          </Route>
         </Switch>
         }
       </Router>

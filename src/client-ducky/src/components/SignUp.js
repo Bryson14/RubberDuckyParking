@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import { useHistory } from "react-router-dom"
-import {signup} from '../auth/use-auth'
+import {signup, signin} from '../auth/use-auth'
 
-const SignUp = (setToken, setIsAuthenticated) => {
+const SignUp = ({setToken, setIsAuthenticated}) => {
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -31,10 +31,7 @@ const SignUp = (setToken, setIsAuthenticated) => {
     }
 
     let handleSignUp = (e) => {
-        console.log('yee')
-        // let valid = validate() 
         if(username && password && email && firstName && lastName ) {
-            console.log('ye1e')
             signup({
                 username: username,
                 password: password,
@@ -42,7 +39,15 @@ const SignUp = (setToken, setIsAuthenticated) => {
                 first_name: firstName,
                 last_name: lastName
             }).then(res => {
-                console.log(res)
+                if(res.status == 201) {
+                    signin(username, password).then(token => {
+                        setToken(token)
+                        setIsAuthenticated(true)
+                        history.push('/')
+                    })
+                } else {
+                    alert('USER CREATION FAILED')
+                }
             })
         }
     }
