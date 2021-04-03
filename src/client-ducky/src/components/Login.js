@@ -9,11 +9,24 @@ function Login({setToken, setIsAuthenticated}) {
 
     let login = () => {
         if(username && password) {
-            signin(username,password).then((token) => {
-                setToken(token)
-                setIsAuthenticated(true)
-                history.push('/')
-            })
+            signin(username,password)
+                .then((token) => {
+                if(token){
+                    setToken(token);
+                    setIsAuthenticated(true);
+                    history.push('/home');
+                } else {
+                    alert("Incorrect username and/or password!")
+                    setUsername("");
+                    setPassword("");
+                }
+                })
+                .catch(error => {
+                    alert("Server cannot authenticate!")
+                    setUsername("");
+                    setPassword("");})
+        } else {
+            alert("Username or Password incomplete!");
         }
     }
 
@@ -39,12 +52,10 @@ function Login({setToken, setIsAuthenticated}) {
         <div className="form-group">
             <label htmlFor='password'>Password</label>
             <input type="password" className="form-control" placeholder="Enter password" id='password'
-                   onChange={handleInputChange} value={username}/>
+                   onChange={handleInputChange} value={password}/>
         </div>
 
-
-
-        <button type="submit" className="btn btn-primary btn-block">Submit</button>
+        <button type="submit" onClick={login} className="btn btn-primary btn-block">Submit</button>
         <p>
             <a href="/signup">Create an Account</a>
         </p>
