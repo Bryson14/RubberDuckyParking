@@ -13,7 +13,7 @@ const staticData = {
     actual_length: 18.5,
 }
 
-const Detail = ({spot_id}) => {
+const Detail = ({spot_id, isAuthenticated, token}) => {
 
     const [parkingSpot, setParkingSpot] = useState({});
     const [spotIndex, setSpotIndex] = useState(spot_id);
@@ -41,8 +41,19 @@ const Detail = ({spot_id}) => {
         }
     });
 
+    function authenticate () {
+        return isAuthenticated;
+    }
+
     return (
             <div className="container">
+                {(authenticate()) ?
+                    (
+                        <p>Logged In</p>
+                    ): (
+                        <p>Not Logged in :(</p>
+                    )}
+
                 {!Number.isNaN(spotIndex) ?
                     <DetailCard key={parkingSpot.id} id={parkingSpot.id} title={parkingSpot.title}
                                 spot_type={parkingSpot.spot_type} price={parkingSpot.price} information={parkingSpot.desc}/>

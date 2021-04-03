@@ -36,9 +36,15 @@ function Header({isAuthenticated, setIsAuthenticated}) {
                     </li> */}
                     {
                         isAuthenticated ? (
-                            <li className="nav-item">
-                                <Link className='nav-link' onClick={handleSignout} to='/home'>Signout</Link>
-                            </li>
+                            <>
+                                <li className="nav-item">
+                                    <Link className='nav-link' to='/profile'>myProfile</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className='nav-link' onClick={handleSignout} to='/home'>Signout</Link>
+                                </li>
+                            </>
+
 
                         ): (
                             <li className="nav-item">
