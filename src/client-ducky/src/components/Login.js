@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { useHistory } from "react-router-dom"
+import { useHistory, Link } from "react-router-dom"
 import {signin} from '../auth/use-auth'
 
 function Login({setToken, setIsAuthenticated}) {
@@ -51,14 +51,11 @@ function Login({setToken, setIsAuthenticated}) {
 
         <div className="form-group">
             <label htmlFor='password'>Password</label>
-            <input type="password" className="form-control" placeholder="Enter password" id='password'
-                   onChange={handleInputChange} value={password}/>
+            <input onChange={handleInputChange} className='form-control' id='password' type='text' placeholder='password' value={password}></input>
         </div>
-
         <button type="submit" onClick={login} className="btn btn-primary btn-block">Submit</button>
-        <p>
-            <a href="/signup">Create an Account</a>
-        </p>
+        <Link to='/signup'>Register</Link>
+
     </div>
     )
 }
