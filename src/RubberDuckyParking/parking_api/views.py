@@ -6,7 +6,14 @@ from .serializers import BaseUserSerializer, AttendantSerializer, HostSerializer
 from .permissions import AuthenticatedPermission, HostPermission
 from rest_framework.response import Response
 from rest_framework import viewsets
+from rest_framework.generics import CreateAPIView
 from rest_framework.decorators import action
+from rest_framework.permissions import AllowAny
+
+
+class RegisterUser(CreateAPIView):
+    serializer_class = BaseUserSerializer
+    permission_classes=[AllowAny]
 
 
 class BaseUserViewSet(viewsets.ViewSet):
@@ -22,12 +29,12 @@ class BaseUserViewSet(viewsets.ViewSet):
         serializer = BaseUserSerializer(user)
         return Response(serializer.data)
 
-    def post(self, request, pk=None, *args, **kwargs):
-        instance = BaseUser.objects.get(pk=pk)
-        serializer = BaseUserSerializer(instance, data=request.data, partial=True)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response(serializer.data)
+    # def post(self, request, pk=None, *args, **kwargs):
+    #     instance = BaseUser.objects.get(pk=pk)
+    #     serializer = BaseUserSerializer(instance, data=request.data, partial=True)
+    #     serializer.is_valid(raise_exception=True)
+    #     serializer.save()
+    #     return Response(serializer.data)
 
     @action(detail=False, permission_classes=[])   
     def me(self, request):
