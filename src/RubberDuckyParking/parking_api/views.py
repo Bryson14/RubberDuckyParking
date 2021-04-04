@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
-from .models import BaseUser, Attendant, Host, ParkingSpot, Location
-from .serializers import BaseUserSerializer, AttendantSerializer, HostSerializer, ParkingSizeSerializer, ParkingSpotSerializer
+from .models import BaseUser, Attendant, Host, ParkingSpot, ParkingSize, Location
+from .serializers import BaseUserSerializer, AttendantSerializer, HostSerializer, ParkingSizeSerializer, ParkingSpotSerializer, ParkingSizeSerializer
 from .permissions import AuthenticatedPermission, HostPermission
 from rest_framework.response import Response
 from rest_framework import viewsets
@@ -33,13 +33,6 @@ class BaseUserViewSet(viewsets.ViewSet):
         user = get_object_or_404(queryset, pk=pk)
         serializer = BaseUserSerializer(user)
         return Response(serializer.data)
-
-    # def post(self, request, pk=None, *args, **kwargs):
-    #     instance = BaseUser.objects.get(pk=pk)
-    #     serializer = BaseUserSerializer(instance, data=request.data, partial=True)
-    #     serializer.is_valid(raise_exception=True)
-    #     serializer.save()
-    #     return Response(serializer.data)
 
     @action(detail=False, permission_classes=[])   
     def me(self, request):
@@ -80,21 +73,50 @@ class HostViewSet(viewsets.ViewSet):
 
 
 class ParkingSpotViewSet(viewsets.ViewSet):
+    
+    def get_queryset(self):
+        '''
+        possible query parameters:
+        - 
+        '''
+        user = self.request.user
+        queryset = ParkingSpot.objects.all()
+        return queryset
 
     def list(self, request):
-        queryset = ParkingSpot.objects.all()
-        serializer = ParkingSpotSerializer(queryset, many=True)
+        serializer = ParkingSpotSerializer(self.get_queryset(), many=True)
         return Response(serializer.data)
 
     def retrieve(self, request, pk=None):
-        queryset = ParkingSpot.objects.all()
-        user = get_object_or_404(queryset, pk=pk)
+        user = get_object_or_404(self.get_queryset(), pk=pk)
         serializer = ParkingSpotSerializer(user)
         return Response(serializer.data)
         
     def post(self, request, pk=None, *args, **kwargs):
-        instance = ParkingSpot.objects.get(pk=pk)
+        instance = get_queryset().get(pk=pk)
         serializer = ParkingSpotSerializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
+
+class ParkingSizeViewSet(viewsets.ViewSet):
+
+    def get_queryset(self):
+        return ParkingSize.objects.all()
+
+    def list(self, request):
+        serializer = ParkingSizeSerializer(self.get_queryset(), many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, pk=None):
+        user = get_object_or_404(self.get_queryset(), pk=pk)
+        serializer = ParkingSizeSerializer(user)
+        return Response(serializer.data)
+        
+    def post(self, request, pk=None, *args, **kwargs):
+        instance = get_queryset().get(pk=pk)
+        serializer = ParkingSizeSerializer(instance, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
