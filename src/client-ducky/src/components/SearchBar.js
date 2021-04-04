@@ -14,7 +14,11 @@ const SearchBar = ({url, method, fullscreen}) => {
 
     if (!fullscreen) {
         searchBarStyle["maxWidth"] = "55%";
-    };
+    }
+
+    function handleClick() {
+        console.log("searched clicked");
+    }
 
     useEffect(() => {
         api.get('parking-sizes/').then(res => {
@@ -47,7 +51,7 @@ const SearchBar = ({url, method, fullscreen}) => {
                         </select>
                     </div>
                     <div className="form-group col-sm-12 col-lg-1">
-                        <button className="btn btn-outline-warning btn-lg"><i className="fa fa-search">Search</i></button>
+                        <button onClick={handleClick} className="btn btn-outline-warning btn-lg"><i className="fa fa-search">Search</i></button>
                     </div>
 
                 </div>

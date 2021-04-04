@@ -39,7 +39,7 @@ const Reservation = ({id, isAuthenticated, token}) => {
                 setResID(idx);
                 console.log("res data", ReservationData[resID]);
                 setResData(ReservationData[resID]);
-                // setQrCode(data);
+                // setQrCode(data); TODO make a api call to /api/qrcode/?data=someURL
             }
         }
     })

@@ -13,19 +13,19 @@ const SignUp = ({setToken, setIsAuthenticated}) => {
     let handleInputChange = (e) => {
         let inputType = e.target.id
         let val = e.target.value
-        if(inputType == 'username') {
+        if(inputType === 'username') {
             setUsername(val)
         }
-        if(inputType == 'password') {
+        if(inputType === 'password') {
             setPassword(val)
         }
-        if(inputType == 'firstName') {
+        if(inputType === 'firstName') {
             setFirstName(val)
         }
-        if(inputType == 'lastName') {
+        if(inputType === 'lastName') {
             setLastName(val)
         }
-        if(inputType == 'email') {
+        if(inputType === 'email') {
             setEmail(val)
         }
     }
@@ -39,7 +39,7 @@ const SignUp = ({setToken, setIsAuthenticated}) => {
                 first_name: firstName,
                 last_name: lastName
             }).then(res => {
-                if(res.status == 201) {
+                if(res.status === 201) {
                     signin(username, password).then(token => {
                         setToken(token)
                         setIsAuthenticated(true)
