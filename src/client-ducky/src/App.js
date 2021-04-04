@@ -32,6 +32,9 @@ function App() {
         <Header isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
         <div>
           <Switch>
+            <Route exact path="/">
+              <Home/>
+            </Route>
             <Route exact path="/home">
               <Home/>
             </Route>

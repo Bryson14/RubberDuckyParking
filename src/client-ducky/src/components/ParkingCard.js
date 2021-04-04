@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Redirect, useHistory} from 'react-router-dom'
 
-const ParkingCard = ({id ,title, spot_type, information, price, img_src}) => {
+const ParkingCard = ({id, location, size, price}) => {
 
     const [heartFile, setHeartFile] = useState("../public/black_heart.svg");
     const [heartText, setHeartText] = useState("Not Liked");
@@ -37,7 +37,11 @@ const ParkingCard = ({id ,title, spot_type, information, price, img_src}) => {
         <div className="text-left container parking-card m-3">
             <div className="row">
                 <div className="col-10">
-                    <p className=""><i>{spot_type}</i></p>
+                    {size ? (
+                        <div>
+                            {size.name}
+                        </div>
+                    ): ''}
                 </div>
                 <div className="col-2" onClick={heartClicked}>
                     {/*<object type="image/svg+xml" data={heartFile} >{heartText}</object>*/}
@@ -45,8 +49,22 @@ const ParkingCard = ({id ,title, spot_type, information, price, img_src}) => {
             </div>
             <div className="row">
                 <div className="col-lg-8 col-sm-12">
-                    <h3 className="">{title}</h3>
-                    <p className="">{information}</p>
+                    {location ? (
+                        <div>
+                            <div>
+                                {location.name}
+                            </div>
+                            <div>
+                                {location.address}
+                            </div>
+                            <div>
+                                {location.city}
+                            </div>
+                            <div>
+                                {location.description}
+                            </div>
+                        </div>
+                    ): ''}
                 </div>
                 <div className="col-lg-2 col-sm-6">
                     <p><b>$ {price} / hr</b></p>
