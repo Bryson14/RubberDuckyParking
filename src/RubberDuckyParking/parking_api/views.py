@@ -12,7 +12,7 @@ from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny
 
 
-
+SAFE_METHODS = ['list', 'retrieve']
 
 
 class RegisterUser(CreateAPIView):
@@ -77,7 +77,12 @@ class HostViewSet(viewsets.ViewSet):
 
 
 class ParkingSpotViewSet(viewsets.ViewSet):
-    
+
+    def get_permissions(self):
+        if self.action in SAFE_METHODS:
+            self.permission_classes = (AllowAny,)
+        return super(ParkingSpotViewSet, self).get_permissions()
+
     def get_queryset(self):
         '''
         possible query parameters:
@@ -130,6 +135,11 @@ class ParkingSizeViewSet(viewsets.ViewSet):
 
     def get_queryset(self):
         return ParkingSize.objects.all()
+
+    def get_permissions(self):
+        if self.action in SAFE_METHODS:
+            self.permission_classes = (AllowAny,)
+        return super(ParkingSizeViewSet, self).get_permissions()
 
     def list(self, request):
         serializer = ParkingSizeSerializer(self.get_queryset(), many=True)
