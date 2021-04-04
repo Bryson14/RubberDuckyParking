@@ -2,13 +2,17 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from .models import BaseUser, Attendant, Host, ParkingSpot, ParkingSize, Location
-from .serializers import BaseUserSerializer, AttendantSerializer, HostSerializer, ParkingSizeSerializer, ParkingSpotSerializer, ParkingSizeSerializer
+from django.db.models import Q
+from .serializers import BaseUserSerializer, AttendantSerializer, HostSerializer, ParkingSizeSerializer, ParkingSpotSerializer, ParkingSpotCreateSerializer, ParkingSizeSerializer
 from .permissions import AuthenticatedPermission, HostPermission
 from rest_framework.response import Response
 from rest_framework import viewsets
 from rest_framework.generics import CreateAPIView
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny
+
+
+
 
 
 class RegisterUser(CreateAPIView):
@@ -77,10 +81,27 @@ class ParkingSpotViewSet(viewsets.ViewSet):
     def get_queryset(self):
         '''
         possible query parameters:
-        - 
+        - location (string -> contains in spot location fields)
+        - size (int -> pk)
         '''
         user = self.request.user
         queryset = ParkingSpot.objects.all()
+        params = self.request.query_params
+        location = params.get('location')
+        size = params.get('size')
+        if location:
+            locations = location.split(' ')
+            contains_query = Q()
+            for location in locations:
+                if location != '' and len(location) > 3:
+                    contains_query |= (Q(location__name__icontains=location) |
+                    Q(location__description__icontains=location) |
+                    Q(location__address__icontains=location) |
+                    Q(location__state__icontains=location) |
+                    Q(location__city__icontains=location))
+            queryset = queryset.filter(contains_query)
+        if size and str.isdigit(size):
+            queryset = queryset.filter(parking_size__pk=size)
         return queryset
 
     def list(self, request):
@@ -93,10 +114,15 @@ class ParkingSpotViewSet(viewsets.ViewSet):
         return Response(serializer.data)
         
     def post(self, request, pk=None, *args, **kwargs):
-        instance = get_queryset().get(pk=pk)
-        serializer = ParkingSpotSerializer(instance, data=request.data, partial=True)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
+        if pk is None:
+            serializer = ParkingSpotCreateSerializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+        else: 
+            instance = self.get_queryset().get(pk=pk)
+            serializer = ParkingSpotCreateSerializer(instance, data=request.data, partial=True)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
         return Response(serializer.data)
 
 
@@ -115,7 +141,7 @@ class ParkingSizeViewSet(viewsets.ViewSet):
         return Response(serializer.data)
         
     def post(self, request, pk=None, *args, **kwargs):
-        instance = get_queryset().get(pk=pk)
+        instance = self.get_queryset().get(pk=pk)
         serializer = ParkingSizeSerializer(instance, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
