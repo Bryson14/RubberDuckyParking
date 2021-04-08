@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import api from '../auth/api'
 
 const ReservationData = {
     123: {
@@ -6,10 +7,10 @@ const ReservationData = {
         renterID: 6481,
         hostName: "Jazmin Bybee",
         hostID: 8491,
-        purchaseDateTime: "2020-03-28T12:35:02:123654",
-        reservationDateTime : "2021-03-29T32:12:00",
+        purchaseDateTime: "2021-04-05T21:53:03.196Z",
+        reservationDateTime : "2021-05-07T21:53:03.196Z",
         rate: 12.0,
-        duration: 3.5,
+        duration: 210,
         amount: 42.00,
         spotId: 946,
         carID: 321564,
@@ -28,6 +29,10 @@ const Reservation = ({id, isAuthenticated, token}) => {
     const [resData, setResData] = useState({});
     const [resID, setResID] = useState(id);
     const [qrCode, setQrCode] = useState({});
+    const [resTime, setResTime] = useState({});
+    const [endTime, setEndTime] = useState({});
+    const [purchaseTime, setPurchaseTime] = useState({});
+
 
     useEffect(() => {
         if (Object.keys(resData).length === 0) {
@@ -37,15 +42,45 @@ const Reservation = ({id, isAuthenticated, token}) => {
             if (path[path.length - 2] === "reservation") {
                 let idx = Number(path[path.length - 1]);
                 setResID(idx);
-                console.log("res data", ReservationData[resID]);
-                setResData(ReservationData[resID]);
-                // setQrCode(data); TODO make a api call to /api/qrcode/?data=someURL
+                debugger;
+                api.get(`reservation/?id=${idx}`)
+                    .then(res => {
+                        // TODO backend not returning data
+                        if(res.data.length > 0) {
+                            console.log("res data", res.data);
+                            setResData(res.data);
+                            setTime(res.data, idx);
+                        } else {
+                            console.log("No data from server!");
+                            alert("Fake static data set instead of server!");
+                            setResData(ReservationData[idx]);
+                            setTime(ReservationData, idx);
+                        }
+                    }).catch( () => {
+                    console.log("Error fetching data for the search page!")
+                    alert("Error fetching data, setting fake data");
+                    debugger;
+                    setResData(ReservationData[idx]);
+                    setTime(ReservationData, idx);
+                })
             }
         }
-    })
+    }, [resData, resTime, endTime, purchaseTime])
 
-    function authenticate () {
-        return isAuthenticated;
+    function setTime (data, idx) {
+
+        let res = new Date(data[idx].reservationDateTime);
+        setResTime(res.toLocaleString());
+
+        let purchase = new Date(data[idx].purchaseDateTime);
+        setPurchaseTime(purchase.toLocaleString());
+
+        let addMin = Number(data[idx].duration);
+        res.setMinutes(res.getMinutes() + addMin);
+
+        setEndTime(res.toLocaleString())
+
+        // setQrCode(data); TODO make a api call to /api/qrcode/?data=someURL
     }
 
     function showData() {
@@ -60,8 +95,8 @@ const Reservation = ({id, isAuthenticated, token}) => {
                         <ul>
                             <li>Name - {resData.renterName}</li>
                             <li>Host Name - {resData.hostName}</li>
-                            <li>Reservation Time - {resData.reservationDateTime}</li>
-                            <li>End Time - {resData.reservationDateTime + resData.duration}</li>
+                            <li>Reservation Time - {resTime}</li>
+                            <li>End Time - {endTime}</li>
                             <li>* Car Details *</li>
                             <ul>
                                 <li>Year - {resData.carInfo.year}</li>
@@ -70,7 +105,7 @@ const Reservation = ({id, isAuthenticated, token}) => {
                                 <li>Color - {resData.carInfo.color}</li>
                                 <li>License Plate - {resData.carInfo.licenseNo}</li>
                             </ul>
-                            <li>Spot ID - {resData.spotID}</li>
+                            <li>Spot ID - {resData.spotId}</li>
                         </ul>
                     </div>
                 </div>
@@ -82,14 +117,14 @@ const Reservation = ({id, isAuthenticated, token}) => {
         return (
             <div className="container">
                 <h3 className="p-5 m-5">Whoops! No Data Found );</h3>
-                <p>Please try searching for something different</p>
+                <p>Please try searching for something different and/or logging in.</p>
             </div>
         )
     }
 
     return (
         <div>
-            {Object.keys(resData).length !== 0 ? showData() : errorMessage() }
+            {resData && Object.keys(resData).length !== 0 ? showData() : errorMessage() }
         </div>
     );
 

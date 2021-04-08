@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from "react-router-dom"
 import {signout} from '../auth/use-auth'
 import { useHistory } from "react-router-dom"

@@ -33,10 +33,10 @@ function Login({setToken, setIsAuthenticated}) {
     let handleInputChange = (e) => {
         let inputType = e.target.id
         let val = e.target.value
-        if(inputType == 'username') {
+        if(inputType === 'username') {
             setUsername(val)
         }
-        if(inputType == 'password') {
+        if(inputType === 'password') {
             setPassword(val)
         }
     }
@@ -51,7 +51,8 @@ function Login({setToken, setIsAuthenticated}) {
 
         <div className="form-group">
             <label htmlFor='password'>Password</label>
-            <input onChange={handleInputChange} className='form-control' id='password' type='text' placeholder='password' value={password}></input>
+            <input onChange={handleInputChange} className='form-control'
+                   id='password' type='password' placeholder='Password' value={password}></input>
         </div>
         <button type="submit" onClick={login} className="btn btn-primary btn-block">Submit</button>
         <Link to='/signup'>Register</Link>

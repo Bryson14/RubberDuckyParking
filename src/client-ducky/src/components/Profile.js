@@ -1,19 +1,13 @@
 import React, {useEffect, useState} from "react"
 
 const staticData = {
-    'username': 'Bryson',
-    'gmail': "gmail",
+    firstName: 'Bryson',
+    lastName: 'Name',
+    username: 'admin',
+    gmail: 'bry@gmail.com',
 }
 
 const Profile = ({isAuthenticated, token}) => {
-
-    useEffect(() => {
-
-    })
-
-    function authenticate () {
-        return isAuthenticated;
-    }
 
     return (
         <div>
@@ -21,9 +15,13 @@ const Profile = ({isAuthenticated, token}) => {
             <p>This is where we can change stuff about the user, they can see their different listings, upcoming
             rentals, and different tools in the dashboard. If they are a host or attendant, they will see
             more things here than a regular baseuser</p>
-            {(authenticate() ?
-                (<p>Logged In</p>) :
-                (<p>NOT Logged In</p>))}
+            {(isAuthenticated) ?
+                (
+                    <h2>Welcome {staticData.username}!</h2>
+
+                ):(
+                    <p>NOT Logged In</p>
+                )}
         </div>
 
     )

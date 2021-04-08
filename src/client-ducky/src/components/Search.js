@@ -4,6 +4,37 @@ import React, {useState, useEffect} from 'react';
 import api from '../auth/api'
 
 
+const sData = [
+    {
+        pk: 1,
+        title: "The best parking spot for TailGaiters",
+        desc: "If you are a tailgater, get this spot",
+        parking_size: "Tailgater Paradise",
+        price: 45.0
+    },
+    {
+        pk: 2,
+        title: "Cheap Motorcycle Spot",
+        desc: "Super simple spot, safe for long storage of motorcycle",
+        parking_size: "Motorcycle",
+        price: 4.0
+    },
+    {
+        pk: 3,
+        title: "Aggie Parking lot",
+        desc: "This is the parking lot between the spectrum and the football stadium",
+        parking_size: "Standard",
+        price: 7.5
+    },
+    {
+        pk: 4,
+        title: "Drive Way Close to Stadium",
+        desc: "Park on the left side of driveway for the game. Close, quick, convenient, cheap!",
+        parking_size: "Standard",
+        price: 6.0
+    }
+]
+
 const Search = () => {
 
     const [parkingSpots, setParkingSpots] = useState([]);
@@ -17,16 +48,19 @@ const Search = () => {
         let location = params.get('location');
         let date = params.get('date');
         let spotType = params.get('size-type');
-        api.get(`parking-spots/?location=${location}&size=${spotType}&data=${date}`)
+        api.get(`parking-spots/?location=${location}&size=${spotType}&date=${date}`)
             .then(res => {
-            if(res.data) {
+                // TODO backend not returning data
+            if(res.data.length > 0) {
                 setParkingSpots(res.data)
                 console.log("Setting data")
             } else {
-                console.log("No data from server!")
+                console.log("No data from server!, setting false data")
+                setParkingSpots(sData)
             }
         }).catch( () => {
-            console.log("Error fetching data for the search page!")
+            console.log("Error fetching data for the search page! SEtting false data")
+            setParkingSpots(sData);
         })
     }
 
