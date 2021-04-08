@@ -39,13 +39,17 @@ a:hover {
 
 form {
     background-color: #9fb1bc;
-    border-radius: 50px;
+    border-radius: 40px;
+    margin: auto;
 }
 
 .form-div {
-    display: table-cell;
     vertical-align: middle;
-    height: 50px;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-around;
 }
 
 .accent-secondary {

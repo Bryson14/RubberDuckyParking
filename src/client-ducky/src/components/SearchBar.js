@@ -29,7 +29,7 @@ const SearchBar = ({url, method, fullscreen}) => {
     return (
         <div className="form-div justify-content-center" style={searchBarStyle}>
             <form  method={method} action={url}>
-                <div className="form-row p-4">
+                <div className="form-row p-3 mx-auto pull-right">
                     <div className="form-group col-lg-4 col-sm-12">
                         <input type="text"
                                className="form-control"
@@ -37,10 +37,10 @@ const SearchBar = ({url, method, fullscreen}) => {
                                aria-label="Location"
                                name="location" />
                     </div>
-                    <div className="form-group col-lg-3 col-sm-12">
+                    <div className="form-group col-lg-4 col-sm-12">
                         <input type="date" className="form-control datepicker" placeholder="Select Date" name="date" />
                     </div>
-                    <div className="form-group col-sm-12 col-lg-4">
+                    <div className="form-group col-lg-3 col-sm-12">
                         <select className="custom-select" id="size-type" name="size-type">
                             <option value="" disabled>Parking Spot Size</option>
                             {parkingSpots.map((s) => (
@@ -50,8 +50,8 @@ const SearchBar = ({url, method, fullscreen}) => {
                             ))}
                         </select>
                     </div>
-                    <div className="form-group col-sm-12 col-lg-1">
-                        <button onClick={handleClick} className="btn btn-outline-warning btn-lg"><i className="fa fa-search">Search</i></button>
+                    <div className="form-group col-lg-1 col-sm-12">
+                        <button onClick={handleClick} className="btn btn-outline-warning"><i>Search</i></button>
                     </div>
 
                 </div>
