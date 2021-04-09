@@ -2,7 +2,7 @@ import React from 'react';
 import SearchBar from "./SearchBar";
 
 
-function Home() {
+function Home({location, setLocation, date, setDate, spotType, setSpotType}) {
 
   return (
     <div>
@@ -13,7 +13,8 @@ function Home() {
 
       <div className="text-center container p-4">
         {/* TODO: FIGURE OUT HOW THIS FORM THING IS GOING TO WORK */}
-        <SearchBar url="/s" method="GET" fullscreen={true}/>
+        <SearchBar url="/s" method="GET" fullscreen={true} setSpotType={setSpotType}
+                   setDate={setDate} setLocation={setLocation}/>
       </div>
     </div>
   )

@@ -43,7 +43,7 @@ const SignUp = ({setToken, setIsAuthenticated}) => {
                     signin(username, password).then(token => {
                         setToken(token)
                         setIsAuthenticated(true)
-                        history.push('/')
+                        history.push('/home')
                     })
                 } else {
                     alert('USER CREATION FAILED')

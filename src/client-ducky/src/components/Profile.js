@@ -17,7 +17,7 @@ const Profile = ({isAuthenticated, token}) => {
             more things here than a regular baseuser</p>
             {(isAuthenticated) ?
                 (
-                    <h2>Welcome {staticData.username}!</h2>
+                    <h2>Welcome {staticData.firstName}!</h2>
 
                 ):(
                     <p>NOT Logged In</p>

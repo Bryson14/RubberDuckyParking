@@ -1,9 +1,7 @@
-import React from 'react';
-
 function AboutUs() {
 
     return (
-        <div>
+        <div className='m-5 text-justify'>
             <div className="container m-lg-auto mx-md-1 my-md-auto mt-5">
                 <h2>How Rubber Ducky Parking Works</h2>
                 <p>

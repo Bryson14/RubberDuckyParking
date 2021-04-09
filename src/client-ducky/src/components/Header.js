@@ -1,17 +1,17 @@
-import React from 'react';
 import { Link } from "react-router-dom"
 import {signout} from '../auth/use-auth'
 import { useHistory } from "react-router-dom"
 
 
-function Header({isAuthenticated, setIsAuthenticated}) {
+function Header({isAuthenticated, setIsAuthenticated, setToken}) {
 
     const history = useHistory()
 
     let handleSignout = () => {
-        signout()
-        setIsAuthenticated(false)
-        history.push('/login')
+        signout();
+        setIsAuthenticated(false);
+        setToken('');
+        history.push('/home')
     }
 
     return (
@@ -28,12 +28,6 @@ function Header({isAuthenticated, setIsAuthenticated}) {
                     <li className="nav-item">
                         <Link className='nav-link' to="/about-us">Learn More</Link>
                     </li>
-                    {/* <li className="nav-item">
-                        <Link className='nav-link' to="/signup">List Your Spot</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className='nav-link' to="/login">Log In</Link>
-                    </li> */}
                     {
                         isAuthenticated ? (
                             <>

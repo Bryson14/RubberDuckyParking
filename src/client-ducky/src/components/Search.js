@@ -35,19 +35,12 @@ const sData = [
     }
 ]
 
-const Search = () => {
+const Search = ({location, setLocation, date, setDate, spotType, setSpotType}) => {
 
     const [parkingSpots, setParkingSpots] = useState([]);
-    const [searchLocation, setSearchLocation] = useState([]);
-    const [date, setDate] = useState([]);
-    const [spotType, setSpotType] = useState([]);
-
 
     function getParkingSpots() {
-        const params = new URLSearchParams(window.location.search);
-        let location = params.get('location');
-        let date = params.get('date');
-        let spotType = params.get('size-type');
+        console.log(`parking-spots/?location=${location}&size=${spotType}&date=${date}`)
         api.get(`parking-spots/?location=${location}&size=${spotType}&date=${date}`)
             .then(res => {
                 // TODO backend not returning data
@@ -55,11 +48,11 @@ const Search = () => {
                 setParkingSpots(res.data)
                 console.log("Setting data")
             } else {
-                console.log("No data from server!, setting false data")
+                alert("No data from server!, setting false data")
                 setParkingSpots(sData)
             }
         }).catch( () => {
-            console.log("Error fetching data for the search page! SEtting false data")
+            alert("Error fetching data for the search page! Setting false data")
             setParkingSpots(sData);
         })
     }
@@ -73,7 +66,8 @@ const Search = () => {
             <h1>Search</h1>
             <div>
                 <SearchBar url="/s" method="GET" fullscreen={false}
-                           location={searchLocation} date={date} type={spotType} />
+                           setSpotType={setSpotType} setDate={setDate} setLocation={setLocation}
+                           date={date} type={spotType} />
             </div>
             <div className="container">
                 {parkingSpots.length > 0 ?

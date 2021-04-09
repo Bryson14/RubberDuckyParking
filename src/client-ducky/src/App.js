@@ -17,26 +17,22 @@ function App() {
 
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('isAuthenticated'));
+  const [location, setLocation] = useState("");
+  const [date, setDate] = useState("");
+  const [spotType, setSpotType] = useState("");
 
-  useEffect(() => {
-      let t = localStorage.getItem('token')
-      let auth = localStorage.getItem('isAuthenticated')
-      if (t != null && auth != null) {
-          setToken(t);
-          setIsAuthenticated(auth);
-      }
-  }, [])
 
   return (
       <Router>
-        <Header isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
+        <Header isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} setToken={setToken}/>
         <div>
           <Switch>
             <Route exact path="/">
               <Home/>
             </Route>
             <Route exact path="/home">
-              <Home/>
+              <Home setLocation={setLocation} location={location} date={date} setDate={setDate}
+                    setSpotType={setSpotType} spotType={spotType}/>
             </Route>
             <Route exact path="/login">
               <Login setToken={setToken} setIsAuthenticated={setIsAuthenticated}/>
@@ -45,7 +41,8 @@ function App() {
             <AboutUs/>
           </Route>
           <Route path="/s">
-            <Search/>
+            <Search setLocation={setLocation} location={location} date={date} setDate={setDate}
+                    setSpotType={setSpotType} spotType={spotType}/>
           </Route>
           <Route path="/signup">
             <SignUp setToken={setToken} setIsAuthenticated={setIsAuthenticated}/>
@@ -64,7 +61,7 @@ function App() {
           </Switch>
           <Footer/>
         </div>
-        ): 
+        ):
         <Switch>
           <Route path='/login'>
             <Login setToken={setToken} setIsAuthenticated={setIsAuthenticated}/>
