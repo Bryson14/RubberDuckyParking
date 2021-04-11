@@ -13,6 +13,7 @@ router.register(r'attendants', views.AttendantViewSet, basename='attendant')
 router.register(r'hosts', views.HostViewSet, basename='host')
 router.register(r'parking-spots', views.ParkingSpotViewSet, basename='parking-spot')
 router.register(r'parking-sizes', views.ParkingSizeViewSet, basename='parking-size')
+router.register(r'reservations', views.ReservationViewSet, basename='reservations')
 urlpatterns = [
     path('api-token-auth/', auth_views.obtain_auth_token),
     path('users/signup/', views.RegisterUser.as_view(), name='register')

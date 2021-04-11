@@ -56,7 +56,7 @@ class Attendant(BaseProfile):
     The person that scans in Users as they arrive. Attendant and Host might be the same person, however for larger lots
     the host could have one or many attendants that are the 'gatekeepers' for the lot.
     """
-
+    boss = models.ForeignKey(Host, on_delete=models.SET_NULL, default=None, null=True)
     class Meta:
         verbose_name_plural = "Attendants"
 
@@ -107,6 +107,7 @@ class ParkingSpot(models.Model):
     #  TODO could make it possible to have a price for a whole day, a range of time, or per hour
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
     notes = models.CharField(max_length=100, default="")
+    owner = models.ForeignKey(Host, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"Parking Spot {self.uid}"
@@ -151,3 +152,14 @@ class LocationImage(models.Model):
 
     def __str__(self):
         return f"Image of {self.location.name}"
+
+
+class Reservation(models.Model):
+
+    parking_spot = models.ForeignKey(ParkingSpot, on_delete=models.CASCADE)
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
+    user = models.ForeignKey(BaseUser, on_delete=models.CASCADE, null=True, default=None)
+
+
+

@@ -26,7 +26,3 @@ class AttendantPermission(AuthenticatedPermission):
             return False
         return request.user.is_host() or request.user.is_attendant()
 
-
-# class AllowReadOnly(BasePermission):
-#     def has_permission(self, request, view):
-#         return request.method in ['GET']
