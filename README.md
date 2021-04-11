@@ -64,7 +64,7 @@ localhost:8000/admin
 - go check out the newly created models
 
 Tool Stack:
-Linux, DJango Webserver, SQLite, Vue
+Linux, DJango Webserver, SQLite, React
 
 ### Compiles and hot-reloads for development
 ```
@@ -87,4 +87,11 @@ $ python manage.py flush
 - this will remove all your db's data, but it will not change the schema
 - If you want to completely start over, delete your db.sqlite3 file and all the migration files except for the `__init__.py` files
     - once this is done, follow the db setup mentioned at the top of this readme
-    
+
+### running the frontend client
+```
+$ npm run start
+```
+- cd into the directory client-ducky
+- run the command to start the server on localhost:3000
+- this runs the frontend while the backend python server acts like an external api    
