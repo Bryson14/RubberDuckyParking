@@ -5,6 +5,7 @@ from .models import BaseUser, Attendant, Host, ParkingSpot, ParkingSize, Locatio
 from django.db.models import Q
 from .serializers import (
     BaseUserSerializer,
+    BaseUserUpdateSerializer,
     AttendantSerializer,
     HostSerializer,
     ParkingSizeSerializer,
@@ -48,6 +49,14 @@ class BaseUserViewSet(viewsets.ViewSet):
         serializer = BaseUserSerializer(user)
         return Response(serializer.data)
 
+    def post(self, request):
+        user = request.user
+        serializer = BaseUserUpdateSerializer(user, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
+
     @action(detail=False, permission_classes=[])   
     def me(self, request):
         if request.user.is_authenticated:
@@ -70,6 +79,8 @@ class AttendantViewSet(viewsets.ViewSet):
         user = get_object_or_404(queryset, pk=pk)
         serializer = AttendantSerializer(user)
         return Response(serializer.data)
+
+    # TODO: make able to choose boss
     
 
 class HostViewSet(viewsets.ViewSet):
@@ -175,9 +186,11 @@ class ReservationViewSet(viewsets.ViewSet):
     def get_queryset(self):
         queryset = Reservation.objects.all()
         user = self.request.user
-        if self.action == 'myreservations' and user.is_host():
+        if self.action != 'retrieve':
+            queryset = queryset.filter(canceled=False)
+        if self.action in ['myreservations', 'confirm', 'cancel'] and user.is_host():
             queryset = queryset.filter(parking_spot__owner=Host.objects.get(user=user))
-        elif self.action == 'bossreservations' and user.is_attendant():
+        elif self.action in ['bossreservations', 'confirm', 'cancel'] and user.is_attendant():
             attendant = Attendant.objects.get(user=user)
             if attendant.boss:
                 queryset = queryset.filter(parking_spot__owner=Attendant.objects.get(user=user).boss)
@@ -219,3 +232,28 @@ class ReservationViewSet(viewsets.ViewSet):
     def bossreservations(self, request):
         serializer = ReservationSerializer(self.get_queryset(), many=True)
         return Response(serializer.data)
+
+    @action(detail=True, methods=['post'], permission_classes=[AuthenticatedPermission])
+    def cancel(self, request, pk=None):
+        reservation = None
+        if pk:
+            reservation = user = get_object_or_404(Reservation, pk=pk)
+            if reservation.canceled == True:
+                return Response({'success': True, 'message': 'you have already canceled this reservation'})
+            reservation.canceled = True
+            reservation.save()
+            return Response({'success': True, 'message': 'you have canceled reservation number: {}'.format(pk)})
+        return Response({'success': False, 'message': 'you must specify a pk'})
+
+    @action(detail=True, methods=['post'], permission_classes=[AttendantPermission])
+    def confirm(self, request, pk=None):
+        reservation = None
+        if pk:
+            reservation = user = get_object_or_404(Reservation, pk=pk)
+            if reservation.confirmed == True:
+                return Response({'success': True, 'message': 'you have already confirmed this reservation'})
+            reservation.confirmed = True
+            reservation.save()
+            return Response({'success': True, 'message': 'you have confirmed reservation number: {}'.format(pk)})
+        return Response({'success': False, 'message': 'you must specify a pk'})
+

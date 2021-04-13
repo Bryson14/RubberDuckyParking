@@ -161,6 +161,8 @@ class Reservation(models.Model):
     end_date = models.DateTimeField()
     user = models.ForeignKey(BaseUser, on_delete=models.CASCADE, null=True, default=None)
     created_at = models.DateTimeField(auto_now_add=True)
+    canceled = models.BooleanField(default=False)
+    confirmed = models.BooleanField(default=False)
 
 
 
