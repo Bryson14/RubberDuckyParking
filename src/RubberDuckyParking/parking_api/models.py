@@ -160,6 +160,7 @@ class Reservation(models.Model):
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
     user = models.ForeignKey(BaseUser, on_delete=models.CASCADE, null=True, default=None)
+    created_at = models.DateTimeField(auto_now_add=True)
 
 
 
