@@ -8,6 +8,13 @@ class BaseUserSerializer(serializers.ModelSerializer):
         fields = ['pk', 'username', 'email', 'first_name', 'last_name', 'password']
 
 
+class BaseUserUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BaseUser
+        fields = ['pk', 'username', 'email', 'first_name', 'last_name', 'password']
+        read_only_fields = ['password']
+
+
 class HostSerializer(serializers.ModelSerializer):
     user = BaseUserSerializer()
     class Meta:
@@ -57,7 +64,7 @@ class ReservationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Reservation
-        fields = ['pk', 'parking_spot', 'start_date', 'end_date', 'user']
+        fields = ['pk', 'parking_spot', 'start_date', 'end_date', 'user', 'canceled', 'confirmed']
 
 
 class ReservationCreateSerialzier(serializers.ModelSerializer):
