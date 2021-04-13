@@ -143,6 +143,7 @@ class Command(BaseCommand):
             actual_length=15.3,
             price=12.0,
             location=location1,
-            notes="Seeded spot"
+            notes="Seeded spot",
+            owner=host
         )
         parking_spot_1.save()

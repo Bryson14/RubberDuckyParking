@@ -1,10 +1,20 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
-from .models import BaseUser, Attendant, Host, ParkingSpot, ParkingSize, Location
+from .models import BaseUser, Attendant, Host, ParkingSpot, ParkingSize, Location, Reservation
 from django.db.models import Q
-from .serializers import BaseUserSerializer, AttendantSerializer, HostSerializer, ParkingSizeSerializer, ParkingSpotSerializer, ParkingSpotCreateSerializer, ParkingSizeSerializer
-from .permissions import AuthenticatedPermission, HostPermission
+from .serializers import (
+    BaseUserSerializer,
+    AttendantSerializer,
+    HostSerializer,
+    ParkingSizeSerializer,
+    ParkingSpotSerializer,
+    ParkingSpotCreateSerializer,
+    ParkingSizeSerializer,
+    ReservationSerializer,
+    ReservationCreateSerialzier
+)
+from .permissions import AuthenticatedPermission, HostPermission, AttendantPermission
 from rest_framework.response import Response
 from rest_framework import viewsets
 from rest_framework.generics import CreateAPIView
@@ -132,13 +142,15 @@ class ParkingSpotViewSet(viewsets.ViewSet):
 
 
 class ParkingSizeViewSet(viewsets.ViewSet):
-
+    
     def get_queryset(self):
         return ParkingSize.objects.all()
 
     def get_permissions(self):
         if self.action in SAFE_METHODS:
             self.permission_classes = (AllowAny,)
+        if self.action == 'post':
+            self.permission_classes = (HostPermission,)
         return super(ParkingSizeViewSet, self).get_permissions()
 
     def list(self, request):
@@ -155,4 +167,55 @@ class ParkingSizeViewSet(viewsets.ViewSet):
         serializer = ParkingSizeSerializer(instance, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
         serializer.save()
+        return Response(serializer.data)
+
+
+class ReservationViewSet(viewsets.ViewSet):
+
+    def get_queryset(self):
+        queryset = Reservation.objects.all()
+        user = self.request.user
+        if self.action == 'myreservations' and user.is_host():
+            queryset = queryset.filter(parking_spot__owner=Host.objects.get(user=user))
+        elif self.action == 'bossreservations' and user.is_attendant():
+            attendant = Attendant.objects.get(user=user)
+            if attendant.boss:
+                queryset = queryset.filter(parking_spot__owner=Attendant.objects.get(user=user).boss)
+            else:
+                queryset = []
+        else:
+            queryset = queryset.filter(user=user)
+        return queryset
+
+
+    def list(self, request):
+        serializer = ReservationSerializer(self.get_queryset(), many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, pk=None):
+        user = get_object_or_404(self.get_queryset(), pk=pk)
+        serializer = ReservationSerializer(user)
+        return Response(serializer.data)
+        
+    def post(self, request, pk=None, *args, **kwargs):
+        request.data['user'] = request.user.pk
+        if pk is None:
+            serializer = ReservationCreateSerialzier(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+        else:
+            instance = self.get_queryset().get(pk=pk)
+            serializer = ReservationSerializer(instance, data=request.data, partial=True)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+        return Response(serializer.data)
+
+    @action(detail=False, permission_classes=[HostPermission])
+    def myreservations(self, request):
+        serializer = ReservationSerializer(self.get_queryset(), many=True)
+        return Response(serializer.data)
+
+    @action(detail=False, permission_classes=[AttendantPermission])
+    def bossreservations(self, request):
+        serializer = ReservationSerializer(self.get_queryset(), many=True)
         return Response(serializer.data)

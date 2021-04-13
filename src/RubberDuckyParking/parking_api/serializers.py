@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import BaseUser, Host, Attendant, ParkingSpot, ParkingSize, Location
+from .models import BaseUser, Host, Attendant, ParkingSpot, ParkingSize, Location, Reservation
+
 
 class BaseUserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -38,11 +39,29 @@ class LocationSerializer(serializers.ModelSerializer):
 class ParkingSpotSerializer(serializers.ModelSerializer):
     parking_size = ParkingSizeSerializer(read_only=True)
     location = LocationSerializer(read_only=True)
+    owner = HostSerializer(read_only=True)
     class Meta:
         model = ParkingSpot
-        fields = ['pk', 'uid', 'parking_size', 'price', 'location', 'notes', 'actual_width', 'actual_length']
+        fields = ['pk', 'uid', 'parking_size', 'price', 'location', 'notes', 'actual_width', 'actual_length', 'owner']
+
 
 class ParkingSpotCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = ParkingSpot
         fields = '__all__'
+
+
+class ReservationSerializer(serializers.ModelSerializer):
+    parking_spot = ParkingSpotSerializer(read_only=True)
+    user = BaseUserSerializer(read_only=True)
+
+    class Meta:
+        model = Reservation
+        fields = ['pk', 'parking_spot', 'start_date', 'end_date', 'user']
+
+
+class ReservationCreateSerialzier(serializers.ModelSerializer):
+    class Meta:
+        model = Reservation
+        fields = '__all__'
+
