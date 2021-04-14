@@ -93,7 +93,7 @@ const DetailCard = ({ key, id, parking_size, price,
         let end = new Date(endTime);
         if (endTime !== 0 &&
         startTime !== 0 &&
-        endTime > startTime) {
+        end > start) {
             let data = {
                 "parking_spot": id,
                 "start_date" : start.toISOString(),
@@ -104,7 +104,9 @@ const DetailCard = ({ key, id, parking_size, price,
                     let id = r.data.id;
                     alert("i got r pk of the reservation back: ", r);
                     history.push(`reservation/${id}`)
-                });
+                }).catch((err) => {
+                    alert("Something went wrong creating reservation!\nPlease try again.");
+            });
 
         } else {
             alert("Please fill in the form for duration and start time at the bottom of the page.");
@@ -134,7 +136,7 @@ const DetailCard = ({ key, id, parking_size, price,
                 <p><b>Description:</b> {location.description}</p>
                 <p><b>Address:</b> <i>{location.address}, {location.city}</i></p>
                 <p><b>Notes:</b> {notes}</p>
-                <p><b>Actual Width:</b> {actual_width}ft  <b>Actual Length: {actual_length}ft</b></p>
+                <p><b>Actual Width:</b> {actual_width}ft  <b>Actual Length:</b> {actual_length}ft</p>
             </div>
             <div className="text-right">
                 <p><b><i>This spot is hosted by {owner.user.first_name}</i></b></p>
