@@ -8,7 +8,7 @@ const DetailCard = ({ key, id, parking_size, price,
 
     const history = useHistory();
     const [startTime, setStartTime] = useState(new Date().getTime());
-    const [endTime, setEndTime] = useState(new Date().getTime());
+    const [endTime, setEndTime] = useState(0);
     const [durationHour, setDurationHour] = useState(0);
     const [durationMinute, setDurationMinute] = useState(0);
     const [cost, setCost] = useState(0);
@@ -101,8 +101,9 @@ const DetailCard = ({ key, id, parking_size, price,
             }
             api.post(/reservation/, data)
                 .then(r => {
+                    let id = r.data.id;
                     alert("i got r pk of the reservation back: ", r);
-                    history.push(`reservation/${r}`)
+                    history.push(`reservation/${id}`)
                 });
 
         } else {

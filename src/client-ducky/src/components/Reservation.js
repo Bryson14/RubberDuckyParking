@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import api from '../auth/api'
 
 
 const ReservationData = {
@@ -26,54 +27,51 @@ const ReservationData = {
 
 const Reservation = ({id, isAuthenticated, token}) => {
 
-    const [resData, setResData] = useState({});
-    const [resID, setResID] = useState(id);
-    const [qrCode, setQrCode] = useState({});
+    const [resData, setResData] = useState("");
 
     useEffect(() => {
-        if (Object.keys(resData).length === 0) {
-            let path = window.location.pathname
-            path = path.split("/");
-            console.log("pathname : ",path[path.length - 1]);
-            if (path[path.length - 2] === "reservation") {
-                let idx = Number(path[path.length - 1]);
-                setResID(idx);
-                console.log("res data", ReservationData[resID]);
-                setResData(ReservationData[resID]);
-                // setQrCode(data); TODO make a api call to /api/qrcode/?data=someURL
-            }
-        }
+        debugger;
+        let paths = window.location.pathname.split("/");
+        let l = paths.length;
+        api.get(`reservations/${paths[l-1]}/`)
+            .then(res => {
+                if(res.data) {
+                    setResData(res.data)
+                    console.log("Setting data")
+                } else {
+                    console.log("No data from server!")
+                }
+            }).catch(err => {
+            console.log("Error getting details from server!")
+        })
     })
-
-    function authenticate () {
-        return isAuthenticated;
-    }
 
     function showData() {
         return (
             <div className="container parking-card">
-                <h2>Reservation Detail</h2>
-                <div className="row">
-                    <div className="col-lg-4 col-md-12">
-                        <img src={qrCode} alt="Confirmation QR Code"/>
+                <div className="jumbotron">
+                    <h2>{resData.location.name}</h2>
+                    <div className="row">
+                        <div className="col-md-12">
+                            <p><b>Start Time:</b> $ {resData.start_date} / hr</p>
+                            <p><b>End Time:</b> $ {resData.end_date} / hr</p>
+                        </div>
+                        <div className="col-md-12">
+                            <img src={"QRCODE.png"} alt={"QRCODE"}/>
+                        </div>
                     </div>
-                    <div className="col-lg-8 col-md-12">
-                        <ul>
-                            <li>Name - {resData.renterName}</li>
-                            <li>Host Name - {resData.hostName}</li>
-                            <li>Reservation Time - {resData.reservationDateTime}</li>
-                            <li>End Time - {resData.reservationDateTime + resData.duration}</li>
-                            <li>* Car Details *</li>
-                            <ul>
-                                <li>Year - {resData.carInfo.year}</li>
-                                <li>Make - {resData.carInfo.make}</li>
-                                <li>Model - {resData.carInfo.model}</li>
-                                <li>Color - {resData.carInfo.color}</li>
-                                <li>License Plate - {resData.carInfo.licenseNo}</li>
-                            </ul>
-                            <li>Spot ID - {resData.spotID}</li>
-                        </ul>
-                    </div>
+
+
+                </div>
+                <div>
+                    <p><b>Cost:</b> $ {resData.price} / hr</p>
+                    <p><b>Description:</b> {resData.location.description}</p>
+                    <p><b>Address:</b> <i>{resData.location.address}, {resData.location.city}</i></p>
+                    <p><b>Notes:</b> {resData.notes}</p>
+                    <p><b>Actual Width:</b> {resData.actual_width}ft  <b>Actual Length: {resData.actual_length}ft</b></p>
+                </div>
+                <div className="text-right">
+                    <p><b><i>This spot is hosted by {resData.owner.user.first_name}</i></b></p>
                 </div>
             </div>
         )
@@ -89,10 +87,10 @@ const Reservation = ({id, isAuthenticated, token}) => {
     }
 
     return (
-        <div>
-            {Object.keys(resData).length !== 0 ? showData() : errorMessage() }
-        </div>
-    );
+        (resData?
+        showData():
+        errorMessage())
+    )
 
 
 }

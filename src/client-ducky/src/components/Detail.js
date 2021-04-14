@@ -16,8 +16,7 @@ const Detail = ({spot_id, isAuthenticated, token}) => {
     }
 
     const getPathname = () => {
-        const pathname = window.location.pathname
-        return pathname;
+        return window.location.pathname
     }
 
     useEffect(() => {
