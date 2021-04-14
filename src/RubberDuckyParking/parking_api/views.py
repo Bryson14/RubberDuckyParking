@@ -13,7 +13,9 @@ from .serializers import (
     ParkingSpotCreateSerializer,
     ParkingSizeSerializer,
     ReservationSerializer,
-    ReservationCreateSerialzier
+    ReservationCreateSerialzier,
+    LocationSerializer,
+    LocationCreateSerializer
 )
 from .permissions import AuthenticatedPermission, HostPermission, AttendantPermission
 from rest_framework.response import Response
@@ -179,6 +181,46 @@ class ParkingSizeViewSet(viewsets.ViewSet):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
+
+
+class LocationViewSet(viewsets.ViewSet):
+    
+    def get_queryset(self):
+        user = self.request.user
+        return Location.objects.filter(host__user=user)
+
+    def get_permissions(self):
+        print('HERE IS ACTION: ', self.action)
+        if self.action in SAFE_METHODS:
+            self.permission_classes = (AllowAny,)
+        if self.action == 'post':
+            self.permission_classes = (HostPermission,)
+        return super(LocationViewSet, self).get_permissions()
+
+    def list(self, request):
+        serializer = LocationSerializer(self.get_queryset(), many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, pk=None):
+        user = get_object_or_404(self.get_queryset(), pk=pk)
+        serializer = LocationSerializer(user)
+        return Response(serializer.data)
+        
+    def post(self, request, pk=None, *args, **kwargs):
+        if request.user.is_host():
+            if pk is None:
+                request.data['host'] = Host.objects.get(user=request.user)
+                serializer = LocationCreateSerializer(data=request.data)
+                serializer.is_valid(raise_exception=True)
+                serializer.save()
+            else:
+                request.data['host'] = Host.objects.get(user=request.user)
+                instance = self.get_queryset().get(pk=pk)
+                serializer = LocationCreateSerializer(instance, data=request.data, partial=True)
+                serializer.is_valid(raise_exception=True)
+                serializer.save()
+            return Response(serializer.data)
+        return Response({'success': False})
 
 
 class ReservationViewSet(viewsets.ViewSet):
