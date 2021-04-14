@@ -2,35 +2,11 @@ import React, {useState, useEffect} from 'react';
 import api from '../auth/api'
 
 
-const ReservationData = {
-    123: {
-        renterName: "Bryson Meiling",
-        renterID: 6481,
-        hostName: "Jazmin Bybee",
-        hostID: 8491,
-        purchaseDateTime: "2020-03-28T12:35:02:123654",
-        reservationDateTime : "2021-03-29T32:12:00",
-        rate: 12.0,
-        duration: 3.5,
-        amount: 42.00,
-        spotId: 946,
-        carID: 321564,
-        carInfo: {
-            year: 2014,
-            make: "Nissan",
-            model: "Sentra",
-            color: "Blue",
-            licenseNo: "f483es"
-        }
-    }
-}
-
 const Reservation = ({id, isAuthenticated, token}) => {
 
     const [resData, setResData] = useState("");
 
     useEffect(() => {
-        debugger;
         let paths = window.location.pathname.split("/");
         let l = paths.length;
         api.get(`reservations/${paths[l-1]}/`)
@@ -50,13 +26,13 @@ const Reservation = ({id, isAuthenticated, token}) => {
         return (
             <div className="container parking-card">
                 <div className="jumbotron">
-                    <h2>{resData.location.name}</h2>
+                    <h2>{resData.parking_spot.location.name}</h2>
                     <div className="row">
-                        <div className="col-md-12">
-                            <p><b>Start Time:</b> $ {resData.start_date} / hr</p>
-                            <p><b>End Time:</b> $ {resData.end_date} / hr</p>
+                        <div className="col-md-12 col-lg-6">
+                            <p><b>Start Time:</b> $ {resData.start_date}</p>
+                            <p><b>End Time:</b> $ {resData.end_date}</p>
                         </div>
-                        <div className="col-md-12">
+                        <div className="col-md-12 col-lg-6">
                             <img src={"QRCODE.png"} alt={"QRCODE"}/>
                         </div>
                     </div>
@@ -64,14 +40,14 @@ const Reservation = ({id, isAuthenticated, token}) => {
 
                 </div>
                 <div>
-                    <p><b>Cost:</b> $ {resData.price} / hr</p>
-                    <p><b>Description:</b> {resData.location.description}</p>
-                    <p><b>Address:</b> <i>{resData.location.address}, {resData.location.city}</i></p>
-                    <p><b>Notes:</b> {resData.notes}</p>
-                    <p><b>Actual Width:</b> {resData.actual_width}ft  <b>Actual Length: {resData.actual_length}ft</b></p>
+                    <p><b>Cost:</b> $ {resData.parking_spot.price} / hr</p>
+                    <p><b>Description:</b> {resData.parking_spot.location.description}</p>
+                    <p><b>Address:</b> <i>{resData.parking_spot.location.address}, {resData.parking_spot.location.city}</i></p>
+                    <p><b>Notes:</b> {resData.parking_spot.notes}</p>
+                    <p><b>Actual Width:</b> {resData.parking_spot.actual_width}ft  <b>Actual Length: {resData.parking_spot.actual_length}ft</b></p>
                 </div>
                 <div className="text-right">
-                    <p><b><i>This spot is hosted by {resData.owner.user.first_name}</i></b></p>
+                    <p><b><i>This spot is hosted by {resData.parking_spot.owner.user.first_name}</i></b></p>
                 </div>
             </div>
         )
