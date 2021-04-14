@@ -14,6 +14,14 @@ function Header({isAuthenticated, setIsAuthenticated}) {
         history.push('/login')
     }
 
+    useEffect(() => {
+        if (localStorage.getItem('isAuthenticated')) {
+            setIsAuthenticated(true);
+        }
+    })
+
+
+
     return (
         <nav className="navbar navbar-expand-md navbar-dark bg-dark">
             <div className="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
@@ -45,7 +53,6 @@ function Header({isAuthenticated, setIsAuthenticated}) {
                                 </li>
                             </>
 
-
                         ): (
                             <li className="nav-item">
                                 <Link className='nav-link' to='/login'>Login</Link>
@@ -54,7 +61,6 @@ function Header({isAuthenticated, setIsAuthenticated}) {
                     }
                 </ul>
             </div>
-
       </nav>
   )
 }
