@@ -137,7 +137,7 @@ const DetailCard = ({ key, id, parking_size, price,
                 <p><i>{location.address}, {location.city}</i></p>
             </div>
             <div>
-                <h3><i>This spot is hosted by {owner.user.first_name}</i></h3>
+                <p><b><i>This spot is hosted by {owner.user.first_name}</i></b></p>
             </div>
             <hr/>
             <div>
