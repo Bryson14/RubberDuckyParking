@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import api from '../auth/api';
 import {useHistory} from 'react-router-dom';
 
@@ -7,7 +7,6 @@ const DetailCard = ({ key, id, parking_size, price,
                         actual_length, owner}) => {
 
     const history = useHistory();
-
     const [startTime, setStartTime] = useState(new Date().getTime());
     const [endTime, setEndTime] = useState(new Date().getTime());
     const [durationHour, setDurationHour] = useState(0);
@@ -26,11 +25,11 @@ const DetailCard = ({ key, id, parking_size, price,
     }
 
     const calcCost = (hours, minutes) => {
-        let end = new Date(startTime.valueOf());
+        let end = new Date(startTime);
         end.addHours(durationHour);
         end.addMinutes(durationMinute);
         setEndTime(end.getTime());
-        setCost(Math.round((durationHour + durationMinute / 60 ) * Number(price)));
+        setCost(Math.round(((durationHour + durationMinute / 60 ) * Number(price) * 10))/10);
     }
 
     const handleHour = (e) => {
@@ -38,21 +37,18 @@ const DetailCard = ({ key, id, parking_size, price,
         if (isNaN(curr_val)) {
             e.target.value = "";
             setDurationHour(0);
-            calcCost(0, durationMinute);
         }
-        if (curr_val > 24) {
-            e.target.value = "24";
-            setDurationHour(24);
-            alert("Can only rent for a maximum of 24 hours.");
-            calcCost(24, durationMinute);
+        const maxTime = 24*7;
+        if (curr_val > maxTime) {
+            e.target.value = maxTime.toString();
+            setDurationHour(maxTime);
+            alert(`Can only rent for a maximum of ${maxTime} hours.`);
         } else if (curr_val < 0) {
             e.target.value = "";
             setDurationHour(0);
-            calcCost(0, durationMinute);
         } else {
             e.target.value = Math.round(curr_val);
             setDurationHour(Math.round(curr_val));
-            calcCost(Math.round(curr_val), durationMinute);
         }
     }
 
@@ -61,26 +57,20 @@ const DetailCard = ({ key, id, parking_size, price,
         if (isNaN(curr_val)) {
             e.target.value = "";
             setDurationMinute(0);
-            calcCost(durationHour, 0);
         }
         if (curr_val > 59) {
             e.target.value = "59";
             setDurationMinute(59);
-            calcCost(durationHour, 59);
         } else if (curr_val < 0) {
             e.target.value = "";
             setDurationMinute(0);
-            calcCost(durationHour, 0);
         } else {
             e.target.value = Math.round(curr_val);
             setDurationMinute(Math.round(curr_val));
-            calcCost(durationHour, Math.round(curr_val));
         }
-        calcCost();
     }
 
     const handleStartDay = (e) => {
-        debugger;
         let tempDate = new Date(e.target.value);
         let startDate = new Date(startTime);
         startDate.setFullYear(tempDate.getFullYear());
@@ -90,7 +80,6 @@ const DetailCard = ({ key, id, parking_size, price,
     }
 
     const handleStartTime = (e) => {
-        debugger;
         let temp = e.target.value.split(":");
         let startDate = new Date(startTime);
         startDate.setHours(temp[0]);
@@ -100,7 +89,6 @@ const DetailCard = ({ key, id, parking_size, price,
     }
 
     const handleButton = (e) => {
-        debugger;
         let start = new Date(startTime);
         let end = new Date(endTime);
         if (endTime !== 0 &&
@@ -117,8 +105,14 @@ const DetailCard = ({ key, id, parking_size, price,
                     history.push(`reservation/${r}`)
                 });
 
+        } else {
+            alert("Please fill in the form for duration and start time at the bottom of the page.");
         }
     }
+
+    useEffect(() => {
+        calcCost(durationHour, durationMinute);
+    })
 
     if (location === undefined || parking_size === undefined) {
         return (
@@ -132,11 +126,16 @@ const DetailCard = ({ key, id, parking_size, price,
         <div className="container-fluid">
             <div className="jumbotron">
                 <h2>{location.name}</h2>
-                <p>$ {price} / hr</p>
-                <p>{location.description}</p>
-                <p><i>{location.address}, {location.city}</i></p>
+
             </div>
             <div>
+                <p><b>Cost:</b> $ {price} / hr</p>
+                <p><b>Description:</b> {location.description}</p>
+                <p><b>Address:</b> <i>{location.address}, {location.city}</i></p>
+                <p><b>Notes:</b> {notes}</p>
+                <p><b>Actual Width:</b> {actual_width}ft  <b>Actual Length: {actual_length}ft</b></p>
+            </div>
+            <div className="text-right">
                 <p><b><i>This spot is hosted by {owner.user.first_name}</i></b></p>
             </div>
             <hr/>
@@ -161,14 +160,27 @@ const DetailCard = ({ key, id, parking_size, price,
                     <input id="hour_input" className="form-control" type={"date"} onChange={handleStartDay}/>
                     <input id="minute_input" className="form-control" type={"time"} onChange={handleStartTime}/>
                 </div>
+                <br/>
+                <div className="row">
+                    <div className="col-sm-12 col-lg-6">
+                        <p><b>From:</b> {Date(startTime).toLocaleString()}</p>
+                    </div>
+                    <div className="col-sm-12 col-lg-6">
+                        <p><b>To:</b> {Date(endTime).toLocaleString()} </p>
+                    </div>
+                    <div className="col-sm-6 col-lg-6">
+                        <p><b>Total time:</b>{durationHour}hr {durationMinute}min</p>
+                    </div>
+                    <div className="col-sm-6 col-lg-6">
+                        <p><b>Total cost:</b> ${cost}</p>
+                    </div>
+                </div>
                 <div className="input-group">
                     <button type="button" className="btn btn-primary btn-lg btn-block"
                             onClick={handleButton}>Make Reservation</button>
-                    <p>From {Date(startTime).toLocaleString()}</p>
-                    <p>To {Date(endTime).toLocaleString()} </p>
-                    <p>| {durationHour}hr {durationMinute}min</p>
-                    <p>Total cost ${cost}</p>
                 </div>
+
+
 
             </div>
         </div>

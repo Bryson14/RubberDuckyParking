@@ -51,7 +51,7 @@ const Detail = ({spot_id, isAuthenticated, token}) => {
 
     return (
             <div className="container">
-                <img src="top_down_parking_stock.jpg" alt="You're next parking spot is waiting!"/>
+                <img src="public/top_down_parking_stock.jpg" alt="You're next parking spot is waiting!"/>
                 {(isAuthenticated) ?
                     (
                         (parkingSpot) ?
