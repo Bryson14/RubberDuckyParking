@@ -61,8 +61,7 @@ class BaseUserViewSet(viewsets.ViewSet):
     def me(self, request):
         if request.user.is_authenticated:
             serializer = BaseUserSerializer(request.user)
-
-            return Response(serializer.data)
+            return Response({"user": serializer.data, "host": self.request.user.is_host(), "attendant": self.request.user.is_attendant()})
         else:
             return Response({"error": "not found"}, status=404)
 
