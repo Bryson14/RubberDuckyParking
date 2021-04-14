@@ -100,4 +100,10 @@ p {
     margin-top: 4rem;
 }
 
+.small-search-bar {
+    max-width: 20%;
+}
+
+.search-bar {
+}
 

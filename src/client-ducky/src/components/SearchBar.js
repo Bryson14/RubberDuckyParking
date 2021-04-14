@@ -6,14 +6,16 @@ const SearchBar = ({url, method, fullscreen}) => {
     // at the top of the screen
 
     const [parkingSpots, setParkingSpots] = useState([])
+    const [location, setLocation] = useState("");
+    const [date, setDate] = useState(null);
+    const [parkingTypeIdx, setParkingTypeIdx] = useState(0);
 
-    const searchBarStyle = {
-        "maxWidth": "85%",
-        "borderRadius": "2rem"
-    };
+    let searchBarStyle = "form-div justify-content-center"
 
     if (!fullscreen) {
-        searchBarStyle["maxWidth"] = "55%";
+        searchBarStyle += " small-search-bar";
+    } else {
+        searchBarStyle += " search-bar";
     }
 
     function handleClick() {
@@ -24,10 +26,33 @@ const SearchBar = ({url, method, fullscreen}) => {
         api.get('parking-sizes/').then(res => {
             setParkingSpots(res.data)
         })
-    }, [])
+        if (window.location.pathname === "/s") {
+            const params = new URLSearchParams(window.location.search);
+            let spotType = params.get('size-type');
+            setLocation(params.get('location'));
+            setDate(params.get('date'));
+            let select = document.getElementById('size-type');
+            select.selectedIndex = spotType;
+        }
 
-    return (
-        <div className="form-div justify-content-center" style={searchBarStyle}>
+    }, [])
+    const handleLocation = (e) => {
+        setLocation(e.target.value);
+    }
+
+    const handleDate = (e) => {
+        setDate(e.target.value);
+    }
+
+    const handleSpotType = (e) => {
+        let v = e.target.selectedIndex;
+        setParkingTypeIdx(v);
+        let select = document.getElementById('size-type');
+        select.selectedIndex = v;
+    }
+
+     return (
+        <div className={searchBarStyle}>
             <form  method={method} action={url}>
                 <div className="form-row p-4">
                     <div className="form-group col-lg-4 col-sm-12">
@@ -35,17 +60,20 @@ const SearchBar = ({url, method, fullscreen}) => {
                                className="form-control"
                                placeholder={fullscreen ? "Where are you parking" : "Location"}
                                aria-label="Location"
-                               name="location" />
+                               name="location"
+                                value = {location}
+                               onChange={handleLocation}/>
                     </div>
                     <div className="form-group col-lg-3 col-sm-12">
-                        <input type="date" className="form-control datepicker" placeholder="Select Date" name="date" />
+                        <input type="date" className="form-control datepicker"
+                               placeholder="Select Date" name="date" onChange={handleDate}/>
                     </div>
                     <div className="form-group col-sm-12 col-lg-4">
-                        <select className="custom-select" id="size-type" name="size-type">
+                        <select className="custom-select" id="size-type" name="size-type" onChange={handleSpotType}>
                             <option value="" disabled>Parking Spot Size</option>
                             {parkingSpots.map((s) => (
                                 <option name="size-type" key={s.pk} value={s.pk} >
-                                    {s.name + "  |  " + s.description}
+                                    {s.name + "  |  " + s.min_width + " x " + s.min_length + "ft"}
                                 </option>
                             ))}
                         </select>

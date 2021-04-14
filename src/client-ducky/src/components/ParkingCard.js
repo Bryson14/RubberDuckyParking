@@ -1,20 +1,19 @@
 import React, {useState} from 'react';
 import {Redirect, useHistory} from 'react-router-dom'
 
-const ParkingCard = ({id, location, size, price}) => {
+const ParkingCard = ({id, location, size, price, notes}) => {
 
-    const [heartFile, setHeartFile] = useState("../public/black_heart.svg");
+    const [heartFile, setHeartFile] = useState("black_heart.svg");
     const [heartText, setHeartText] = useState("Not Liked");
 
-    const redHeart = "../public/red_heart.svg";
-    const blackHeart = "../public/black_heart.svg";
+    const redHeart = "red_heart.svg";
+    const blackHeart = "black_heart.svg";
     const notLiked = "Not Liked";
     const liked = "Liked Spot!";
 
     const history = useHistory()
 
     const handleButton = () => {
-        console.log("button pushed: ParkingcArd");
         let route = `/details/${id}`;
         history.push(route);
     }
@@ -22,15 +21,6 @@ const ParkingCard = ({id, location, size, price}) => {
     function heartClicked() {
         setHeartFile(heartFile === blackHeart ? redHeart : blackHeart);
         setHeartText(heartText === notLiked? liked : notLiked);
-        // const fs = require("fs");
-        // fs.readFile(heartFile, (err, data) => {
-        //     if (err) {
-        //         console.log("Error reading");
-        //         throw err};
-        //
-        //     console.log(data.toString())
-        // })
-        console.log(`The heart file is now ${heartFile}`);
     }
 
     return (
@@ -44,24 +34,21 @@ const ParkingCard = ({id, location, size, price}) => {
                     ): ''}
                 </div>
                 <div className="col-2" onClick={heartClicked}>
-                    {/*<object type="image/svg+xml" data={heartFile} >{heartText}</object>*/}
+                    <img src={heartFile} alt={heartText} width={35} height={35}/>
                 </div>
             </div>
             <div className="row">
-                <div className="col-lg-8 col-sm-12">
+                <div className="col-lg-8 col-sm-12 text-justify">
                     {location ? (
                         <div>
                             <div>
-                                {location.name}
+                                <h3>{location.name}</h3>
                             </div>
                             <div>
-                                {location.address}
+                                <i>{`${location.address} ${location.city}`}</i>
                             </div>
                             <div>
-                                {location.city}
-                            </div>
-                            <div>
-                                {location.description}
+                                {notes}
                             </div>
                         </div>
                     ): ''}
