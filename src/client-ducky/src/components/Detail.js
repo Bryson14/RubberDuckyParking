@@ -10,6 +10,7 @@ const Detail = ({spot_id, isAuthenticated, token}) => {
 
     function getSpot(pk) {
         api.get(`parking-spots/${pk}/`).then(res => {
+            debugger;
             setParkingSpot(res.data)
             setSpotIndex(pk)
         })
@@ -26,6 +27,17 @@ const Detail = ({spot_id, isAuthenticated, token}) => {
         if (p[p.length - 2] === "details") {
             let idx = Number(p[p.length - 1]);
             getSpot(idx);
+            api.get(`parking-spots/?${idx}`)
+                .then(res => {
+                    if(res.data) {
+                        setParkingSpot(res.data)
+                        console.log("Setting data")
+                    } else {
+                        console.log("No data from server!")
+                    }
+                }).catch( () => {
+                console.log("Error fetching data for the search page!")
+            })
         }
     }, []);
 
@@ -43,8 +55,7 @@ const Detail = ({spot_id, isAuthenticated, token}) => {
                     )}
 
                 {!Number.isNaN(spotIndex) ?
-                    <DetailCard key={parkingSpot.id} id={parkingSpot.id} title={parkingSpot.title}
-                                spot_type={parkingSpot.spot_type} price={parkingSpot.price} information={parkingSpot.desc}/>
+                    <DetailCard key={parkingSpot.id} id={parkingSpot.id} data={parkingSpot}/>
                     :
                     <h2>Something isn't right. Please check the parking spot's index.</h2>
                 }

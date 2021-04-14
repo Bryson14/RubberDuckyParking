@@ -15,13 +15,13 @@ import "./css/styles.css"
 
 function App() {
 
-  const [token, setToken] = useState(localStorage.getItem('token'));
-  const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('isAuthenticated'));
+  const [token, setToken] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
       let t = localStorage.getItem('token')
       let auth = localStorage.getItem('isAuthenticated')
-      if (t != null && auth != null) {
+      if (t != null && auth === true) {
           setToken(t);
           setIsAuthenticated(auth);
       }

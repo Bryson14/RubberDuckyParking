@@ -1,4 +1,6 @@
-const DetailCard = ({id ,title, spot_type, actual_width, actual_height, information, price, img_src}) => {
+const DetailCard = ({id ,data}) => {
+
+    debugger;
 
     function rentClicked () {
         let sent = false;
@@ -18,7 +20,7 @@ const DetailCard = ({id ,title, spot_type, actual_width, actual_height, informat
         <div className="text-left container parking-card m-3">
             <div className="row">
                 <div className="col-10">
-                    <p className=""><i>{spot_type}</i></p>
+                    <p className=""><i>type</i></p>
                 </div>
                 <div className="col-2">
                     <img className="m-2" src="../../public/red_heart.svg" alt=""/>
@@ -26,11 +28,11 @@ const DetailCard = ({id ,title, spot_type, actual_width, actual_height, informat
             </div>
             <div className="row">
                 <div className="col-lg-8 col-sm-12">
-                    <h3 className="">{title}</h3>
-                    <p className="">{information}</p>
+                    <h3 className="">title</h3>
+                    <p className="">information</p>
                 </div>
                 <div className="col-lg-2 col-sm-6">
-                    <p><b>$ {price} / hr</b></p>
+                    <p><b>$ 10 / hr</b></p>
                 </div>
                 <div className="col-lg-2 col-sm-6 ">
                     <button onClick={rentClicked}>RENT ME!</button>

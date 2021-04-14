@@ -50,6 +50,7 @@ const Search = () => {
                             location={spot.location}
                             size={spot.parking_size}
                             price={spot.price}
+                            notes={spot.notes}
                         />
                     )) :
                     <div className="container">
