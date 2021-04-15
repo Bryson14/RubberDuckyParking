@@ -83,7 +83,7 @@ $ (ducky_env) python manage.py runserver
 ```
 
 ### Unit Testing
-`./manage.py test` will run the JDango's built in system to run unit test that are found in `test.py`
+to run the api tests:  `python3 manage.py test parking_api`
 
 ### System Testing
 For best testing results, running the server on many different computers and accessing them from various browsers for desktop and mobile (Brave, Cake, Safari, Chrome, Edge, Mozilla)

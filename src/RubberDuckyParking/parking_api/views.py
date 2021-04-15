@@ -173,10 +173,15 @@ class ParkingSizeViewSet(viewsets.ViewSet):
         return Response(serializer.data)
         
     def post(self, request, pk=None, *args, **kwargs):
-        instance = self.get_queryset().get(pk=pk)
-        serializer = ParkingSizeSerializer(instance, data=request.data, partial=True)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
+        if pk: 
+            instance = self.get_queryset().get(pk=pk)
+            serializer = ParkingSizeSerializer(instance, data=request.data, partial=True)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+        else:
+            serializer = ParkingSizeSerializer(data=request.data, partial=True)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
         return Response(serializer.data)
 
 
