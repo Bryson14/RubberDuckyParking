@@ -1,12 +1,23 @@
 # Parking App
 
-### Development Notes
-- Follow `Project Setup` below for the high-fidelity prototype and HERE for the low-fidelity prototype.
-- We already did enough work on our low-fidelity prototype that it turned into the high-fidelity one. 
-- For activity, case, and class diagrams, updated project definition, and project plan, look at `RubberDuckyParking/documentation/homework_milestones/milestone2/requirements_definition_group_6.pdf`
-- Look on `github.com/Bryson14/RubberDuckyParking/issues` for our GitHub backlog and `RubberDuckeyParking/documentation/homework_milestones/milestone2/issues_screenshot.png` for a screenshot of all issues.
-
-
+### Development Notes (Milestone 3)
+<pre>
+- [x] Sprint Planning Documents:      See *documentation/homework_milestones/milestone3/*
+- [x] Standup Reports:                See *documentation/homework_milestones/milestone3/*
+- [x] Sprint Retroactive Reports:     See *documentation/homework_milestones/milestone3/*
+- [x] 80% of Application completed
+  - [x] User Route frontend Completed
+  - [x] Most Backend API URLs Completed
+  - [x] Profile almost Completed
+  - [ ] Make host frontend route
+  - [ ] Make Attendant frontend route
+- [x] Testing: 
+- Updated Documentation
+  - [x] Project Plan                 See *documentation/homework_milestones/milestone3/requirements_definition_group_6_milestone_3.pdf*
+  - [x] Requirement Definition       See *documentation/homework_milestones/milestone3/requirements_definition_group_6_milestone_3.pdf*
+  - [x] Analysis and diagrams        See *documentation/homework_milestones/milestone3/requirements_definition_group_6_milestone_3.pdf*
+- [x] Updated README.md
+</pre>
 
 ### Organization
 The project is organized into two main part: `src` and `documentation`. Since this is a semester project, there is lots of documentation and decisions made in `documentation` under their respective milestones folders. `src` contains the django webserver, the website files, database, and anything else to run the app.
