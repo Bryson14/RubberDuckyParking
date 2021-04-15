@@ -99,7 +99,7 @@ const DetailCard = ({ key, id, parking_size, price,
                 "start_date" : start.toISOString(),
                 "end_date": end.toISOString()
             }
-            api.post(/reservation/, data)
+            api.post('reservations/', data)
                 .then(r => {
                     let id = r.data.id;
                     alert("i got r pk of the reservation back: ", r);

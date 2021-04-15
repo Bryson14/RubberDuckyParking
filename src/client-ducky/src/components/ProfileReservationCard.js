@@ -5,7 +5,6 @@ const ProfileReservationCard = ({props}) => {
     debugger;
 
     const [data, setData] = useState(props)
-    debugger;
     const history = useHistory();
 
     const handleClicked = () => {
