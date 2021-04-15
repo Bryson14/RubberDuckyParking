@@ -209,7 +209,6 @@ const Profile = ({isAuthenticated}) => {
         api.get("users/me/")
             .then(r => {
                 if(r.data) {
-                    debugger;
                     setProfileData(r.data)
                     console.log("Setting data")
                 } else {
@@ -220,11 +219,9 @@ const Profile = ({isAuthenticated}) => {
         })
 
         // personal reservations
-        debugger;
         api.get("reservations/")
             .then(r => {
                 if(r.data) {
-                    debugger;
                     setPersonalRes(r.data)
                     console.log("Setting data")
                 } else {
@@ -235,11 +232,9 @@ const Profile = ({isAuthenticated}) => {
         })
 
         // personal reservations
-        debugger;
         api.get("reservations/myreservations/")
             .then(r => {
                 if(r.data) {
-                    debugger;
                     setMyRes(r.data)
                     console.log("Setting data")
                 } else {
@@ -250,11 +245,9 @@ const Profile = ({isAuthenticated}) => {
         })
 
         // personal reservations
-        debugger;
         api.get("reservations/bossreservations/")
             .then(r => {
                 if(r.data) {
-                    debugger;
                     setBossRes(r.data)
                     console.log("Setting data")
                 } else {
@@ -275,6 +268,7 @@ const Profile = ({isAuthenticated}) => {
                             <h4>My Reservations</h4>
                             {
                                 personalRes.map((r) => {
+                                    debugger;
                                     <ProfileReservationCard props={r} />
                                 })
                             }
