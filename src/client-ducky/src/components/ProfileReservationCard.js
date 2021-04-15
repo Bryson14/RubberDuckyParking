@@ -4,7 +4,6 @@ import {useHistory} from 'react-router-dom'
 const ProfileReservationCard = (props) => {
 
     const [data, setData] = useState(props)
-    debugger;
     const history = useHistory();
 
     const handleClicked = () => {
