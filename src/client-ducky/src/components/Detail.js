@@ -10,15 +10,13 @@ const Detail = ({spot_id, isAuthenticated, token}) => {
 
     function getSpot(pk) {
         api.get(`parking-spots/${pk}/`).then(res => {
-            debugger;
             setParkingSpot(res.data)
             setSpotIndex(pk)
         })
     }
 
     const getPathname = () => {
-        const pathname = window.location.pathname
-        return pathname;
+        return window.location.pathname
     }
 
     useEffect(() => {
@@ -27,7 +25,7 @@ const Detail = ({spot_id, isAuthenticated, token}) => {
         if (p[p.length - 2] === "details") {
             let idx = Number(p[p.length - 1]);
             getSpot(idx);
-            api.get(`parking-spots/?${idx}`)
+            api.get(`parking-spots/${idx}/`)
                 .then(res => {
                     if(res.data) {
                         setParkingSpot(res.data)
@@ -35,31 +33,42 @@ const Detail = ({spot_id, isAuthenticated, token}) => {
                     } else {
                         console.log("No data from server!")
                     }
-                }).catch( () => {
-                console.log("Error fetching data for the search page!")
+                }).catch(err => {
+                    console.log("Error getting details from server!")
             })
         }
     }, []);
 
-    function authenticate () {
-        return isAuthenticated;
+    const notLoggedIn = () => {
+        return (
+            <div>
+                <h2>Whoops, it looks like your not logged in.</h2>
+                <p>Please login and return to make a reservation</p>
+            </div>
+        )
     }
 
     return (
             <div className="container">
-                {(authenticate()) ?
+                <img src="public/top_down_parking_stock.jpg" alt="You're next parking spot is waiting!"/>
+                {(isAuthenticated) ?
                     (
-                        <p>Logged In</p>
+                        (parkingSpot) ?
+                                (<DetailCard
+                                    key={parkingSpot.pk}
+                                    id={parkingSpot.pk}
+                                    parking_size={parkingSpot.parking_size}
+                                    price={parkingSpot.price}
+                                    location={parkingSpot.location}
+                                    notes={parkingSpot.notes}
+                                    actual_width={parkingSpot.actual_width}
+                                    actual_length={parkingSpot.actual_length}
+                                    owner={parkingSpot.owner}
+                                />):
+                                (<h2>Something isn't right. Please check the parking spot's index.</h2>)
                     ): (
-                        <p>Not Logged in :(</p>
+                        notLoggedIn()
                     )}
-
-                {!Number.isNaN(spotIndex) ?
-                    <DetailCard key={parkingSpot.id} id={parkingSpot.id} data={parkingSpot}/>
-                    :
-                    <h2>Something isn't right. Please check the parking spot's index.</h2>
-                }
-
             </div>
     )
 }

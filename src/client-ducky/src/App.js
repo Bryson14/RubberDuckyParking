@@ -15,8 +15,8 @@ import "./css/styles.css"
 
 function App() {
 
-  const [token, setToken] = useState("");
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [token, setToken] = useState(localStorage.getItem('token'));
+  const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('isAuthenticated'));
 
   useEffect(() => {
       let t = localStorage.getItem('token')
@@ -52,7 +52,7 @@ function App() {
           </Route>
           {/*Protected Paths*/}
           <Route path="/profile">
-              <Profile isAuthenticated={isAuthenticated} token={token}/>
+              <Profile isAuthenticated={isAuthenticated}/>
           </Route>
           <Route path="/details">
               <Details isAuthenticated={isAuthenticated} token={token}/>
