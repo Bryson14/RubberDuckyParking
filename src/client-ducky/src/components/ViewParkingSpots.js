@@ -13,7 +13,6 @@ const ViewParkingSpots = () => {
             // Error: Objects are not valid as a React child
             // (found: object with keys {id}). If you meant to
             // render a collection of children, use an array instead.
-            debugger;
             console.log("is array: ", Array.isArray(res.data));
             // setParkingSpots(res.data)
         })

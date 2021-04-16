@@ -3,7 +3,7 @@ import api from '../auth/api'
 
 const AddParkingSpot = () => {
 
-    const [userId, setUserId] = useState("");
+    const [userId, setUserId] = useState({});
     const [parkingSpots, setParkingSpots] = useState([]);
 
     const getHostID = () => {
@@ -24,7 +24,6 @@ const AddParkingSpot = () => {
 
     return (
         // TODO set a uid for each spot that doesn't break the system
-        // TODO get the previous locations made by owner or else show 'No Locations made'
         // TODO get the host's id
 
         <div>

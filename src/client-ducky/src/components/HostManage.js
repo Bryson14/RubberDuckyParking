@@ -1,16 +1,33 @@
-import React, {useState} from 'react';
-import {Redirect, useHistory} from "react-router-dom"
+import React, {useState, useEffect} from 'react';
+import {Redirect} from "react-router-dom"
 import AddLocation from "./AddLocation";
 import AddParkingSpot from "./AddParkingSpot";
-import ProfileReservationCard from "./ProfileReservationCard";
 import ViewLocations from "./ViewLocations";
 import ViewParkingSpots from "./ViewParkingSpots";
+import api from "../auth/api";
 
 const HostManage = ({isAuthenticated}) => {
 
+    const [isHost, setIsHost] = useState(false);
+
+    useEffect(() => {
+        api.get("users/me/")
+            .then(r => {
+                if(r.data) {
+                    setIsHost(r.data.host)
+                } else {
+                    console.log("No data from server!")
+                }
+            }).catch(err => {
+            console.log("Error getting details from server!")
+        })
+    }, [isHost]);
+
     return (
         <>
-            {(isAuthenticated ?
+            {/*TODO fix this. right now the api route isn't made to make host*/}
+            {(isAuthenticated && {/*isHost*/}
+                ?
                 (<div className="container">
                     <div className="row m-3">
                         <div className="col-md-12 col-lg-6">
