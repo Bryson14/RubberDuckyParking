@@ -17,16 +17,8 @@ const AddLocation = () => {
 
 
     return (
-
-    //     name = models.CharField(max_length=100)             # i.e. "My right driveway"
-    // description = models.CharField(max_length=500)      # i.e. "the right side of a two car wide driveway
-    // address = models.CharField(max_length=100)
-    // city = models.CharField(max_length=50)
-    // zip_code = models.CharField(max_length=10, default="20500")          # i.e. 84093-3541
-    // state = models.CharField(max_length=3)
-    // host = models.ForeignKey(Host, on_delete=models.CASCADE)
     <div>
-        <div className="container narrow justify-content-center">
+        <div className="container justify-content-center">
             <div className="form-group">
                 <label>Name</label>
                 <input id='name' type="text" className="form-control"

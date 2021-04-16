@@ -107,3 +107,7 @@ p {
 .search-bar {
 }
 
+.location-card {
+    background-color: #F1F1F1;
+    border-radius: 1rem;
+}
