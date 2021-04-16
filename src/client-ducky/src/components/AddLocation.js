@@ -35,7 +35,11 @@ const AddLocation = () => {
                 state: state,
                 zip_code: zip
             }
-            // api.post()
+            console.log("posting new Location: \n", data);
+            // api.post('locations/, data)
+            //     .then((r) => {
+            //         console.log(r.data);
+            //     })
         }
     }
 
