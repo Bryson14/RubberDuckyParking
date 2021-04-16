@@ -103,6 +103,17 @@ const Profile = ({isAuthenticated}) => {
                                 }
                             </div>
                         ): ''}
+
+                    </div>
+                    <hr/>
+                    <div className="row">
+                        {!isHost && !isAttendant ? (
+                            <div className="col-md-12 col-lg-6">
+                                {/*TODO need to turn person in host at this point in database*/}
+                                <a href="/managehost/"><h4>Become a Host</h4></a>
+                            </div>
+                        ): ''}
+
                     </div>
 
                 </div>) :
