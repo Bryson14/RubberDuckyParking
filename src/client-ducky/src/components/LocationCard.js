@@ -1,7 +1,7 @@
 const LocationCard = (id) => {
 
     return (
-        <div>
+        <div className="location-card">
             <p>Hello World from Location Card id={id}</p>
         </div>
     )

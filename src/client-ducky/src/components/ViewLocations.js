@@ -28,7 +28,7 @@ const ViewLocations = () => {
                 ))}
             </div>
         ):(
-            <div className="location-card">
+            <div className="location-card-error">
                 <p>I don't see any locations you've made. :(</p>
                 <p>Make a Location!</p>
             </div>

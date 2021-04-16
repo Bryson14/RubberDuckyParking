@@ -1,7 +1,7 @@
 const ParkingSpotCard = (id) => {
 
     return (
-        <div>
+        <div className="location-card">
             <p>Hello World from Parking Spot Card id={id}</p>
         </div>
     )
