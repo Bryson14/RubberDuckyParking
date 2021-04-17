@@ -107,3 +107,12 @@ p {
 .search-bar {
 }
 
+.location-card {
+    background-color: #F1F1F1;
+    border-radius: 1rem;
+}
+
+.location-card-error {
+    background-color: #F1F1F1;
+    outline: 1px solid #E03154;
+}

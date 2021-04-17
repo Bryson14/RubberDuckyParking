@@ -2,8 +2,6 @@ import React, {useState} from 'react';
 import {useHistory} from 'react-router-dom'
 
 const ProfileReservationCard = ({props}) => {
-    debugger;
-
     const [data, setData] = useState(props)
     const history = useHistory();
 
