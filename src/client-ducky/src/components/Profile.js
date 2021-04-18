@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react"
 import api from "../auth/api";
 import {Redirect, useHistory} from "react-router-dom";
 import ProfileReservationCard from "./ProfileReservationCard";
+import BecomeHostModal from './BecomeHostModal';
 
 const Profile = ({isAuthenticated}) => {
 
@@ -12,7 +13,9 @@ const Profile = ({isAuthenticated}) => {
     const [isHost, setIsHost] = useState(false)
     const [isAttendant, setIsAttendant] = useState(false)
 
-    const history = useHistory();
+    const [displayModal, setDisplayModal] = useState(false)
+
+    // const history = useHistory();
 
     useEffect(() => {
         api.get("users/me/")
@@ -69,9 +72,8 @@ const Profile = ({isAuthenticated}) => {
         }
     }, [isHost, isAttendant])
 
-    const hostButton = (e) => {
-        // TODO make this person a host in the database
-        history.push("/managehost")
+    const toggleModal = (e) => {
+        setDisplayModal(!displayModal)
     }
 
     return (
@@ -122,15 +124,10 @@ const Profile = ({isAuthenticated}) => {
                     </div>
                     <hr/>
                     <div className="row justify-content-center">
-                        {!isHost && !isAttendant ? (
-                            <div className="col-md-12 col-lg-6">
-                                <p>It seems that you are currently not a host. However, this is one of the easiest
-                                decisions that you can make. Literally click on this button below, and the database
-                                will turn you into a supercharged host with magical powers. You will gain the
-                                ability to breath underwater, gather passive income off empty parking spots that you
-                                have, and maybe even save up enough for a Bugatti. But like all things, we can
-                                encourage you to do the right thing, but you must make this decision for yourself.</p>
-                                <button onClick={hostButton} className="btn btn-primary btn-block">Become a Host!</button>
+                        {!isHost ? (
+                            <div>
+                                <button onClick={toggleModal} className='btn btn-primary'>Become a Host</button>
+                                <BecomeHostModal showModal={displayModal} toggleModal={toggleModal}/>
                             </div>
                         ): ''}
 

@@ -13,14 +13,14 @@ const AddLocation = () => {
 
     const getHostID = () => {
         api.get(`users/me/`).then(res => {
-            debugger;
+            // debugger;
             setUserId(res.data)
         })
     }
 
     useEffect(() => {
         getHostID();
-    })
+    }, [])
 
     const handleSubmit = (e) => {
         if (userId === "") {

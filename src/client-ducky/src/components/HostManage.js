@@ -11,17 +11,17 @@ const HostManage = ({isAuthenticated}) => {
     const [isHost, setIsHost] = useState(false);
 
     useEffect(() => {
-        api.get("users/me/")
-            .then(r => {
-                if(r.data) {
-                    setIsHost(r.data.host)
-                } else {
-                    console.log("No data from server!")
-                }
-            }).catch(err => {
-            console.log("Error getting details from server!")
-        })
-    }, [isHost]);
+        // api.get("users/me/")
+        //     .then(r => {
+        //         if(r.data) {
+        //             setIsHost(r.data.host)
+        //         } else {
+        //             console.log("No data from server!")
+        //         }
+        //     }).catch(err => {
+        //     console.log("Error getting details from server!")
+        // })
+    }, []);
 
     return (
         <>
