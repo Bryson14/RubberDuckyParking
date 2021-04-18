@@ -18,7 +18,7 @@ function Header({isAuthenticated, setIsAuthenticated}) {
         if (localStorage.getItem('isAuthenticated')) {
             setIsAuthenticated(true);
         }
-    })
+    }, [])
 
 
 
@@ -36,12 +36,6 @@ function Header({isAuthenticated, setIsAuthenticated}) {
                     <li className="nav-item">
                         <Link className='nav-link' to="/about-us">Learn More</Link>
                     </li>
-                    {/* <li className="nav-item">
-                        <Link className='nav-link' to="/signup">List Your Spot</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className='nav-link' to="/login">Log In</Link>
-                    </li> */}
                     {
                         isAuthenticated ? (
                             <>
