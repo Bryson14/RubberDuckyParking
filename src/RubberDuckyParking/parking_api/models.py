@@ -31,10 +31,10 @@ class BaseUser(AbstractUser):
         verbose_name_plural = "Base Users"
 
     def is_host(self):
-        return Host.objects.filter(pk=self.pk).exists()
+        return Host.objects.filter(user__pk=self.pk).exists()
 
     def is_attendant(self):
-        return Attendant.objects.filter(pk=self.pk).exists()
+        return Attendant.objects.filter(user__pk=self.pk).exists()
 
 
 class BaseProfile(models.Model):

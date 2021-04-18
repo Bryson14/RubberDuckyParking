@@ -61,7 +61,18 @@ class BaseUserViewSet(viewsets.ViewSet):
     def me(self, request):
         if request.user.is_authenticated:
             serializer = BaseUserSerializer(request.user)
-            return Response({"user": serializer.data, "host": self.request.user.is_host(), "attendant": self.request.user.is_attendant()})
+            is_host = self.request.user.is_host()
+            is_attendant = self.request.user.is_attendant()
+            response_dict = {
+                "user": serializer.data,
+                "host": is_host,
+                "attendant": is_attendant,       
+            }
+            if is_host: 
+                response_dict['host_data'] = HostSerializer(Host.objects.get(user=request.user)).data
+            if is_attendant: 
+                response_dict['attendant_data'] = AttendantSerializer(Attendant.objects.get(user=request.user)).data
+            return Response(response_dict)
         else:
             return Response({"error": "not found"}, status=404)
 
@@ -94,6 +105,19 @@ class HostViewSet(viewsets.ViewSet):
         user = get_object_or_404(queryset, pk=pk)
         serializer = HostSerializer(user)
         return Response(serializer.data)
+
+    def post(self, request):
+        if request.user.is_host():
+            return Response({'success': False, 'message': 'you are already a host'})
+        else: 
+            try: 
+                host = Host.objects.create(user=request.user)
+                serialized_data = HostSerializer(host).data
+                return Response({'success': True, 'host': serialized_data})
+            except Exception as e: 
+                return Response({'success': False, 'message': 'could not create host', 'error': str(e)})
+        
+            
 
 
 class ParkingSpotViewSet(viewsets.ViewSet):
