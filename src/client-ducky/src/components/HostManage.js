@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {Redirect} from "react-router-dom"
-import AddParkingSpot from "./AddParkingSpot";
+// import AddParkingSpot from "./AddParkingSpot";
 import ViewLocations from "./ViewLocations";
 import ViewParkingSpots from "./ViewParkingSpots";
 import AddLocationModal from './AddLocationModal'
+import AddParkingSpotModal from './AddParkingSpotModal'
 import api from "../auth/api";
 
 const HostManage = ({isAuthenticated}) => {
@@ -11,9 +12,13 @@ const HostManage = ({isAuthenticated}) => {
     const [isHost, setIsHost] = useState(false);
 
     const [showLocationModal, setShowLocationModal] = useState(false);
+    const [showSpotModal, setShowSpotModal] = useState(false);
 
     const toggleLocationModal = () => {
         setShowLocationModal(!showLocationModal)
+    }
+    const toggleSpotModal = () => {
+        setShowSpotModal(!showSpotModal)
     }
 
     useEffect(() => {
@@ -45,13 +50,19 @@ const HostManage = ({isAuthenticated}) => {
                             <ViewParkingSpots />
                         </div>
                     </div>
-                    <button className='btn btn-primary' onClick={toggleLocationModal}>Add Location</button>
+                    <div className='row m-3'>
+                        <button className='btn btn-primary' onClick={toggleLocationModal}>Add Location</button>
+                    </div>
+                    <div className='row m-3'>
+                        <button className='btn btn-primary' onClick={toggleSpotModal}>Add Parking Spot</button>
+                    </div>
                     <div className="row m-3">
                         <AddLocationModal toggleModal={toggleLocationModal} showModal={showLocationModal}/>
-                        <div className="col-md-12 col-lg-6">
+                        <AddParkingSpotModal toggleModal={toggleSpotModal} showModal={showSpotModal}/>
+                        {/* <div className="col-md-12 col-lg-6">
                             <h4 className="m-2">Add a Parking Spot</h4>
                             <AddParkingSpot />
-                        </div>
+                        </div> */}
                     </div>
                 </div>) :
                 (<Redirect to={"/login/"}/>))}
