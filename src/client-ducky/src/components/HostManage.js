@@ -1,14 +1,20 @@
 import React, {useState, useEffect} from 'react';
 import {Redirect} from "react-router-dom"
-import AddLocation from "./AddLocation";
 import AddParkingSpot from "./AddParkingSpot";
 import ViewLocations from "./ViewLocations";
 import ViewParkingSpots from "./ViewParkingSpots";
+import AddLocationModal from './AddLocationModal'
 import api from "../auth/api";
 
 const HostManage = ({isAuthenticated}) => {
 
     const [isHost, setIsHost] = useState(false);
+
+    const [showLocationModal, setShowLocationModal] = useState(false);
+
+    const toggleLocationModal = () => {
+        setShowLocationModal(!showLocationModal)
+    }
 
     useEffect(() => {
         // api.get("users/me/")
@@ -39,11 +45,9 @@ const HostManage = ({isAuthenticated}) => {
                             <ViewParkingSpots />
                         </div>
                     </div>
+                    <button className='btn btn-primary' onClick={toggleLocationModal}>Add Location</button>
                     <div className="row m-3">
-                        <div className="col-md-12 col-lg-6">
-                            <h4 className="m-2">Add a Location</h4>
-                            <AddLocation />
-                        </div>
+                        <AddLocationModal toggleModal={toggleLocationModal} showModal={showLocationModal}/>
                         <div className="col-md-12 col-lg-6">
                             <h4 className="m-2">Add a Parking Spot</h4>
                             <AddParkingSpot />
