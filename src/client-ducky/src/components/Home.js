@@ -12,7 +12,6 @@ function Home() {
       </div>
 
       <div className="text-center container p-4">
-        {/* TODO: FIGURE OUT HOW THIS FORM THING IS GOING TO WORK */}
         <SearchBar url="/s" method="GET" fullscreen={true}/>
       </div>
     </div>

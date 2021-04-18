@@ -12,10 +12,12 @@
   - [ ] Make host frontend route
   - [ ] Make Attendant frontend route
 - [x] Testing: 
+  We have made extensive trials with different computer, Operating Systems, Browsers (Chrome, Firefox, Edge). 
+  This is our system testing and subsystem testing for the ui, react, and the api.
 - Updated Documentation
   - [x] Project Plan                 See *documentation/homework_milestones/milestone3/requirements_definition_group_6_milestone_3.pdf*
   - [x] Requirement Definition       See *documentation/homework_milestones/milestone3/requirements_definition_group_6_milestone_3.pdf*
-  - [x] Analysis and diagrams        See *documentation/homework_milestones/milestone3/requirements_definition_group_6_milestone_3.pdf*
+  - [x] Analysis, design, and diagrams        See *documentation/homework_milestones/milestone3/requirements_definition_group_6_milestone_3.pdf*
 - [x] Updated README.md
 </pre>
 

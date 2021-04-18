@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react"
 import api from "../auth/api";
-import {Redirect} from "react-router-dom";
+import {Redirect, useHistory} from "react-router-dom";
 import ProfileReservationCard from "./ProfileReservationCard";
+import BecomeHostModal from './BecomeHostModal';
 
 const Profile = ({isAuthenticated}) => {
 
@@ -11,6 +12,10 @@ const Profile = ({isAuthenticated}) => {
     const [bossRes, setBossRes] = useState([]);
     const [isHost, setIsHost] = useState(false)
     const [isAttendant, setIsAttendant] = useState(false)
+
+    const [displayModal, setDisplayModal] = useState(false)
+
+    // const history = useHistory();
 
     useEffect(() => {
         api.get("users/me/")
@@ -67,11 +72,23 @@ const Profile = ({isAuthenticated}) => {
         }
     }, [isHost, isAttendant])
 
+    const toggleModal = (e) => {
+        setDisplayModal(!displayModal)
+    }
+
     return (
         <>
             {(isAuthenticated ?
                 (<div className="container">
                     <h3>Welcome, {profileData.first_name}!</h3>
+                    <div className="row justify-content-center">
+                        {isHost ? (
+                            <div className="col-md-12 col-lg-6">
+                                <a href="/managehost/"><h4>Host Dashboard</h4></a>
+                            </div>
+                        ): ''}
+
+                    </div>
                     <div className="row">
                         <div className="col-md-12 col-lg-6">
                             <h4>My Reservations</h4>
@@ -103,6 +120,17 @@ const Profile = ({isAuthenticated}) => {
                                 }
                             </div>
                         ): ''}
+
+                    </div>
+                    <hr/>
+                    <div className="row justify-content-center">
+                        {!isHost ? (
+                            <div>
+                                <button onClick={toggleModal} className='btn btn-primary'>Become a Host</button>
+                                <BecomeHostModal showModal={displayModal} toggleModal={toggleModal}/>
+                            </div>
+                        ): ''}
+
                     </div>
 
                 </div>) :
