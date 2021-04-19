@@ -150,3 +150,12 @@ p {
 .hide  {
     display: none;
 }
+
+
+.locations-wrapper {
+    margin: 15px 0px 15px 0px;
+    max-height: 400px;
+    overflow-y: scroll;
+    border: 2px solid black;
+    border-radius: 10px;
+}

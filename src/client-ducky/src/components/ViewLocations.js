@@ -5,36 +5,44 @@ import LocationCard from "./LocationCard";
 const ViewLocations = () => {
 
     const [locations, setLocations] = useState([]);
+    const [showLocations, setShowLocations] = useState(false);
 
     useEffect(() => {
-        getLocations();
-    }, [locations])
-
-    const getLocations = () => {
-        api.get(`parking-spots/`).then(res => {
-            // TODO fix me, objects are not valid react children??
-            // setLocations(res.data);
-
+        api.get(`locations/`).then(res => {
+            setLocations(res.data)
         })
-        console.log("locations: ", locations);
+    }, [])
+
+    const toggleShowLocations = () => {
+        setShowLocations(!showLocations)
     }
 
-    return (
-    <>
-        {(locations.length > 0)?(
-            <div>
-                {locations.map((l) => (
-                    <LocationCard />
-                ))}
-            </div>
-        ):(
-            <div className="location-card-error">
-                <p>I don't see any locations you've made. :(</p>
-                <p>Make a Location!</p>
-            </div>
-        )}
 
-    </>
+    return (
+        <div>
+            {(locations.length > 0)?(
+                <div>
+                    <button className='btn btn-secondary' onClick={toggleShowLocations}>Show Your Locations</button>
+                    <div className='locations-wrapper'>
+                        {showLocations ? (
+                            <div>
+                                {locations.map((l) => (
+                                <LocationCard location={l} />
+                                ))}
+                            </div>
+                        ) : ''
+                        }
+                    </div>
+                </div>
+            ):(
+                <div className="location-card-error">
+                    <p>I don't see any locations you've made. :(</p>
+                    <p>Make a Location!</p>
+                </div>
+            )}
+        </div>
+    
+
         )
 }
 

@@ -5,7 +5,7 @@ import "../css/styles.css"
 
 const AddLocationModal = ({ showModal, toggleModal }) => {
 
-    const [userId, setUserId] = useState("");
+    // const [userId, setUserId] = useState("");
     const [name, setName] = useState("");
     const [desc, setDesc] = useState("");
     const [address, setAddress] = useState("");
@@ -48,8 +48,21 @@ const AddLocationModal = ({ showModal, toggleModal }) => {
         setZip(val)
     }
 
-    const handleSubmit = (e) => {
-        console.log("making location")
+    const handleSubmit = () => {
+        let valid = validateData()
+        if(valid) {
+            let data = {
+                name: name,
+                description: desc,
+                address: address,
+                city: city,
+                state: state,
+                zip_code: zip
+            }
+            api.post('/locations/', data).then(res => {
+                console.log(res)
+            })
+        }
         // if (userId === "") {
         //     alert("Server was not able to identify you, sorry");
         // } else if (name !== "" && desc !== "" && address !== "" && city !== "" && state !== "" && zip !== "" ) {
@@ -68,6 +81,22 @@ const AddLocationModal = ({ showModal, toggleModal }) => {
         //     //         console.log(r.data);
         //     //     })
         // }
+    }
+
+    const validateData = () => {
+        return (
+            name.replace(/\s+/g, '') !== ''
+            &&
+            desc.replace(/\s+/g, '') !== ''
+            &&
+            address.replace(/\s+/g, '') !== ''
+            &&
+            city.replace(/\s+/g, '') !== ''
+            &&
+            state.replace(/\s+/g, '') !== ''
+            &&
+            zip.replace(/\s+/g, '') !== ''
+        )
     }
 
 
