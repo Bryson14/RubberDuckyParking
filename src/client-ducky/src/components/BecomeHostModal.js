@@ -6,9 +6,13 @@ import "../css/styles.css"
 const BecomeHostModal = ({user, showModal, toggleModal}) => {
     const history = useHistory();
     const becomeHost = () => {
-        // api.post
-        console.log('become host')
-        history.push('/managehost')
+        api.post('/hosts/').then(res => {
+            if(res.status === 200) {
+                history.push('/managehost')
+            }
+        }).catch(error => {
+            alert(error)
+        })
     }
 
     return (

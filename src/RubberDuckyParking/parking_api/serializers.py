@@ -26,7 +26,7 @@ class AttendantSerializer(serializers.ModelSerializer):
     user = BaseUserSerializer()
     class Meta:
         model = Attendant
-        fields = ['pk', 'user']
+        fields = ['pk', 'user', 'boss']
 
 
 class ParkingSizeSerializer(serializers.ModelSerializer):

@@ -3,6 +3,7 @@ import api from "../auth/api";
 import {Redirect, useHistory} from "react-router-dom";
 import ProfileReservationCard from "./ProfileReservationCard";
 import BecomeHostModal from './BecomeHostModal';
+import BecomeAttendantModal from './BecomeAttendantModal';
 
 const Profile = ({isAuthenticated}) => {
 
@@ -13,7 +14,8 @@ const Profile = ({isAuthenticated}) => {
     const [isHost, setIsHost] = useState(false)
     const [isAttendant, setIsAttendant] = useState(false)
 
-    const [displayModal, setDisplayModal] = useState(false)
+    const [displayHostModal, setDisplayHostModal] = useState(false)
+    const [displayAttendantModal, setDisplayAttendantModal] = useState(false)
 
     // const history = useHistory();
 
@@ -37,7 +39,6 @@ const Profile = ({isAuthenticated}) => {
             .then(r => {
                 if(r.data) {
                     setPersonalRes(r.data)
-                    console.log("Setting data")
                 } else {
                     console.log("No data from server!")
                 }
@@ -49,7 +50,6 @@ const Profile = ({isAuthenticated}) => {
                 .then(r => {
                     if(r.data) {
                         setMyRes(r.data)
-                        console.log("Setting data")
                     } else {
                         console.log("No data from server!")
                     }
@@ -62,7 +62,6 @@ const Profile = ({isAuthenticated}) => {
                 .then(r => {
                     if(r.data) {
                         setBossRes(r.data)
-                        console.log("Setting data")
                     } else {
                         console.log("No data from server!")
                     }
@@ -72,8 +71,11 @@ const Profile = ({isAuthenticated}) => {
         }
     }, [isHost, isAttendant])
 
-    const toggleModal = (e) => {
-        setDisplayModal(!displayModal)
+    const toggleHostModal = (e) => {
+        setDisplayHostModal(!displayHostModal)
+    }
+    const toggleAttendantModal = (e) => {
+        setDisplayAttendantModal(!displayAttendantModal)
     }
 
     return (
@@ -124,10 +126,12 @@ const Profile = ({isAuthenticated}) => {
                     </div>
                     <hr/>
                     <div className="row justify-content-center">
-                        {!isHost ? (
+                        {!isHost && !isAttendant ? (
                             <div>
-                                <button onClick={toggleModal} className='btn btn-primary'>Become a Host</button>
-                                <BecomeHostModal showModal={displayModal} toggleModal={toggleModal}/>
+                                <button onClick={toggleHostModal} className='btn btn-primary'>Become a Host</button>
+                                <BecomeHostModal showModal={displayHostModal} toggleModal={toggleHostModal}/>
+                                <button onClick={toggleAttendantModal} className='btn btn-primary'>Become a Attendant</button>
+                                <BecomeAttendantModal showModal={displayAttendantModal} toggleModal={toggleAttendantModal}/>
                             </div>
                         ): ''}
 
