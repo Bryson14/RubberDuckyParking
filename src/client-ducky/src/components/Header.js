@@ -15,8 +15,10 @@ function Header({isAuthenticated, setIsAuthenticated}) {
     }
 
     useEffect(() => {
-        if (localStorage.getItem('isAuthenticated')) {
+        if (localStorage.getItem('isAuthenticated') === 'true') {
             setIsAuthenticated(true);
+        } else {
+            setIsAuthenticated(false);
         }
     }, [])
 

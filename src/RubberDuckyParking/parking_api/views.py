@@ -91,6 +91,9 @@ class AttendantViewSet(viewsets.ViewSet):
         return Response(serializer.data)
 
     def post(self, request):
+        host_pk = request.data.get('host_pk', None)
+        if not host_pk: 
+            return Response({'success': False, 'message': 'must provide host pk'})
         if request.user.is_host(): 
             return Response({'success': False, 'message': 'you are already a host'})
 
@@ -98,7 +101,8 @@ class AttendantViewSet(viewsets.ViewSet):
             return Response({'success': False, 'message': 'you are already an attendant'})
         else: 
             try: 
-                attendant = Attendant.objects.create(user=request.user)
+                boss = Host.objects.get(pk=host_pk)
+                attendant = Attendant.objects.create(user=request.user, boss=boss)
                 serialized_data = AttendantSerializer(attendant).data
                 return Response({'success': True, 'attendant': serialized_data})
             except Exception as e: 
@@ -123,7 +127,7 @@ class HostViewSet(viewsets.ViewSet):
     def post(self, request):
         if request.user.is_attendant(): 
             return Response({'success': False, 'message': 'you are already an attendant'})
-            
+
         if request.user.is_host():
             return Response({'success': False, 'message': 'you are already a host'})
         else: 
