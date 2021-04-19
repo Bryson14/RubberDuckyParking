@@ -43,6 +43,12 @@ class LocationSerializer(serializers.ModelSerializer):
         fields = ['pk','name', 'description', 'address', 'city', 'zip_code', 'state', 'host']
 
 
+class LocationCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Location
+        fields = '__all__'
+
+
 class ParkingSpotSerializer(serializers.ModelSerializer):
     parking_size = ParkingSizeSerializer(read_only=True)
     location = LocationSerializer(read_only=True)

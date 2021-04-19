@@ -13,7 +13,9 @@ from .serializers import (
     ParkingSpotCreateSerializer,
     ParkingSizeSerializer,
     ReservationSerializer,
-    ReservationCreateSerialzier
+    ReservationCreateSerialzier,
+    LocationSerializer,
+    LocationCreateSerializer,
 )
 from .permissions import AuthenticatedPermission, HostPermission, AttendantPermission
 from rest_framework.response import Response
@@ -142,8 +144,9 @@ class HostViewSet(viewsets.ViewSet):
 
 
 class ParkingSpotViewSet(viewsets.ViewSet):
-
+    
     def get_permissions(self):
+        self.permission_classes = (HostPermission,)
         if self.action in SAFE_METHODS:
             self.permission_classes = (AllowAny,)
         return super(ParkingSpotViewSet, self).get_permissions()
@@ -185,14 +188,59 @@ class ParkingSpotViewSet(viewsets.ViewSet):
         
     def post(self, request, pk=None, *args, **kwargs):
         if pk is None:
+            request.data['owner'] = Host.objects.get(user__pk=request.user.pk).pk
             serializer = ParkingSpotCreateSerializer(data=request.data)
             serializer.is_valid(raise_exception=True)
             serializer.save()
         else: 
+            request.data['owner'] = request.user.pk
             instance = self.get_queryset().get(pk=pk)
             serializer = ParkingSpotCreateSerializer(instance, data=request.data, partial=True)
             serializer.is_valid(raise_exception=True)
             serializer.save()
+        return Response(serializer.data)
+
+
+class LocationViewSet(viewsets.ViewSet):
+
+    def get_permissions(self):
+        self.permission_classes = (HostPermission,)
+        if self.action in SAFE_METHODS:
+            self.permission_classes = (AllowAny,)
+        return super(LocationViewSet, self).get_permissions()
+
+    def get_queryset(self):
+        queryset = Location.objects.all()
+        if self.action not in SAFE_METHODS:
+            queryset = queryset.filter(host__user__pk=self.request.user.pk)
+        return queryset
+
+    def list(self, request):
+        serializer = LocationSerializer(self.get_queryset(), many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, pk=None):
+        user = get_object_or_404(self.get_queryset(), pk=pk)
+        serializer = LocationSerializer(user)
+        return Response(serializer.data)
+        
+    def post(self, request, pk=None, *args, **kwargs):
+        request.data['host'] = Host.objects.get(user__pk=request.user.pk).pk
+        if pk is None:
+            serializer = LocationCreateSerializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+        else: 
+            instance = self.get_queryset().get(pk=pk)
+            serializer = LocationCreateSerializer(instance, data=request.data, partial=True)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+        return Response(serializer.data)
+
+    @action(detail=False, permission_classes=[])   
+    def mylocations(self, request): 
+        queryset = Location.objects.filter(host__user__pk=request.user.pk)
+        serializer = LocationSerializer(queryset, many=True)
         return Response(serializer.data)
 
 
@@ -202,10 +250,9 @@ class ParkingSizeViewSet(viewsets.ViewSet):
         return ParkingSize.objects.all()
 
     def get_permissions(self):
+        self.permission_classes = (HostPermission,)
         if self.action in SAFE_METHODS:
             self.permission_classes = (AllowAny,)
-        if self.action == 'post':
-            self.permission_classes = (HostPermission,)
         return super(ParkingSizeViewSet, self).get_permissions()
 
     def list(self, request):
