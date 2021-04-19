@@ -188,10 +188,12 @@ class ParkingSpotViewSet(viewsets.ViewSet):
         
     def post(self, request, pk=None, *args, **kwargs):
         if pk is None:
+            request.data['owner'] = Host.objects.get(user__pk=request.user.pk).pk
             serializer = ParkingSpotCreateSerializer(data=request.data)
             serializer.is_valid(raise_exception=True)
             serializer.save()
         else: 
+            request.data['owner'] = request.user.pk
             instance = self.get_queryset().get(pk=pk)
             serializer = ParkingSpotCreateSerializer(instance, data=request.data, partial=True)
             serializer.is_valid(raise_exception=True)

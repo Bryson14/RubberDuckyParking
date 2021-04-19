@@ -22,7 +22,9 @@ const ViewLocations = () => {
         <div>
             {(locations.length > 0)?(
                 <div>
-                    <button className='btn btn-secondary' onClick={toggleShowLocations}>Show Your Locations</button>
+                    <button className='btn btn-secondary' onClick={toggleShowLocations}>
+                        {showLocations ? 'Hide ': 'See '} Your Locations
+                    </button>
                     <div className='locations-wrapper'>
                         {showLocations ? (
                             <div>

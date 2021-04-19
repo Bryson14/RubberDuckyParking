@@ -48,7 +48,7 @@ const AddLocationModal = ({ showModal, toggleModal }) => {
         setZip(val)
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
         let valid = validateData()
         if(valid) {
             let data = {
@@ -60,7 +60,11 @@ const AddLocationModal = ({ showModal, toggleModal }) => {
                 zip_code: zip
             }
             api.post('/locations/', data).then(res => {
-                console.log(res)
+                if(res.status === 200) {
+                    window.location.reload()
+                } else  {
+                    alert('error saving parking spot')
+                }
             })
         }
         // if (userId === "") {

@@ -1,8 +1,12 @@
-const ParkingSpotCard = (id) => {
+const ParkingSpotCard = ({spot}) => {
 
     return (
         <div className="location-card">
-            <p>Hello World from Parking Spot Card id={id}</p>
+            <ul>
+                <li>Size: {spot?.parking_size?.name}</li>
+                <li>Price: {spot?.price}</li>
+                <li>Location: {spot?.location?.name}</li>
+            </ul>
         </div>
     )
 

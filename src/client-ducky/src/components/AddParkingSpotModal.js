@@ -1,18 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom";
 import api from '../auth/api'
 import "../css/styles.css"
 
 const AddParkingSpotModal = ({ showModal, toggleModal }) => {
 
-    const [userId, setUserId] = useState({});
-    const [parkingSpots, setParkingSpots] = useState([]);
-    const [size, setSize] = useState("");
+    const [parkingSizes, setParkingSizes] = useState([]);
+    const [locations, setLocations] = useState([]);
+    const [size, setSize] = useState(null);
     const [l, setL] = useState("");
     const [w, setW] = useState("");
     const [price, setPrice] = useState("");
-    const [location, setLocation] = useState("");
+    const [location, setLocation] = useState(null);
     const [notes, setNotes] = useState("");
+
+
+    useEffect(() => {
+        api.get('parking-sizes/').then(res => {
+            setParkingSizes(res.data)
+        })
+        api.get('locations/mylocations/').then(res => {
+            setLocations(res.data)
+        })
+    }, [])
 
 
     const history = useHistory();
@@ -36,28 +46,49 @@ const AddParkingSpotModal = ({ showModal, toggleModal }) => {
         setNotes(e.target.value);
     }
 
+    const validateData = () => {
+        return (
+            size.replace(/\s+/g, '') !== ''
+            &&
+            l.replace(/\s+/g, '') !== ''
+            &&
+            w.replace(/\s+/g, '') !== ''
+            &&
+            price.replace(/\s+/g, '') !== ''
+            &&
+            notes.replace(/\s+/g, '') !== ''
+            &&
+            location.replace(/\s+/g, '') !== ''
+            &&
+            size !== null
+            &&
+            location !== null
+
+        )
+    }
+
 
     const handleSubmit = () => {
-        console.log('making parking spot')
-        // if (userId === "") {
-        //     alert("Server was not able to identify you, sorry");
-        // } else if (size !== "" && l !== "" && w !== "" && price !== "" && location !== "" && notes !== "" ) {
-        //     const data = {
-        //         uid: 5,
-        //         parking_size:size,
-        //         actual_width: w,
-        //         actual_length: l,
-        //         price: price,
-        //         location: location,
-        //         notes: notes,
-        //         owner: userId.pk
-        //     }
-        //     console.log("posting new spot: \n", data);
-        //     // api.post('parking-spots/, data)
-        //     //     .then((r) => {
-        //     //         console.log(r.data);
-        //     //     })
-        // }
+        let valid = validateData()
+        if(valid)  {
+            let data = {
+                price: price,
+                notes: notes,
+                actual_width: w,
+                actual_length: l,
+                parking_size: size,
+                location: location
+
+            }
+            api.post('/parking-spots/', data).then(res => {
+                if(res.status === 200) {
+                    toggleModal()
+                    window.location.reload()
+                } else {
+                    alert('error saving parking spot')
+                }
+            })
+        }
     }
 
 
@@ -67,8 +98,8 @@ const AddParkingSpotModal = ({ showModal, toggleModal }) => {
                 <div className="modal-message">
                     <label for='size-type'>Parking Spot Size</label>
                     <select className="custom-select form-control" id="size-type" name="size-type" onChange={changeSize}>
-                        <option value="" disabled>Parking Spot Size</option>
-                        {parkingSpots.map((s) => (
+                        <option name="size-type" value={''} >----------</option>
+                        {parkingSizes.map((s) => (
                             <option name="size-type" key={s.pk} value={s.pk} >
                                 {s.name + "  |  " + s.min_width + " x " + s.min_length + "ft"}
                             </option>
@@ -95,9 +126,13 @@ const AddParkingSpotModal = ({ showModal, toggleModal }) => {
                     <div className="form-group">
                         <label className=''>Location</label>
                         <br />
-                        <select id="location" name="name" className="form-select" onChange={changeLocation}>
-                            <option>Get the User's locations from api</option>
-                            <option>Wow still haven't done it yet?</option>
+                        <select id="location" name="name" className=" custom-select form-control" onChange={changeLocation}>
+                            <option name="size-type" value={''} >----------</option>
+                            {locations.map((l) => (
+                                <option name="size-type" key={l.pk} value={l.pk} >
+                                    {l.name + "    " + l.city + " " + l.state}
+                                </option>
+                            ))}
                         </select>
                     </div>
 
