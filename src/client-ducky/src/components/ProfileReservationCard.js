@@ -4,6 +4,16 @@ import {useHistory} from 'react-router-dom'
 const ProfileReservationCard = ({data, customer}) => {
     const history = useHistory();
 
+    const [startDate, setStartDate] = useState(null)
+    const [endDate, setEndDate] = useState(null)
+
+    useEffect(() => {
+        let start = new Date(data.start_date)
+        let end = new Date(data.end_date)
+        setStartDate(start)
+        setEndDate(end)
+    }, [])
+
     const handleClicked = () => {
         history.push(`reservation/${data.pk}`)
     }
@@ -20,8 +30,8 @@ const ProfileReservationCard = ({data, customer}) => {
                 <h2>{data.parking_spot.location.name}</h2>
                 <div className="row">
                     <div className="col-md-12 col-lg-6">
-                        <p><b>Start Time:</b> {data.start_date}</p>
-                        <p><b>End Time:</b> {data.end_date}</p>
+                        <p><b>Start Time:</b> {startDate?.toDateString()}-{startDate?.getHours()}:{startDate?.getMinutes()}</p>
+                        <p><b>End Time:</b> {endDate?.toDateString()}-{endDate?.getHours()}:{endDate?.getMinutes()}</p>
                         <p><b>Statu:s</b> {!data.confirmed ? 'Awaiting Confirmation' : 'Confirmed'}</p>
                     </div>
                     <div className="col-md-12 col-lg-6">

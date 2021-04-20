@@ -1,10 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import {Redirect, useHistory} from "react-router-dom"
+import CancelReservationModal from "./CancelReservationModal"
 import api from "../auth/api";
 
 const AttendantManage = ({isAuthenticated}) => {
 
     const [reservations, setReservations] = useState([])
+    const [currentRes, setCurrentRes] = useState(null)
+    const [showModal, setShowModal] = useState(false)
 
     const history = useHistory()
 
@@ -15,6 +18,15 @@ const AttendantManage = ({isAuthenticated}) => {
             }
         })
     }, [])
+
+    const toggleModal = () => {
+        setShowModal(!showModal)
+    }
+
+    const handleCancel = (r) => {
+        setCurrentRes(r)
+        setShowModal(true)
+    }
 
     const confirmReservation = (pk) => {
         api.post(`reservations/${pk}/confirm/`).then(res => {
@@ -53,6 +65,9 @@ const AttendantManage = ({isAuthenticated}) => {
                     <td>
                         <button onClick={() => confirmReservation(r.pk)}>Confirm</button>
                     </td>
+                    <td>
+                        <button onClick={() => handleCancel(r)}>Cancel</button>
+                    </td>
                 </tr>
             )
         })
@@ -71,7 +86,8 @@ const AttendantManage = ({isAuthenticated}) => {
                         <th>Location</th>
                         <th>Start</th>
                         <th>End</th>
-                        <th>Actions</th>
+                        <th></th>
+                        <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -81,6 +97,7 @@ const AttendantManage = ({isAuthenticated}) => {
                     {reservations.length === 0 ? (
                         <p>no reservations under this host</p>
                     ): ''}
+                    <CancelReservationModal reservation={currentRes} showModal={showModal} toggleModal={toggleModal}/>
                 </div>) :
                 (<Redirect to={"/login/"}/>))}
         </>
