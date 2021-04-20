@@ -1,25 +1,15 @@
 # Parking App
 
-### Development Notes (Milestone 3)
-<pre>
-- [x] Sprint Planning Documents:      See *documentation/homework_milestones/milestone3/*
-- [x] Standup Reports:                See *documentation/homework_milestones/milestone3/*
-- [x] Sprint Retroactive Reports:     See *documentation/homework_milestones/milestone3/*
-- [x] 80% of Application completed
-  - [x] User Route frontend Completed
-  - [x] Most Backend API URLs Completed
-  - [x] Profile almost Completed
-  - [ ] Make host frontend route
-  - [ ] Make Attendant frontend route
-- [x] Testing: 
-  We have made extensive trials with different computer, Operating Systems, Browsers (Chrome, Firefox, Edge). 
-  This is our system testing and subsystem testing for the ui, react, and the api.
-- Updated Documentation
-  - [x] Project Plan                 See *documentation/homework_milestones/milestone3/requirements_definition_group_6_milestone_3.pdf*
-  - [x] Requirement Definition       See *documentation/homework_milestones/milestone3/requirements_definition_group_6_milestone_3.pdf*
-  - [x] Analysis, design, and diagrams        See *documentation/homework_milestones/milestone3/requirements_definition_group_6_milestone_3.pdf*
-- [x] Updated README.md
-</pre>
+### Development Notes (Milestone 4)
+- [ ] Slideshow -> *documentation/homework_milestones/milestone4/*
+- [x] Revised Requirements Definition Document -> *documentation/homework_milestones/milestone4/*
+- [x] Running the Project -> [*Project Setup*](https://github.com/Bryson14/RubberDuckyParking#user-content-project-setup)
+- [ ] Different Preset Logins for Grading:  
+  - [ ] Normal User -> ***Username***: *lol* , ***Password***: *password*
+  - [ ] Host -> ***Username***: *lol* , ***Password***: *password*
+  - [ ] Attendant -> ***Username***: *lol* , ***Password***: *password*
+
+
 
 ### Organization
 The project is organized into two main part: `src` and `documentation`. Since this is a semester project, there is lots of documentation and decisions made in `documentation` under their respective milestones folders. `src` contains the django webserver, the website files, database, and anything else to run the app.
