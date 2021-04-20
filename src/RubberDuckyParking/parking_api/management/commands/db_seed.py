@@ -21,7 +21,7 @@ class Command(BaseCommand):
         
         standard_spot = ParkingSize.objects.create(
             name="A standard size parking spot",
-            description= "yee haw",
+            description= "This is a standard parking spot size",
             min_width= 19.0,
             min_length= 118.0
         )
@@ -56,53 +56,58 @@ class Command(BaseCommand):
 
         user1 = BaseUser(
             first_name="Tony",
-            last_name="Startk",
-            username="TheRealIronMan",
-            password="hasAHeart1",
+            last_name="Stark",
+            username="ironman",
             phone_number="+1(801) 123-4567",
-            email="tstark@avengers.com"
+            email="tony@test.com"
         )
+        user1.set_password('loveyou3000')
         user1.save()
+        print('creating a base user')
 
         user2 = BaseUser(
-            first_name="Thor",
-            last_name="Odinson",
-            username="GodofThunder",
-            password='secretThunder',
-            phone_number="+1(801) 789-7894",
-            email="lightning@avengers.com"
+            first_name="Micheal",
+            last_name="Scott",
+            username="michealscott",
+            phone_number="+1(801) 739-7894",
+            email="scott@test.com"
         )
+        user2.set_password('hosttime333')
         user2.save()
+        print('creating one more base user')
 
         host_user = BaseUser(
-            first_name="Host",
-            last_name="User",
-            username="hostuser",
-            password='secretHost',
-            phone_number="+1(801) 589-7894",
-            email="host@avengers.com"
+            first_name="Harrison",
+            last_name="Host",
+            username="hostharry",
+            phone_number="+1(801) 789-7894",
+            email="harryhost@test.com"
         )
+        host_user.set_password('secrethost444')
         host_user.save()
 
         host = Host(
             user=host_user
         )
         host.save()
+        print('creating a host')
 
         attendant_user = BaseUser(
-            first_name="Attendant",
-            last_name="User",
-            username="attendantuser",
-            password='secretAttendant',
+            first_name="Alice",
+            last_name="Attendant",
+            username="aliceattendant",
             phone_number="+1(801) 888-7894",
-            email="attendant@avengers.com"
+            email="aliceattendant@test.com"
         )
+        attendant_user.set_password('secretattendant444')
         attendant_user.save()
 
         attendant1 = Attendant(
-            user = attendant_user
+            user = attendant_user,
+            boss = host
         )
         attendant1.save()
+        print('creating an attendant for host')
 
         vehicle1 = Vehicle(
             year=2021,
@@ -114,20 +119,10 @@ class Command(BaseCommand):
             user=user2
         )
         vehicle1.save()
-        vehicle2 = Vehicle(
-            year=2011,
-            make="Audi",
-            model="R8",
-            color="Silver",
-            license="ImFeMan",
-            description="Stark's",
-            user=user1
-        )
-        vehicle2.save()
 
         location1 = Location(
-            name="my Front yard",
-            description="just park right on my front yard, i don't care.",
+            name="My bakery parking lot",
+            description="This is my not so busy bakery that has a big parking lot",
             address="1454 Malibu Way",
             city="Malibu",
             zip_code="90210",
@@ -143,7 +138,7 @@ class Command(BaseCommand):
             actual_length=15.3,
             price=12.0,
             location=location1,
-            notes="Seeded spot",
+            notes="this is a hell of a spot!",
             owner=host
         )
         parking_spot_1.save()

@@ -58,6 +58,26 @@ $ (ducky_env) python manage.py migrate
 $ (ducky_env) python manage.py db_seed
 ```
 - this is the custom management command that will add some basic models for you
+
+  - your newly created models include new users of each role:
+    - Harrison Host:
+      - he is a fully equipped host with the following credentials; 
+        - username: hostharry
+        - password: secrethost444
+
+    - Alice Attendant
+      - she is a fully equipped attendant whose boss is Harrison himself. Her credentials include:
+        - username: aliceattendant
+        - password: secretattendant444
+
+    - Tony Stark
+      - he is a good ol regular user whose credentials include:
+        - username: ironman
+        - password: loveyou3000
+
+  - there is also a spot near you, in Malibu!
+    - go ahead, search for malibu under a standard sized spot
+      
 ```
 $ (ducky_env) python manage.py createsuperuser
 ```
