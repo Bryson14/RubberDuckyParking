@@ -1,15 +1,14 @@
 # Parking App
 
 ### Development Notes (Milestone 4)
-- [ ] Slideshow -> *documentation/homework_milestones/milestone4/*
+- [ ] Slideshow -> [*Downloaded Powerpoint*]() | [*Google Sheets Link*](https://docs.google.com/presentation/d/1GWw_pTDYgEXGQ_F43PeJoPBTckTWWnD7qIIA1loSpC4/edit#slide=id.gd3169a826c_0_79)
 - [x] Revised Requirements Definition Document -> *documentation/homework_milestones/milestone4/*
 - [x] Running the Project -> [*Project Setup*](https://github.com/Bryson14/RubberDuckyParking#user-content-project-setup)
 - [ ] Different Preset Logins for Grading:  
   - [ ] Normal User -> ***Username***: *lol* , ***Password***: *password*
   - [ ] Host -> ***Username***: *lol* , ***Password***: *password*
   - [ ] Attendant -> ***Username***: *lol* , ***Password***: *password*
-
-
+  
 
 ### Organization
 The project is organized into two main part: `src` and `documentation`. Since this is a semester project, there is lots of documentation and decisions made in `documentation` under their respective milestones folders. `src` contains the django webserver, the website files, database, and anything else to run the app.
