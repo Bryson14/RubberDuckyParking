@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from "react"
+import React, { useEffect, useState } from "react"
 import api from "../auth/api";
-import {Redirect, useHistory} from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import ProfileReservationCard from "./ProfileReservationCard";
 import BecomeHostModal from './BecomeHostModal';
 import BecomeAttendantModal from './BecomeAttendantModal';
 
-const Profile = ({isAuthenticated}) => {
+const Profile = ({ isAuthenticated }) => {
 
     const [profileData, setProfileData] = useState({});
     const [personalRes, setPersonalRes] = useState([]);
@@ -17,22 +17,28 @@ const Profile = ({isAuthenticated}) => {
     const [displayHostModal, setDisplayHostModal] = useState(false)
     const [displayAttendantModal, setDisplayAttendantModal] = useState(false)
 
-    const [showPersonalReservations, setShowPersonalReservations] = useState(true)
+    const [showPersonalReservations, setShowPersonalReservations] = useState(false)
     const [showBossReservations, setShowBossReservations] = useState(false)
     const [showMyReservations, setShowMyReservations] = useState(false)
 
     const toggleShow = (type) => {
-        if(type == 'personal'){
+        if (type == 'personal') {
             setShowPersonalReservations(!showPersonalReservations)
         }
-    } 
+        if (type == 'my') {
+            setShowMyReservations(!showMyReservations)
+        }
+        if (type == 'boss') {
+            setShowBossReservations(!showBossReservations)
+        }
+    }
 
     // const history = useHistory();
 
     useEffect(() => {
         api.get("users/me/")
             .then(r => {
-                if(r.data) {
+                if (r.data) {
                     setProfileData(r.data.user)
                     setIsHost(r.data.host)
                     setIsAttendant(r.data.attendant)
@@ -40,44 +46,44 @@ const Profile = ({isAuthenticated}) => {
                     console.log("No data from server!")
                 }
             }).catch(err => {
-            console.log("Error getting details from server!")
-        })
+                console.log("Error getting details from server!")
+            })
     }, [])
 
     useEffect(() => {
         api.get("reservations/")
             .then(r => {
-                if(r.data) {
+                if (r.data) {
                     setPersonalRes(r.data)
                 } else {
                     console.log("No data from server!")
                 }
             }).catch(err => {
-            console.log("Error getting details from server!")
-        })
-        if(isHost) {
+                console.log("Error getting details from server!")
+            })
+        if (isHost) {
             api.get("reservations/myreservations/")
                 .then(r => {
-                    if(r.data) {
+                    if (r.data) {
                         setMyRes(r.data)
                     } else {
                         console.log("No data from server!")
                     }
                 }).catch(err => {
-                console.log("Error getting details from server!")
-            })
+                    console.log("Error getting details from server!")
+                })
         }
-        if(isAttendant) {
+        if (isAttendant) {
             api.get("reservations/bossreservations/")
                 .then(r => {
-                    if(r.data) {
+                    if (r.data) {
                         setBossRes(r.data)
                     } else {
                         console.log("No data from server!")
                     }
                 }).catch(err => {
-                console.log("Error getting details from server!")
-            })
+                    console.log("Error getting details from server!")
+                })
         }
     }, [isHost, isAttendant])
 
@@ -98,11 +104,11 @@ const Profile = ({isAuthenticated}) => {
                             <div className="col-md-12 col-lg-6">
                                 <a href="/managehost/"><h4>Host Dashboard</h4></a>
                             </div>
-                        ): ''}
+                        ) : ''}
 
                     </div>
                     <div className="row">
-                        <button className='btn btn-secondary' onClick={() => toggleShow('personal')}>{showPersonalReservations ? 'Hide ' : 'Show '} Reservations</button>
+                        <button className='btn btn-secondary' onClick={() => toggleShow('personal')}>{showPersonalReservations ? 'Hide ' : 'Show '} Personal Reservations</button>
                         {showPersonalReservations ? (
                             <div className="col-md-12 col-lg-6 reservations-wrapper">
                                 <h4>My Reservations</h4>
@@ -114,44 +120,56 @@ const Profile = ({isAuthenticated}) => {
                             </div>
                         ) : ''}
                         {isHost ? (
-                            <div className="col-md-12 col-lg-6">
-                                <h4>Reservations at My Location</h4>
-                                {
-                                    myRes.map((r) => {
-                                        <ProfileReservationCard props={r} />
-                                    })
-                                }
+                            <div className='row'>
+                                <button className='btn btn-secondary' onClick={() => toggleShow('my')}>{showMyReservations ? 'Hide ' : 'Show '} My Reservations</button>
+                                {showMyReservations ? (
+                                    <div className="col-md-12 col-lg-6">
+                                        <h4>Reservations at My Location</h4>
+                                        {
+                                            myRes.map((r) => {
+                                                <ProfileReservationCard data={r} />
+                                            })
+                                        }
+                                    </div>
+
+                                ) : ''}
                             </div>
-                        ): ''}
+                        ) : ''}
                     </div>
                     <div className="row">
                         {isAttendant ? (
-                            <div className="col-md-12 col-lg-6">
-                                <h4>Boss's Reservations</h4>
-                                {
-                                    bossRes.map((r) => {
-                                        <ProfileReservationCard props={r} />
-                                    })
-                                }
+                            <div className='row'>
+                                <button className='btn btn-secondary' onClick={() => toggleShow('boss')}>{showBossReservations ? 'Hide ' : 'Show '} My Boss's Reservations</button>
+                                {showBossReservations ? (
+                                    <div className="col-md-12 col-lg-6">
+                                        <h4>Boss's Reservations</h4>
+                                        {
+                                            bossRes.map((r) => {
+                                                <ProfileReservationCard props={r} />
+                                            })
+                                        }
+                                    </div>
+
+                                ): ""}
                             </div>
-                        ): ''}
+                        ) : ''}
 
                     </div>
-                    <hr/>
+                    <hr />
                     <div className="row justify-content-center">
                         {!isHost && !isAttendant ? (
                             <div>
                                 <button onClick={toggleHostModal} className='btn btn-primary'>Become a Host</button>
-                                <BecomeHostModal showModal={displayHostModal} toggleModal={toggleHostModal}/>
+                                <BecomeHostModal showModal={displayHostModal} toggleModal={toggleHostModal} />
                                 <button onClick={toggleAttendantModal} className='btn btn-primary'>Become a Attendant</button>
-                                <BecomeAttendantModal showModal={displayAttendantModal} toggleModal={toggleAttendantModal}/>
+                                <BecomeAttendantModal showModal={displayAttendantModal} toggleModal={toggleAttendantModal} />
                             </div>
-                        ): ''}
+                        ) : ''}
 
                     </div>
 
                 </div>) :
-                (<Redirect to={"/login/"}/>))}
+                (<Redirect to={"/login/"} />))}
         </>
 
     )
