@@ -23,6 +23,7 @@ const BecomeAttendantModal = ({user, showModal, toggleModal}) => {
             }).then(res => {
                 console.log(res)
                 history.push('/profile')
+                window.location.reload()
             }).catch(error => {
                 alert(error)
             })

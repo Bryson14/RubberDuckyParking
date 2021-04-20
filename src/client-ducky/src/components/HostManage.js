@@ -9,8 +9,6 @@ import api from "../auth/api";
 
 const HostManage = ({isAuthenticated}) => {
 
-    const [isHost, setIsHost] = useState(false);
-
     const [showLocationModal, setShowLocationModal] = useState(false);
     const [showSpotModal, setShowSpotModal] = useState(false);
 
@@ -21,23 +19,10 @@ const HostManage = ({isAuthenticated}) => {
         setShowSpotModal(!showSpotModal)
     }
 
-    useEffect(() => {
-        // api.get("users/me/")
-        //     .then(r => {
-        //         if(r.data) {
-        //             setIsHost(r.data.host)
-        //         } else {
-        //             console.log("No data from server!")
-        //         }
-        //     }).catch(err => {
-        //     console.log("Error getting details from server!")
-        // })
-    }, []);
 
     return (
         <>
-            {/*TODO fix this. right now the api route isn't made to make host*/}
-            {(isAuthenticated && {/*isHost*/}
+            {(isAuthenticated
                 ?
                 (<div className="container">
                     <div className="row m-3">
@@ -59,10 +44,6 @@ const HostManage = ({isAuthenticated}) => {
                     <div className="row m-3">
                         <AddLocationModal toggleModal={toggleLocationModal} showModal={showLocationModal}/>
                         <AddParkingSpotModal toggleModal={toggleSpotModal} showModal={showSpotModal}/>
-                        {/* <div className="col-md-12 col-lg-6">
-                            <h4 className="m-2">Add a Parking Spot</h4>
-                            <AddParkingSpot />
-                        </div> */}
                     </div>
                 </div>) :
                 (<Redirect to={"/login/"}/>))}

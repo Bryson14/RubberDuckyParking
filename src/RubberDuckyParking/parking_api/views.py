@@ -347,6 +347,22 @@ class ReservationViewSet(viewsets.ViewSet):
             return Response({'success': True, 'message': 'you have canceled reservation number: {}'.format(pk)})
         return Response({'success': False, 'message': 'you must specify a pk'})
 
+    @action(detail=False, methods=['get'], permission_classes=[AttendantPermission])
+    def needsconfirmation(self, request):
+        is_attendant = request.user.is_attendant()
+        is_host = request.user.is_host()
+        queryset = []
+        if is_host: 
+            host = Host.objects.get(user__pk=request.user.pk)
+            queryset = Reservation.objects.filter(parking_spot__owner__pk=host.pk, confirmed=False, canceled=False)
+        if is_attendant:
+            host = Attendant.objects.get(user__pk=request.user.pk).boss
+            queryset = Reservation.objects.filter(parking_spot__owner__pk=host.pk, confirmed=False, canceled=False)
+        serializer = ReservationSerializer(queryset, many=True)
+
+        return Response(serializer.data)
+        
+
     @action(detail=True, methods=['post'], permission_classes=[AttendantPermission])
     def confirm(self, request, pk=None):
         reservation = None

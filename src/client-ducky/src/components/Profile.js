@@ -105,6 +105,11 @@ const Profile = ({ isAuthenticated }) => {
                                 <a href="/managehost/"><h4>Host Dashboard</h4></a>
                             </div>
                         ) : ''}
+                        {isAttendant ? (
+                            <div className="col-md-12 col-lg-6">
+                                <a href="/manageattendant/"><h4>Attendant Dashboard</h4></a>
+                            </div>
+                        ) : ''}
 
                     </div>
                     <div className="row">

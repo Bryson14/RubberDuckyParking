@@ -9,6 +9,7 @@ import Profile from "./components/Profile"
 import Search from "./components/Search"
 import SignUp from "./components/SignUp";
 import HostManage from "./components/HostManage";
+import AttendantManage from "./components/AttendantManage"
 import Details from "./components/Detail";
 import Reservation from "./components/Reservation";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
@@ -63,6 +64,9 @@ function App() {
           </Route>
           <Route path="/managehost">
               <HostManage isAuthenticated={isAuthenticated}/>
+          </Route>
+          <Route path="/manageattendant">
+              <AttendantManage isAuthenticated={isAuthenticated}/>
           </Route>
           {/*Protected Paths*/}
           </Switch>
