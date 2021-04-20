@@ -8,7 +8,7 @@ const ViewLocations = () => {
     const [showLocations, setShowLocations] = useState(false);
 
     useEffect(() => {
-        api.get(`locations/`).then(res => {
+        api.get(`locations/mylocations/`).then(res => {
             setLocations(res.data)
         })
     }, [])

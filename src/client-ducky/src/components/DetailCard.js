@@ -102,8 +102,8 @@ const DetailCard = ({ key, id, parking_size, price,
             api.post('reservations/', data)
                 .then(r => {
                     let id = r.data.id;
-                    alert("i got r pk of the reservation back: ", r);
-                    history.push(`reservation/${id}`)
+                    history.push('/profile')
+                    window.location.reload()
                 }).catch((err) => {
                     alert("Something went wrong creating reservation!\nPlease try again.");
             });

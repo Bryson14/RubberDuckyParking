@@ -200,6 +200,12 @@ class ParkingSpotViewSet(viewsets.ViewSet):
             serializer.save()
         return Response(serializer.data)
 
+    @action(detail=False, permission_classes=[HostPermission])   
+    def myspots(self, request): 
+        queryset = ParkingSpot.objects.filter(owner__user__pk=request.user.pk)
+        serializer = ParkingSpotSerializer(queryset, many=True)
+        return Response(serializer.data)
+
 
 class LocationViewSet(viewsets.ViewSet):
 

@@ -117,11 +117,13 @@ const Profile = ({ isAuthenticated }) => {
                                         return <ProfileReservationCard data={r} />
                                     })
                                 }
-                                {myRes.length === 0 ? 'No reservations, go make some!': ''}
+                                {personalRes.length === 0 ? 'No reservations, go make some!': ''}
                             </div>
                         ) : ''}
+                    </div>
+                    <div className='row mt-3'>
                         {isHost ? (
-                            <div className='mt-3'>
+                            <div className='row mt-3'>
                                 <button className='btn btn-secondary' onClick={() => toggleShow('my')}>{showMyReservations ? 'Hide ' : 'Show '} My Reservations</button>
                                 {showMyReservations ? (
                                     <div className="col-md-12 col-lg-6">
@@ -163,7 +165,7 @@ const Profile = ({ isAuthenticated }) => {
                             <div>
                                 <button onClick={toggleHostModal} className='btn btn-primary'>Become a Host</button>
                                 <BecomeHostModal showModal={displayHostModal} toggleModal={toggleHostModal} />
-                                <button onClick={toggleAttendantModal} className='btn btn-primary'>Become a Attendant</button>
+                                <button onClick={toggleAttendantModal} className='btn btn-primary'>Become an Attendant</button>
                                 <BecomeAttendantModal showModal={displayAttendantModal} toggleModal={toggleAttendantModal} />
                             </div>
                         ) : ''}

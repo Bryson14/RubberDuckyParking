@@ -8,7 +8,7 @@ const ViewParkingSpots = () => {
     const [showParkingSpots, setShowParkingSpots] = useState(false);
 
     useEffect(() => {
-        api.get(`parking-spots/`).then(res => {
+        api.get(`parking-spots/myspots/`).then(res => {
             setParkingSpots(res.data)
         })
     }, [])
