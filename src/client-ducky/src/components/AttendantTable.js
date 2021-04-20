@@ -46,7 +46,7 @@ const AttendantTable = () => {
                         {a.user.first_name} {a.user.last_name}
                     </td>
                     <td>
-                        <button onClick={() => fireAttendant(a.pk)}>Fire</button>
+                        <button className='btn btn-secondary' onClick={() => fireAttendant(a.pk)}>Fire</button>
                     </td>
                 </tr>
             )
