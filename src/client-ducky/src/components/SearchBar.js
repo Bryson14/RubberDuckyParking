@@ -8,7 +8,7 @@ const SearchBar = ({url, method, fullscreen}) => {
     const [parkingSpots, setParkingSpots] = useState([])
     const [location, setLocation] = useState("");
     const [date, setDate] = useState(null);
-    const [parkingTypeIdx, setParkingTypeIdx] = useState(0);
+    const [parkingTypeIdx, setParkingTypeIdx] = useState(null);
 
     let searchBarStyle = "form-div justify-content-center"
 
@@ -16,10 +16,6 @@ const SearchBar = ({url, method, fullscreen}) => {
         searchBarStyle += " small-search-bar";
     } else {
         searchBarStyle += " search-bar";
-    }
-
-    function handleClick() {
-        console.log("searched clicked");
     }
 
     useEffect(() => {
@@ -45,10 +41,9 @@ const SearchBar = ({url, method, fullscreen}) => {
     }
 
     const handleSpotType = (e) => {
-        let v = e.target.selectedIndex;
+        let v = e.target.value
         setParkingTypeIdx(v);
-        let select = document.getElementById('size-type');
-        select.selectedIndex = v;
+        
     }
 
      return (
@@ -70,7 +65,7 @@ const SearchBar = ({url, method, fullscreen}) => {
                     </div>
                     <div className="form-group col-sm-12 col-lg-4">
                         <select className="custom-select" id="size-type" name="size-type" onChange={handleSpotType}>
-                            <option value="" disabled>Parking Spot Size</option>
+                            <option className='null-input' value={null} >Parking Spot Size</option>
                             {parkingSpots.map((s) => (
                                 <option name="size-type" key={s.pk} value={s.pk} >
                                     {s.name + "  |  " + s.min_width + " x " + s.min_length + "ft"}
@@ -79,7 +74,7 @@ const SearchBar = ({url, method, fullscreen}) => {
                         </select>
                     </div>
                     <div className="form-group col-sm-12 col-lg-1">
-                        <button onClick={handleClick} className="btn btn-outline-warning btn-lg"><i className="fa fa-search">Search</i></button>
+                        <button className="btn btn-outline-warning btn-lg"><i className="fa fa-search">Search</i></button>
                     </div>
 
                 </div>

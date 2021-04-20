@@ -1,8 +1,7 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom'
 
-const ProfileReservationCard = ({props}) => {
-    const [data, setData] = useState(props)
+const ProfileReservationCard = ({data}) => {
     const history = useHistory();
 
     const handleClicked = () => {

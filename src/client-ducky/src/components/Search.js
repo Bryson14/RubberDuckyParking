@@ -15,8 +15,10 @@ const Search = () => {
     function getParkingSpots() {
         const params = new URLSearchParams(window.location.search);
         let location = params.get('location');
+        setSearchLocation(location)
         let date = params.get('date');
-        let spotType = params.get('size-type');
+        let spotType = isNaN(params.get('size-type')) ? params.get('size-type') : null
+        setSpotType(spotType)
         api.get(`parking-spots/?location=${location}&size=${spotType}&data=${date}`)
             .then(res => {
             if(res.data) {

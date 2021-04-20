@@ -17,6 +17,16 @@ const Profile = ({isAuthenticated}) => {
     const [displayHostModal, setDisplayHostModal] = useState(false)
     const [displayAttendantModal, setDisplayAttendantModal] = useState(false)
 
+    const [showPersonalReservations, setShowPersonalReservations] = useState(true)
+    const [showBossReservations, setShowBossReservations] = useState(false)
+    const [showMyReservations, setShowMyReservations] = useState(false)
+
+    const toggleShow = (type) => {
+        if(type == 'personal'){
+            setShowPersonalReservations(!showPersonalReservations)
+        }
+    } 
+
     // const history = useHistory();
 
     useEffect(() => {
@@ -92,14 +102,17 @@ const Profile = ({isAuthenticated}) => {
 
                     </div>
                     <div className="row">
-                        <div className="col-md-12 col-lg-6">
-                            <h4>My Reservations</h4>
-                            {
-                                personalRes.map((r) => {
-                                    <ProfileReservationCard props={r} />
-                                })
-                            }
-                        </div>
+                        <button className='btn btn-secondary' onClick={() => toggleShow('personal')}>{showPersonalReservations ? 'Hide ' : 'Show '} Reservations</button>
+                        {showPersonalReservations ? (
+                            <div className="col-md-12 col-lg-6 reservations-wrapper">
+                                <h4>My Reservations</h4>
+                                {
+                                    personalRes.map((r) => {
+                                        return <ProfileReservationCard data={r} />
+                                    })
+                                }
+                            </div>
+                        ) : ''}
                         {isHost ? (
                             <div className="col-md-12 col-lg-6">
                                 <h4>Reservations at My Location</h4>

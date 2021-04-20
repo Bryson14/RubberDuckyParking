@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {useHistory} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import DetailCard from "./DetailCard";
 import api from '../auth/api'
 
@@ -44,6 +44,7 @@ const Detail = ({spot_id, isAuthenticated, token}) => {
             <div>
                 <h2>Whoops, it looks like your not logged in.</h2>
                 <p>Please login and return to make a reservation</p>
+                <Link to='/login'>Login Here</Link>
             </div>
         )
     }
