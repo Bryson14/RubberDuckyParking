@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom'
 
-const ProfileReservationCard = ({data}) => {
+const ProfileReservationCard = ({data, customer}) => {
     const history = useHistory();
 
     const handleClicked = () => {
@@ -10,12 +10,19 @@ const ProfileReservationCard = ({data}) => {
 
     return (
         <div className="container parking-card" onClick={handleClicked}>
+            {customer ? (
+                <div>
+                    <h2>Reserved By: { customer.first_name} { customer.last_name}
+                    </h2>
+                </div>
+            ): ''}
             <div className="jumbotron">
                 <h2>{data.parking_spot.location.name}</h2>
                 <div className="row">
                     <div className="col-md-12 col-lg-6">
-                        <p><b>Start Time:</b> $ {data.start_date}</p>
-                        <p><b>End Time:</b> $ {data.end_date}</p>
+                        <p><b>Start Time:</b> {data.start_date}</p>
+                        <p><b>End Time:</b> {data.end_date}</p>
+                        <p><b>Statu:s</b> {!data.confirmed ? 'Awaiting Confirmation' : 'Confirmed'}</p>
                     </div>
                     <div className="col-md-12 col-lg-6">
                         <img src={"QRCODE.png"} alt={"QRCODE"}/>

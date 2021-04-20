@@ -117,17 +117,18 @@ const Profile = ({ isAuthenticated }) => {
                                         return <ProfileReservationCard data={r} />
                                     })
                                 }
+                                {myRes.length === 0 ? 'No reservations, go make some!': ''}
                             </div>
                         ) : ''}
                         {isHost ? (
-                            <div className='row'>
+                            <div className='mt-3'>
                                 <button className='btn btn-secondary' onClick={() => toggleShow('my')}>{showMyReservations ? 'Hide ' : 'Show '} My Reservations</button>
                                 {showMyReservations ? (
                                     <div className="col-md-12 col-lg-6">
                                         <h4>Reservations at My Location</h4>
                                         {
                                             myRes.map((r) => {
-                                                <ProfileReservationCard data={r} />
+                                                return <ProfileReservationCard customer={r.user} data={r} />
                                             })
                                         }
                                     </div>
@@ -136,18 +137,19 @@ const Profile = ({ isAuthenticated }) => {
                             </div>
                         ) : ''}
                     </div>
-                    <div className="row">
+                    <div>
                         {isAttendant ? (
-                            <div className='row'>
+                            <div className='mt-3 row'>
                                 <button className='btn btn-secondary' onClick={() => toggleShow('boss')}>{showBossReservations ? 'Hide ' : 'Show '} My Boss's Reservations</button>
                                 {showBossReservations ? (
-                                    <div className="col-md-12 col-lg-6">
+                                    <div className="col-md-12 col-lg-6 reservations-wrapper">
                                         <h4>Boss's Reservations</h4>
                                         {
                                             bossRes.map((r) => {
-                                                <ProfileReservationCard props={r} />
+                                                return <ProfileReservationCard customer={r.user} data={r} />
                                             })
                                         }
+                                        {bossRes.length === 0 ? 'your boss has no reservations': ''}
                                     </div>
 
                                 ): ""}
