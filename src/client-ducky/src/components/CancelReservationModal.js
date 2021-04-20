@@ -3,12 +3,15 @@ import {useHistory} from "react-router-dom";
 import api from '../auth/api'
 import "../css/styles.css"
 
-const CancelReservationModal = ({reservation, showModal, toggleModal}) => {
+const CancelReservationModal = ({reservation, showModal, toggleModal, redirect=null}) => {
 
     const history = useHistory();
     const cancelReservation = () => {
         api.post(`/reservations/${reservation?.pk}/cancel/`).then(res => {
             if(res.status === 200) {
+                if(redirect){
+                    history.push(redirect)
+                }
                 window.location.reload()
             }
         }).catch(error => {

@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import api from '../auth/api'
+import CancelReservationModal from "./CancelReservationModal"
 
 
 const Reservation = ({id, isAuthenticated, token}) => {
 
     const [resData, setResData] = useState("");
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         let paths = window.location.pathname.split("/");
@@ -21,6 +23,10 @@ const Reservation = ({id, isAuthenticated, token}) => {
             console.log("Error getting details from server!")
         })
     })
+
+    const toggleModal = () => {
+        setShowModal(!showModal)
+    }
 
     function showData() {
         return (
@@ -49,6 +55,10 @@ const Reservation = ({id, isAuthenticated, token}) => {
                 <div className="text-right">
                     <p><b><i>This spot is hosted by {resData.parking_spot.owner.user.first_name}</i></b></p>
                 </div>
+                <>
+                    <button className='btn btn-secondary mb-4' onClick={toggleModal}>cancel reservation</button>
+                    <CancelReservationModal redirect='/profile' showModal={showModal} toggleModal={toggleModal} reservation={resData} />
+                </>
             </div>
         )
     }

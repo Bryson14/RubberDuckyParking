@@ -119,7 +119,7 @@ const Profile = ({ isAuthenticated }) => {
                                 <h4>My Reservations</h4>
                                 {
                                     personalRes.map((r) => {
-                                        return <ProfileReservationCard data={r} />
+                                        return <ProfileReservationCard isPersonal={true} data={r} />
                                     })
                                 }
                                 {personalRes.length === 0 ? 'No reservations, go make some!': ''}
