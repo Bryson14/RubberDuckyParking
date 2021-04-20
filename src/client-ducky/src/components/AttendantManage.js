@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {Redirect} from "react-router-dom"
+import {Redirect, useHistory} from "react-router-dom"
 import api from "../auth/api";
 
 const AttendantManage = ({isAuthenticated}) => {
 
     const [reservations, setReservations] = useState([])
+
+    const history = useHistory()
 
     useEffect(() => {
         api.get('/reservations/needsconfirmation/').then(res => {
@@ -15,10 +17,11 @@ const AttendantManage = ({isAuthenticated}) => {
     }, [])
 
     const confirmReservation = (pk) => {
-        console.log('confirm', pk)
-        // api.post(`reservations/${pk}/confirm/`).then(res => {
-        //     console.log(res)
-        // })
+        api.post(`reservations/${pk}/confirm/`).then(res => {
+            if(res.status === 200) {
+                window.location.reload()
+            }
+        })
     }
 
 
