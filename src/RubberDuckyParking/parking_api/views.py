@@ -109,8 +109,15 @@ class AttendantViewSet(viewsets.ViewSet):
                 return Response({'success': True, 'attendant': serialized_data})
             except Exception as e: 
                 return Response({'success': False, 'message': 'could not create attendant', 'error': str(e)})
+    
+    @action(detail=False, permission_classes=[HostPermission])
+    def myattendants(self, request):
+        host = Host.objects.get(user=request.user)
+        attendants = Attendant.objects.filter(boss=host)
+        serializer = AttendantSerializer(attendants, many=True)
+        # serializer = ViewAttendantSerializer(attendants)
+        return Response(serializer.data)
 
-    # TODO: make able to choose boss
     
 
 class HostViewSet(viewsets.ViewSet):
@@ -139,8 +146,16 @@ class HostViewSet(viewsets.ViewSet):
                 return Response({'success': True, 'host': serialized_data})
             except Exception as e: 
                 return Response({'success': False, 'message': 'could not create host', 'error': str(e)})
-        
-            
+    
+    @action(detail=True, methods=['post'], permission_classes=[HostPermission])   
+    def fire(self, request, pk):
+        queryset = Attendant.objects.filter(boss__user__pk=request.user.pk)
+        try: 
+            attendant = queryset.get(pk=pk)
+            attendant.delete()
+            return Response({'success': True, 'message': 'you just fired \'em good'})
+        except Exception:
+            return Response({'succcess': False, 'message': 'this is not your employee'})
 
 
 class ParkingSpotViewSet(viewsets.ViewSet):

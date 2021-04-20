@@ -5,7 +5,7 @@ import ViewLocations from "./ViewLocations";
 import ViewParkingSpots from "./ViewParkingSpots";
 import AddLocationModal from './AddLocationModal'
 import AddParkingSpotModal from './AddParkingSpotModal'
-import api from "../auth/api";
+import AttendantTable from './AttendantTable'
 
 const HostManage = ({isAuthenticated}) => {
 
@@ -44,6 +44,10 @@ const HostManage = ({isAuthenticated}) => {
                     <div className="row m-3">
                         <AddLocationModal toggleModal={toggleLocationModal} showModal={showLocationModal}/>
                         <AddParkingSpotModal toggleModal={toggleSpotModal} showModal={showSpotModal}/>
+                    </div>
+                    <div>
+                        <h4>Your Attendants:</h4>
+                        <AttendantTable/>
                     </div>
                 </div>) :
                 (<Redirect to={"/login/"}/>))}
