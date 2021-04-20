@@ -78,6 +78,9 @@ const AttendantManage = ({isAuthenticated}) => {
                             {renderRows()}
                         </tbody>
                     </table>
+                    {reservations.length === 0 ? (
+                        <p>no reservations under this host</p>
+                    ): ''}
                 </div>) :
                 (<Redirect to={"/login/"}/>))}
         </>

@@ -99,21 +99,21 @@ const Profile = ({ isAuthenticated }) => {
             {(isAuthenticated ?
                 (<div className="container">
                     <h3>Welcome, {profileData.first_name}!</h3>
-                    <div className="row justify-content-center">
+                    <div className="row">
                         {isHost ? (
                             <div className="col-md-12 col-lg-6">
                                 <a href="/managehost/"><h4>Host Dashboard</h4></a>
                             </div>
                         ) : ''}
-                        {isAttendant ? (
+                        {isHost || isAttendant ? (
                             <div className="col-md-12 col-lg-6">
                                 <a href="/manageattendant/"><h4>Attendant Dashboard</h4></a>
                             </div>
                         ) : ''}
 
                     </div>
+                    <button className='btn btn-secondary' onClick={() => toggleShow('personal')}>{showPersonalReservations ? 'Hide ' : 'Show '} Personal Reservations</button>
                     <div className="row">
-                        <button className='btn btn-secondary' onClick={() => toggleShow('personal')}>{showPersonalReservations ? 'Hide ' : 'Show '} Personal Reservations</button>
                         {showPersonalReservations ? (
                             <div className="col-md-12 col-lg-6 reservations-wrapper">
                                 <h4>My Reservations</h4>
@@ -126,10 +126,11 @@ const Profile = ({ isAuthenticated }) => {
                             </div>
                         ) : ''}
                     </div>
-                    <div className='row mt-3'>
+                    <div>
                         {isHost ? (
+                            <>
+                            <button className='mt-3 btn btn-secondary' onClick={() => toggleShow('my')}>{showMyReservations ? 'Hide ' : 'Show '} My Reservations</button>
                             <div className='row mt-3'>
-                                <button className='btn btn-secondary' onClick={() => toggleShow('my')}>{showMyReservations ? 'Hide ' : 'Show '} My Reservations</button>
                                 {showMyReservations ? (
                                     <div className="col-md-12 col-lg-6">
                                         <h4>Reservations at My Location</h4>
@@ -142,6 +143,7 @@ const Profile = ({ isAuthenticated }) => {
 
                                 ) : ''}
                             </div>
+                            </>
                         ) : ''}
                     </div>
                     <div>
