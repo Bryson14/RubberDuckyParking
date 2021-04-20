@@ -51,9 +51,9 @@ function Login({setToken, setIsAuthenticated}) {
 
         <div className="form-group">
             <label htmlFor='password'>Password</label>
-            <input onChange={handleInputChange} className='form-control' id='password' type='text' placeholder='password' value={password}></input>
+            <input type="password" onChange={handleInputChange} className='form-control' id='password' placeholder='password' value={password}></input>
         </div>
-        <button type="submit" onClick={login} className="btn btn-primary btn-block">Submit</button>
+        <button type="submit" onClick={login} className="btn btn-primary btn-block">Login</button>
         <Link to='/signup'>Register</Link>
 
     </div>

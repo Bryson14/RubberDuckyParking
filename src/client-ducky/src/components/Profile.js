@@ -148,8 +148,9 @@ const Profile = ({ isAuthenticated }) => {
                     </div>
                     <div>
                         {isAttendant ? (
-                            <div className='mt-3 row'>
-                                <button className='btn btn-secondary' onClick={() => toggleShow('boss')}>{showBossReservations ? 'Hide ' : 'Show '} My Boss's Reservations</button>
+                            <>
+                            <button className='btn btn-secondary mt-3' onClick={() => toggleShow('boss')}>{showBossReservations ? 'Hide ' : 'Show '} My Boss's Reservations</button>
+                            <div className='mt-3'>
                                 {showBossReservations ? (
                                     <div className="col-md-12 col-lg-6 reservations-wrapper">
                                         <h4>Boss's Reservations</h4>
@@ -163,6 +164,7 @@ const Profile = ({ isAuthenticated }) => {
 
                                 ): ""}
                             </div>
+                            </>
                         ) : ''}
 
                     </div>

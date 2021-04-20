@@ -63,10 +63,10 @@ const AttendantManage = ({isAuthenticated}) => {
                         {end_date.toDateString()}-{end_date.getHours()}:{end_date.getMinutes()}
                     </td>
                     <td>
-                        <button onClick={() => confirmReservation(r.pk)}>Confirm</button>
+                        <button className='btn btn-secondary' onClick={() => confirmReservation(r.pk)}>Confirm</button>
                     </td>
                     <td>
-                        <button onClick={() => handleCancel(r)}>Cancel</button>
+                        <button className='btn btn-secondary' onClick={() => handleCancel(r)}>Cancel</button>
                     </td>
                 </tr>
             )
