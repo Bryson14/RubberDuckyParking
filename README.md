@@ -1,14 +1,14 @@
 # Parking App
 
 ### Development Notes (Milestone 4)
-- [ ] Slideshow -> [*Google slides*](https://docs.google.com/presentation/d/1GWw_pTDYgEXGQ_F43PeJoPBTckTWWnD7qIIA1loSpC4/edit#slide=id.gd3169a826c_0_114) | [*Downloaded Slides*](https://github.com/Bryson14/RubberDuckyParking/tree/main/documentation/homework_milestones/milestone4)
+- [x] Slideshow -> [*Google slides*](https://docs.google.com/presentation/d/1GWw_pTDYgEXGQ_F43PeJoPBTckTWWnD7qIIA1loSpC4/edit#slide=id.gd3169a826c_0_114) | [*Downloaded Slides*](https://github.com/Bryson14/RubberDuckyParking/tree/main/documentation/homework_milestones/milestone4)
 - [x] Revised Requirements Definition Document -> [*Requirements_Definition.pdf*](https://github.com/Bryson14/RubberDuckyParking/blob/main/documentation/homework_milestones/milestone4/requirements_definition_group_6.pdf)
 - [x] Link to Videos ->   [*Video Links*](https://github.com/Bryson14/RubberDuckyParking/blob/main/documentation/homework_milestones/milestone4/links_for_videos.md)
 - [x] Running the Project -> [*README#Project Setup*](https://github.com/Bryson14/RubberDuckyParking#user-content-project-setup)
-- [ ] Different Preset Logins for Grading:  
-  - [ ] Normal User -> **Username**: *ironman* , **Password**: *loveyou3000*
-  - [ ] Host -> **Username**: *hostharry* , **Password**: *secrethost444*
-  - [ ] Attendant -> **Username**: *aliceattendant* , **Password**: *secretattendant444*
+- [x] Different Preset Logins for Grading:  
+  - [x] Normal User -> **Username**: *ironman* , **Password**: *loveyou3000*
+  - [x] Host -> **Username**: *hostharry* , **Password**: *secrethost444*
+  - [x] Attendant -> **Username**: *aliceattendant* , **Password**: *secretattendant444*
 
 
 
