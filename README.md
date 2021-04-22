@@ -6,9 +6,9 @@
 - [x] Link to Videos ->   [*Video Links*](https://github.com/Bryson14/RubberDuckyParking/blob/main/documentation/homework_milestones/milestone4/links_for_videos.md)
 - [x] Running the Project -> [*README#Project Setup*](https://github.com/Bryson14/RubberDuckyParking#user-content-project-setup)
 - [ ] Different Preset Logins for Grading:  
-  - [ ] Normal User -> ***Username***: *lol* , ***Password***: *password*
-  - [ ] Host -> ***Username***: *lol* , ***Password***: *password*
-  - [ ] Attendant -> ***Username***: *lol* , ***Password***: *password*
+  - [ ] Normal User -> **Username**: *ironman* , **Password**: *loveyou3000*
+  - [ ] Host -> **Username**: *hostharry* , **Password**: *secrethost444*
+  - [ ] Attendant -> **Username**: *aliceattendant* , **Password**: *secretattendant444*
 
 
 
